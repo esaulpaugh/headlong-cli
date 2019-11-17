@@ -1,5 +1,5 @@
 # headlong-cli
-Command line interface for https://github.com/esaulpaugh/headlong ABI encoding (full ABIv2 support)
+Command line interface for https://github.com/esaulpaugh/headlong ABI encoding (full ABIv2 support). Licensed under Apache 2.0 terms.
 
 ### Build
 
@@ -29,4 +29,4 @@ Result: 00000000000000000000000000000000000000000000000000000000000000605e0c0d1d
 
 ### Formatting
 
-Format of values is the same as https://github.com/esaulpaugh/headlong/blob/master/src/test/resources/tests/ethers-io/tests/tests/contract-interface-abi2.json ( https://github.com/ethers-io/ethers.js/blob/master/tests/tests/contract-interface-abi2.json.gz ) 
+Format of values is the same as https://github.com/esaulpaugh/headlong/blob/master/src/test/resources/tests/ethers-io/tests/tests/contract-interface-abi2.json ( https://github.com/ethers-io/ethers.js/blob/master/tests/tests/contract-interface-abi2.json.gz )
