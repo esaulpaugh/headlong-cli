@@ -15,7 +15,6 @@
 */
 package com.esaulpaugh.headlong.cli;
 
-import com.esaulpaugh.headlong.abi.Deserializer;
 import com.esaulpaugh.headlong.abi.Function;
 import com.esaulpaugh.headlong.abi.Tuple;
 import com.esaulpaugh.headlong.abi.TupleType;
