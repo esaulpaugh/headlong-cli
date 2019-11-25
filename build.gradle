@@ -9,7 +9,7 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
-    mavenLocal()
+//    mavenLocal()
 }
 
 task fatJar(type: Jar) {
@@ -27,9 +27,11 @@ task fatJar(type: Jar) {
 
 dependencies {
 
-    compile 'com.esaulpaugh:headlong:1.4.10-SNAPSHOT'
+//    compile files('headlong-1.4.11-SNAPSHOT.jar')
 
-    compile 'com.google.code.gson:gson:2.8.5'
+    compile 'com.esaulpaugh:headlong:1.4.10'
+
+    compile 'com.google.code.gson:gson:2.8.6'
 
     test.useJUnitPlatform()
 

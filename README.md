@@ -3,9 +3,7 @@ Command line interface for https://github.com/esaulpaugh/headlong ABI encoding (
 
 ### Build
 
-Make sure that esaulpaugh/headlong v1.4.10-SNAPSHOT is published to your local maven repository (In headlong, run `gradle publishToMavenLocal` (or `mvn install`)).
-
-In headlong-cli, run `gradle fatJar` which outputs headlong-cli-0.1-SNAPSHOT.jar to /build/libs
+Run `gradle fatJar` which outputs headlong-cli-0.1-SNAPSHOT.jar to /build/libs
 
 ### Example 1
 
