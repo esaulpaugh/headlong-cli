@@ -20,18 +20,18 @@ task fatJar(type: Jar) {
     }
     baseName = project.name
     from {
-        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+        configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
     with jar
 }
 
 dependencies {
 
-//    compile files('headlong-1.4.11-SNAPSHOT.jar')
+//    implementation files('headlong-1.4.11-SNAPSHOT.jar')
 
-    compile 'com.esaulpaugh:headlong:1.4.10'
+    implementation 'com.esaulpaugh:headlong:1.4.10'
 
-    compile 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.google.code.gson:gson:2.8.6'
 
     test.useJUnitPlatform()
 
