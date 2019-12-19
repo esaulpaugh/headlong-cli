@@ -18,6 +18,7 @@ package com.esaulpaugh.headlong.cli;
 import com.esaulpaugh.headlong.abi.Function;
 import com.esaulpaugh.headlong.abi.Tuple;
 import com.esaulpaugh.headlong.abi.TupleType;
+import com.esaulpaugh.headlong.abi.ValidationException;
 import com.esaulpaugh.headlong.util.FastHex;
 import com.joemelsha.crypto.hash.Keccak;
 
@@ -29,11 +30,11 @@ public class Main {
     // java -jar .\headlong-cli-0.1-SNAPSHOT.jar -n '(uint112)' '[{"type":"string","value":"0x5d92d2a10d4e107b1d"}]'
     // java -jar headlong-cli-0.1-SNAPSHOT.jar -n '(uint112)' '[{"type":"string","value":"0x5d92d2a10d4e107b1d"}]'
 
-    public static void main(String[] args0) throws ParseException {
+    public static void main(String[] args0) throws ValidationException, ParseException {
         System.out.println(FastHex.encodeToString(encodeResult(args0).array()));
     }
 
-    static ByteBuffer encodeResult(String[] args) throws ParseException {
+    static ByteBuffer encodeResult(String[] args) throws ValidationException, ParseException {
         final String options = args[0];
         if(options.equals("-f")) {
             Function f = Function.parse(args[1]);

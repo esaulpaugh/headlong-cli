@@ -16,9 +16,9 @@
 package com.esaulpaugh.headlong.cli;
 
 import com.esaulpaugh.headlong.abi.*;
-import com.esaulpaugh.headlong.abi.util.Integers;
-import com.esaulpaugh.headlong.abi.util.JsonUtils;
+import com.esaulpaugh.headlong.abi.util.Uint;
 import com.esaulpaugh.headlong.util.FastHex;
+import com.esaulpaugh.headlong.util.JsonUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -77,7 +77,7 @@ public class Deserializer {
                     BigInteger val = new BigInteger(FastHex.decode(valueValue, 2, valueValue.length() - 2));
                     BigIntegerType bigIntType = (BigIntegerType) type;
                     if(bigIntType.isUnsigned()) {
-                        return new Integers.UintType(bigIntType.getBitLength()).toUnsigned(val);
+                        return new Uint(bigIntType.getBitLength()).toUnsigned(val);
                     }
                     return val;
                 } else {

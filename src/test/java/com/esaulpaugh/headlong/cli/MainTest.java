@@ -15,6 +15,7 @@
 */
 package com.esaulpaugh.headlong.cli;
 
+import com.esaulpaugh.headlong.abi.ValidationException;
 import com.esaulpaugh.headlong.util.FastHex;
 
 import java.text.ParseException;
@@ -25,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class MainTest {
 
     @Test
-    public void test() throws ParseException {
+    public void test() throws ParseException, ValidationException {
 
         String[] n = new String[] { "-n", "(uint112)", "[{\"type\":\"string\",\"value\":\"0x5d92d2a10d4e107b1d\"}]" };
         String[] a = new String[] { "-a", "[\"uint112\"]", "[{\"type\":\"string\",\"value\":\"0x5d92d2a10d4e107b1d\"}]" };
@@ -41,7 +42,7 @@ public class MainTest {
         assertEquals(functionCall, encode(af));
     }
 
-    private static String encode(String[] args) throws ParseException {
+    private static String encode(String[] args) throws ParseException, ValidationException {
         return FastHex.encodeToString(Main.encodeResult(args).array());
     }
 }
