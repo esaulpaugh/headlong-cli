@@ -15,42 +15,46 @@
 */
 package com.esaulpaugh.headlong.cli;
 
+import com.esaulpaugh.headlong.abi.ABIException;
 import com.esaulpaugh.headlong.abi.Function;
 import com.esaulpaugh.headlong.abi.Tuple;
 import com.esaulpaugh.headlong.abi.TupleType;
-import com.esaulpaugh.headlong.abi.ValidationException;
 import com.esaulpaugh.headlong.util.FastHex;
 import com.joemelsha.crypto.hash.Keccak;
 
 import java.nio.ByteBuffer;
-import java.text.ParseException;
 
 public class Main {
 
     // java -jar .\headlong-cli-0.1-SNAPSHOT.jar -n '(uint112)' '[{"type":"string","value":"0x5d92d2a10d4e107b1d"}]'
     // java -jar headlong-cli-0.1-SNAPSHOT.jar -n '(uint112)' '[{"type":"string","value":"0x5d92d2a10d4e107b1d"}]'
 
-    public static void main(String[] args0) throws ValidationException, ParseException {
+    public static void main(String[] args0) throws ABIException {
         System.out.println(FastHex.encodeToString(encodeResult(args0).array()));
     }
 
-    static ByteBuffer encodeResult(String[] args) throws ValidationException, ParseException {
+    static ByteBuffer encodeResult(String[] args) throws ABIException {
         final String options = args[0];
-        if(options.equals("-f")) {
+        switch (options) {
+        case "-f": {
             Function f = Function.parse(args[1]);
             return f.encodeCall(createTuple(f.getParamTypes(), args[2]));
-        } else if(options.equals("-af")) {
+        }
+        case "-af": {
             String name = args[1];
             TupleType tt = Deserializer.parseTupleType(args[2]);
             Function f = new Function(Function.Type.FUNCTION, name, tt, TupleType.EMPTY, null, new Keccak(256));
             return f.encodeCall(createTuple(f.getParamTypes(), args[3]));
-        } else if(options.equals("-a")) {
+        }
+        case "-a": {
             TupleType tt = Deserializer.parseTupleType(args[1]);
             return tt.encode(createTuple(tt, args[2]));
-        } else if(options.equals("-n")) {
+        }
+        case "-n": {
             TupleType tt = TupleType.parse(args[1]);
             return tt.encode(createTuple(tt, args[2]));
-        } else {
+        }
+        default:
             throw new IllegalArgumentException("bad options arg. specify -n for no options");
         }
     }
