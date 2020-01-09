@@ -20,9 +20,8 @@ import com.esaulpaugh.headlong.abi.Function;
 import com.esaulpaugh.headlong.abi.Tuple;
 import com.esaulpaugh.headlong.abi.TupleType;
 import com.esaulpaugh.headlong.util.FastHex;
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonArray;
 import com.joemelsha.crypto.hash.Keccak;
 
 import java.nio.ByteBuffer;
@@ -34,36 +33,48 @@ public class Main {
 
     public static void main(String[] args0) throws ABIException { // TODO support decode abi back to json
 //        args0 = new String[] {
+//                "-e",
 //                "-f",
 //                "(uint112)",
-////                "[{\"type\":\"string\",\"value\":\"0x5d92d2a10d4e107b1d\"}]",
-////                "00000000000000000000000000000000000000000000005d92d2a10d4e107b1d",
+//                "[{\"type\":\"string\",\"value\":\"0x5d92d2a10d4e107b1d\"}]",
+//        };
+//        args0 = new String[] {
+//                "-d",
+//                "-f",
+//                "(uint112)",
 //                "f745c2d500000000000000000000000000000000000000000000005d92d2a10d4e107b1d"
 //        };
-        System.out.println(FastHex.encodeToString(encodeResult(args0).array()));
-//        System.out.println(decodeABI(args0));
+
+        switch (args0[0]) {
+        case "-e": System.out.println(encodeABI(args0)); break;
+        case "-d": System.out.println(decodeABI(args0)); break;
+        }
     }
 
-    static ByteBuffer encodeResult(String[] args) throws ABIException {
-        final String options = args[0];
-        switch (options) {
+    static String encodeABI(String[] args) throws ABIException {
+        return FastHex.encodeToString(_encode(args).array());
+    }
+
+    private static ByteBuffer _encode(String[] args) throws ABIException {
+        final String encodeOptions = args[1];
+        switch (encodeOptions) {
         case "-f": {
-            Function f = Function.parse(args[1]);
-            return f.encodeCall(Deserializer.parseTupleValue(f.getParamTypes(), args[2]));
-        }
-        case "-af": {
-            String name = args[1];
-            TupleType tt = Deserializer.parseTupleType(args[2]);
-            Function f = new Function(Function.Type.FUNCTION, name, tt, TupleType.EMPTY, null, new Keccak(256));
+            Function f = Function.parse(args[2]);
             return f.encodeCall(Deserializer.parseTupleValue(f.getParamTypes(), args[3]));
         }
+        case "-af": {
+            String name = args[2];
+            TupleType tt = Deserializer.parseTupleType(args[3]);
+            Function f = new Function(Function.Type.FUNCTION, name, tt, TupleType.EMPTY, null, new Keccak(256));
+            return f.encodeCall(Deserializer.parseTupleValue(f.getParamTypes(), args[4]));
+        }
         case "-a": {
-            TupleType tt = Deserializer.parseTupleType(args[1]);
-            return tt.encode(Deserializer.parseTupleValue(tt, args[2]));
+            TupleType tt = Deserializer.parseTupleType(args[2]);
+            return tt.encode(Deserializer.parseTupleValue(tt, args[3]));
         }
         case "-n": {
-            TupleType tt = TupleType.parse(args[1]);
-            return tt.encode(Deserializer.parseTupleValue(tt, args[2]));
+            TupleType tt = TupleType.parse(args[2]);
+            return tt.encode(Deserializer.parseTupleValue(tt, args[3]));
         }
         default:
             throw new IllegalArgumentException("bad options arg. specify -n for no options");
@@ -71,46 +82,42 @@ public class Main {
     }
 
     static String decodeABI(String[] args) throws ABIException {
+        return new GsonBuilder().disableHtmlEscaping().create().toJson(_decode(args));
+    }
 
-        final JsonPrimitive values;
-
-        final String options = args[0];
-        switch (options) {
+    private static JsonArray _decode(String[] args) throws ABIException {
+        final String decodeOptions = args[1];
+        switch (decodeOptions) {
         case "-f": {
-            Function f = Function.parse(args[1]);
-            values = decodeValues(f, args[2]);
-            break;
+            Function f = Function.parse(args[2]);
+            return decodeValues(f, args[3]);
         }
         case "-af": {
-            String name = args[1];
-            TupleType tt = Deserializer.parseTupleType(args[2]);
+            String name = args[2];
+            TupleType tt = Deserializer.parseTupleType(args[3]);
             Function f = new Function(Function.Type.FUNCTION, name, tt, TupleType.EMPTY, null, new Keccak(256));
-            values = decodeValues(f, args[2]);
-            break;
+            return decodeValues(f, args[4]);
         }
         case "-a": {
-            TupleType tt = Deserializer.parseTupleType(args[1]);
-            values = decodeValues(tt, args[2]);
-            break;
+            TupleType tt = Deserializer.parseTupleType(args[2]);
+            return decodeValues(tt, args[3]);
         }
         case "-n": {
-            TupleType tt = TupleType.parse(args[1]);
-            values = decodeValues(tt, args[2]);
-            break;
+            TupleType tt = TupleType.parse(args[2]);
+            return decodeValues(tt, args[3]);
         }
         default:
             throw new IllegalArgumentException("bad options arg. specify -n for no options");
         }
-        return new GsonBuilder().create().toJson(values);
     }
 
-    static JsonPrimitive decodeValues(Function f, String hex) throws ABIException {
+    static JsonArray decodeValues(Function f, String hex) throws ABIException {
         Tuple values = f.decodeCall(FastHex.decode(hex));
-        return Serializer.serializeValues(values, new Gson());
+        return Serializer.serializeValues(values);
     }
 
-    static JsonPrimitive decodeValues(TupleType tt, String hex) throws ABIException {
+    static JsonArray decodeValues(TupleType tt, String hex) throws ABIException {
         Tuple values = tt.decode(FastHex.decode(hex));
-        return Serializer.serializeValues(values, new Gson());
+        return Serializer.serializeValues(values);
     }
 }

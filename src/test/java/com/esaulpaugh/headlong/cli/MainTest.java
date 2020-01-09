@@ -16,7 +16,6 @@
 package com.esaulpaugh.headlong.cli;
 
 import com.esaulpaugh.headlong.abi.ABIException;
-import com.esaulpaugh.headlong.util.FastHex;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,22 +23,33 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class MainTest {
 
     @Test
-    public void test() throws ABIException {
-        String[] n = new String[] { "-n", "(uint112)", "[{\"type\":\"string\",\"value\":\"0x5d92d2a10d4e107b1d\"}]" };
-        String[] a = new String[] { "-a", "[\"uint112\"]", "[{\"type\":\"string\",\"value\":\"0x5d92d2a10d4e107b1d\"}]" };
-        String[] sf = new String[] { "-f", "nam(uint112)", "[{\"type\":\"string\",\"value\":\"0x5d92d2a10d4e107b1d\"}]" };
-        String[] af = new String[] { "-af", "nam", "[\"uint112\"]", "[{\"type\":\"string\",\"value\":\"0x5d92d2a10d4e107b1d\"}]" };
+    public void testEncode() throws ABIException {
+        String[] n = new String[] { "-e", "-n", "(uint112)", "[{\"type\":\"string\",\"value\":\"0x5d92d2a10d4e107b1d\"}]" };
+        String[] a = new String[] { "-e", "-a", "[\"uint112\"]", "[{\"type\":\"string\",\"value\":\"0x5d92d2a10d4e107b1d\"}]" };
+        String[] sf = new String[] { "-e", "-f", "nam(uint112)", "[{\"type\":\"string\",\"value\":\"0x5d92d2a10d4e107b1d\"}]" };
+        String[] af = new String[] { "-e", "-af", "nam", "[\"uint112\"]", "[{\"type\":\"string\",\"value\":\"0x5d92d2a10d4e107b1d\"}]" };
 
         final String tupleEncoding = "00000000000000000000000000000000000000000000005d92d2a10d4e107b1d";
-        assertEquals(tupleEncoding, encode(n));
-        assertEquals(tupleEncoding, encode(a));
+        assertEquals(tupleEncoding, Main.encodeABI(n));
+        assertEquals(tupleEncoding, Main.encodeABI(a));
 
         final String functionCall = "62279c72" + tupleEncoding;
-        assertEquals(functionCall, encode(sf));
-        assertEquals(functionCall, encode(af));
+        assertEquals(functionCall, Main.encodeABI(sf));
+        assertEquals(functionCall, Main.encodeABI(af));
     }
 
-    private static String encode(String[] args) throws ABIException {
-        return FastHex.encodeToString(Main.encodeResult(args).array());
+    @Test
+    public void testDecode() throws ABIException {
+        String[] n = new String[] { "-d", "-n", "(uint112)", "00000000000000000000000000000000000000000000005d92d2a10d4e107b1d" };
+        String[] a = new String[] { "-d", "-a", "[\"uint112\"]", "00000000000000000000000000000000000000000000005d92d2a10d4e107b1d" };
+        String[] sf = new String[] { "-d", "-f", "nam(uint112)", "62279c7200000000000000000000000000000000000000000000005d92d2a10d4e107b1d" };
+        String[] af = new String[] { "-d", "-af", "nam", "[\"uint112\"]",  "62279c7200000000000000000000000000000000000000000000005d92d2a10d4e107b1d" };
+
+        final String values = "[{\"type\":\"string\",\"value\":\"0x5d92d2a10d4e107b1d\"}]";
+        assertEquals(values, Main.decodeABI(n));
+        assertEquals(values, Main.decodeABI(a));
+
+        assertEquals(values, Main.decodeABI(sf));
+        assertEquals(values, Main.decodeABI(af));
     }
 }
