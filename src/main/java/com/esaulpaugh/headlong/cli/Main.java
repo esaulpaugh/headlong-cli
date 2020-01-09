@@ -33,14 +33,15 @@ public class Main {
     // java -jar headlong-cli-0.1-SNAPSHOT.jar -n '(uint112)' '[{"type":"string","value":"0x5d92d2a10d4e107b1d"}]'
 
     public static void main(String[] args0) throws ABIException { // TODO support decode abi back to json
-        args0 = new String[] {
-                "-n",
-                "(uint112)",
-//                "[{\"type\":\"string\",\"value\":\"0x5d92d2a10d4e107b1d\"}]",
-                "00000000000000000000000000000000000000000000005d92d2a10d4e107b1d"
-        };
-//        System.out.println(FastHex.encodeToString(encodeResult(args0).array()));
-        System.out.println(decodeABI(args0));
+//        args0 = new String[] {
+//                "-f",
+//                "(uint112)",
+////                "[{\"type\":\"string\",\"value\":\"0x5d92d2a10d4e107b1d\"}]",
+////                "00000000000000000000000000000000000000000000005d92d2a10d4e107b1d",
+//                "f745c2d500000000000000000000000000000000000000000000005d92d2a10d4e107b1d"
+//        };
+        System.out.println(FastHex.encodeToString(encodeResult(args0).array()));
+//        System.out.println(decodeABI(args0));
     }
 
     static ByteBuffer encodeResult(String[] args) throws ABIException {
@@ -48,21 +49,21 @@ public class Main {
         switch (options) {
         case "-f": {
             Function f = Function.parse(args[1]);
-            return f.encodeCall(createTuple(f.getParamTypes(), args[2]));
+            return f.encodeCall(Deserializer.parseTupleValue(f.getParamTypes(), args[2]));
         }
         case "-af": {
             String name = args[1];
             TupleType tt = Deserializer.parseTupleType(args[2]);
             Function f = new Function(Function.Type.FUNCTION, name, tt, TupleType.EMPTY, null, new Keccak(256));
-            return f.encodeCall(createTuple(f.getParamTypes(), args[3]));
+            return f.encodeCall(Deserializer.parseTupleValue(f.getParamTypes(), args[3]));
         }
         case "-a": {
             TupleType tt = Deserializer.parseTupleType(args[1]);
-            return tt.encode(createTuple(tt, args[2]));
+            return tt.encode(Deserializer.parseTupleValue(tt, args[2]));
         }
         case "-n": {
             TupleType tt = TupleType.parse(args[1]);
-            return tt.encode(createTuple(tt, args[2]));
+            return tt.encode(Deserializer.parseTupleValue(tt, args[2]));
         }
         default:
             throw new IllegalArgumentException("bad options arg. specify -n for no options");
@@ -100,9 +101,6 @@ public class Main {
         default:
             throw new IllegalArgumentException("bad options arg. specify -n for no options");
         }
-
-//        JsonObject object = new JsonObject();
-//        object.add("values", values);
         return new GsonBuilder().create().toJson(values);
     }
 
@@ -114,9 +112,5 @@ public class Main {
     static JsonPrimitive decodeValues(TupleType tt, String hex) throws ABIException {
         Tuple values = tt.decode(FastHex.decode(hex));
         return Serializer.serializeValues(values, new Gson());
-    }
-
-    private static Tuple createTuple(TupleType tt, String tupleStr) {
-        return Deserializer.parseTupleValue(tt, tupleStr);
     }
 }
