@@ -26,6 +26,12 @@ import com.joemelsha.crypto.hash.Keccak;
 
 import java.nio.ByteBuffer;
 
+import static com.esaulpaugh.headlong.cli.Argument.DATA_FIRST;
+import static com.esaulpaugh.headlong.cli.Argument.DATA_SECOND;
+import static com.esaulpaugh.headlong.cli.Argument.DATA_THIRD;
+import static com.esaulpaugh.headlong.cli.Argument.OPTION_PRIMARY;
+import static com.esaulpaugh.headlong.cli.Argument.OPTION_SECONDARY;
+
 public class Main {
 
     // java -jar .\headlong-cli-0.1-SNAPSHOT.jar -n '(uint112)' '[{"type":"string","value":"0x5d92d2a10d4e107b1d"}]'
@@ -45,9 +51,15 @@ public class Main {
 //                "f745c2d500000000000000000000000000000000000000000000005d92d2a10d4e107b1d"
 //        };
 
-        switch (args0[0]) {
-        case "-e": System.out.println(encodeABI(args0)); break;
-        case "-d": System.out.println(decodeABI(args0)); break;
+        try {
+            switch (args0[OPTION_PRIMARY.ordinal()]) {
+            case "-e": System.out.println(encodeABI(args0)); break;
+            case "-d": System.out.println(decodeABI(args0)); break;
+            }
+        } catch (IllegalArgumentException | ABIException e) {
+            System.out.println(e.getClass() + " " + e.getMessage() + " " + e.getCause());
+        } catch (Throwable t) {
+            System.out.println("THROWABLE " + t.getClass() + " " + t.getMessage() + " " + t.getCause());
         }
     }
 
@@ -56,25 +68,25 @@ public class Main {
     }
 
     private static ByteBuffer _encode(String[] args) throws ABIException {
-        final String encodeOptions = args[1];
+        final String encodeOptions = args[OPTION_SECONDARY.ordinal()];
         switch (encodeOptions) {
         case "-f": {
-            Function f = Function.parse(args[2]);
-            return f.encodeCall(Deserializer.parseTupleValue(f.getParamTypes(), args[3]));
+            Function f = Function.parse(args[DATA_FIRST.ordinal()]);
+            return f.encodeCall(Deserializer.parseTupleValue(f.getParamTypes(), args[DATA_SECOND.ordinal()]));
         }
         case "-af": {
-            String name = args[2];
-            TupleType tt = Deserializer.parseTupleType(args[3]);
+            String name = args[DATA_FIRST.ordinal()];
+            TupleType tt = Deserializer.parseTupleType(args[DATA_SECOND.ordinal()]);
             Function f = new Function(Function.Type.FUNCTION, name, tt, TupleType.EMPTY, null, new Keccak(256));
             return f.encodeCall(Deserializer.parseTupleValue(f.getParamTypes(), args[4]));
         }
         case "-a": {
-            TupleType tt = Deserializer.parseTupleType(args[2]);
-            return tt.encode(Deserializer.parseTupleValue(tt, args[3]));
+            TupleType tt = Deserializer.parseTupleType(args[DATA_FIRST.ordinal()]);
+            return tt.encode(Deserializer.parseTupleValue(tt, args[DATA_SECOND.ordinal()]));
         }
         case "-n": {
-            TupleType tt = TupleType.parse(args[2]);
-            return tt.encode(Deserializer.parseTupleValue(tt, args[3]));
+            TupleType tt = TupleType.parse(args[DATA_FIRST.ordinal()]);
+            return tt.encode(Deserializer.parseTupleValue(tt, args[DATA_SECOND.ordinal()]));
         }
         default:
             throw new IllegalArgumentException("bad options arg. specify -n for no options");
@@ -86,25 +98,25 @@ public class Main {
     }
 
     private static JsonArray _decode(String[] args) throws ABIException {
-        final String decodeOptions = args[1];
+        final String decodeOptions = args[OPTION_SECONDARY.ordinal()];
         switch (decodeOptions) {
         case "-f": {
-            Function f = Function.parse(args[2]);
+            Function f = Function.parse(args[DATA_FIRST.ordinal()]);
             return decodeValues(f, args[3]);
         }
         case "-af": {
-            String name = args[2];
-            TupleType tt = Deserializer.parseTupleType(args[3]);
+            String name = args[DATA_FIRST.ordinal()];
+            TupleType tt = Deserializer.parseTupleType(args[DATA_SECOND.ordinal()]);
             Function f = new Function(Function.Type.FUNCTION, name, tt, TupleType.EMPTY, null, new Keccak(256));
-            return decodeValues(f, args[4]);
+            return decodeValues(f, args[DATA_THIRD.ordinal()]);
         }
         case "-a": {
-            TupleType tt = Deserializer.parseTupleType(args[2]);
-            return decodeValues(tt, args[3]);
+            TupleType tt = Deserializer.parseTupleType(args[DATA_FIRST.ordinal()]);
+            return decodeValues(tt, args[DATA_SECOND.ordinal()]);
         }
         case "-n": {
-            TupleType tt = TupleType.parse(args[2]);
-            return decodeValues(tt, args[3]);
+            TupleType tt = TupleType.parse(args[DATA_FIRST.ordinal()]);
+            return decodeValues(tt, args[DATA_SECOND.ordinal()]);
         }
         default:
             throw new IllegalArgumentException("bad options arg. specify -n for no options");
