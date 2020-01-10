@@ -34,10 +34,10 @@ import static com.esaulpaugh.headlong.cli.Argument.OPTION_SECONDARY;
 
 public class Main {
 
-    // java -jar .\headlong-cli-0.1-SNAPSHOT.jar -n '(uint112)' '[{"type":"string","value":"0x5d92d2a10d4e107b1d"}]'
-    // java -jar headlong-cli-0.1-SNAPSHOT.jar -n '(uint112)' '[{"type":"string","value":"0x5d92d2a10d4e107b1d"}]'
+    // java -jar .\headlong-cli-0.1-SNAPSHOT.jar -e -n '(uint112)' '[{"type":"string","value":"0x5d92d2a10d4e107b1d"}]'
+    // java -jar headlong-cli-0.1-SNAPSHOT.jar -e -n '(uint112)' '[{"type":"string","value":"0x5d92d2a10d4e107b1d"}]'
 
-    public static void main(String[] args0) throws ABIException { // TODO support decode abi back to json
+    public static void main(String[] args0) {
 //        args0 = new String[] {
 //                "-e",
 //                "-f",
