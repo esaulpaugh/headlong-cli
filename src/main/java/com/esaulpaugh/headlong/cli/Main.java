@@ -55,6 +55,7 @@ public class Main {
             switch (args0[OPTION_PRIMARY.ordinal()]) {
             case "-e": System.out.println(encodeABI(args0)); break;
             case "-d": System.out.println(decodeABI(args0)); break;
+            default: throw new IllegalArgumentException("bad primary option");
             }
         } catch (IllegalArgumentException | ABIException e) {
             System.out.println(e.getClass() + " " + e.getMessage() + " " + e.getCause());
@@ -89,7 +90,7 @@ public class Main {
             return tt.encode(Deserializer.parseTupleValue(tt, args[DATA_SECOND.ordinal()]));
         }
         default:
-            throw new IllegalArgumentException("bad options arg. specify -n for no options");
+            throw new IllegalArgumentException("bad secondary option");
         }
     }
 
@@ -119,7 +120,7 @@ public class Main {
             return decodeValues(tt, args[DATA_SECOND.ordinal()]);
         }
         default:
-            throw new IllegalArgumentException("bad options arg. specify -n for no options");
+            throw new IllegalArgumentException("bad secondary option");
         }
     }
 
