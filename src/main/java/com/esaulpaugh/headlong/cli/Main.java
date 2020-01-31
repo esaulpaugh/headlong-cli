@@ -21,7 +21,6 @@ import com.esaulpaugh.headlong.abi.Tuple;
 import com.esaulpaugh.headlong.abi.TupleType;
 import com.esaulpaugh.headlong.exception.DecodeException;
 import com.esaulpaugh.headlong.util.FastHex;
-import com.esaulpaugh.headlong.util.Strings;
 import com.joemelsha.crypto.hash.Keccak;
 
 import java.nio.ByteBuffer;
@@ -73,21 +72,21 @@ public class Main {
         switch (encodeOptions) {
         case "-f": {
             Function f = Function.parse(args[DATA_FIRST.ordinal()]);
-            return f.encodeCall(SuperSerial.deserializeFromMachine(f.getParamTypes(), args[DATA_SECOND.ordinal()]));
+            return f.encodeCall(SuperSerial.fromMachine(f.getParamTypes(), args[DATA_SECOND.ordinal()]));
         }
         case "-af": {
             String name = args[DATA_FIRST.ordinal()];
             TupleType tt = Deserializer.parseTupleType(args[DATA_SECOND.ordinal()]);
             Function f = new Function(Function.Type.FUNCTION, name, tt, TupleType.EMPTY, null, new Keccak(256));
-            return f.encodeCall(SuperSerial.deserializeFromMachine(f.getParamTypes(), args[4]));
+            return f.encodeCall(SuperSerial.fromMachine(f.getParamTypes(), args[4]));
         }
         case "-a": {
             TupleType tt = Deserializer.parseTupleType(args[DATA_FIRST.ordinal()]);
-            return tt.encode(SuperSerial.deserializeFromMachine(tt, args[DATA_SECOND.ordinal()]));
+            return tt.encode(SuperSerial.fromMachine(tt, args[DATA_SECOND.ordinal()]));
         }
         case "-n": {
             TupleType tt = TupleType.parse(args[DATA_FIRST.ordinal()]);
-            Tuple t = SuperSerial.deserializeFromMachine(tt, args[DATA_SECOND.ordinal()]);
+            Tuple t = SuperSerial.fromMachine(tt, args[DATA_SECOND.ordinal()]);
             return tt.encode(t);
         }
         default:
@@ -96,10 +95,6 @@ public class Main {
     }
 
     static String decodeABI(String[] args) throws ABIException {
-        return Strings.encode(_decode(args), Strings.BASE_64_URL_SAFE);
-    }
-
-    private static byte[] _decode(String[] args) throws ABIException {
         final String decodeOptions = args[OPTION_SECONDARY.ordinal()];
         switch (decodeOptions) {
         case "-f": {
@@ -125,13 +120,13 @@ public class Main {
         }
     }
 
-    static byte[] decodeValues(Function f, String hex) throws ABIException {
+    static String decodeValues(Function f, String hex) throws ABIException {
         Tuple values = f.decodeCall(FastHex.decode(hex));
-        return SuperSerial.serializeForMachine(f.getParamTypes(), values);
+        return SuperSerial.toMachine(f.getParamTypes(), values);
     }
 
-    static byte[] decodeValues(TupleType tt, String hex) throws ABIException {
+    static String decodeValues(TupleType tt, String hex) throws ABIException {
         Tuple values = tt.decode(FastHex.decode(hex));
-        return SuperSerial.serializeForMachine(tt, values);
+        return SuperSerial.toMachine(tt, values);
     }
 }

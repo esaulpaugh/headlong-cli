@@ -11,6 +11,8 @@ import com.esaulpaugh.headlong.rlp.RLPEncoder;
 import com.esaulpaugh.headlong.rlp.RLPItem;
 import com.esaulpaugh.headlong.rlp.RLPList;
 import com.esaulpaugh.headlong.rlp.RLPString;
+import com.esaulpaugh.headlong.rlp.util.Notation;
+import com.esaulpaugh.headlong.rlp.util.NotationParser;
 import com.esaulpaugh.headlong.util.Integers;
 import com.esaulpaugh.headlong.util.Strings;
 
@@ -36,19 +38,39 @@ public class SuperSerial {
     private static final byte[] TRUE = new byte[] { 0x01 };
     private static final byte[] FALSE = new byte[] { 0x00 };
 
-    public static byte[] serializeForMachine(TupleType tupleType, Tuple tuple) throws ABIException {
+    public static String toMachine(TupleType tupleType, Tuple tuple) throws ABIException {
         tupleType.validate(tuple);
+        return Strings.encode(RLPEncoder.encodeSequentially(SuperSerial.serializeTuple(tupleType, tuple)), Strings.BASE_64_URL_SAFE);
+    }
+
+    public static Tuple fromMachine(TupleType tupleType, String str) throws DecodeException, ABIException {
+        Tuple tuple = SuperSerial.deserializeTuple(tupleType, Strings.decode(str, Strings.BASE_64_URL_SAFE));
+        tupleType.validate(tuple);
+        return tuple;
+    }
+
+    public static String toHuman(TupleType tupleType, Tuple tuple) throws ABIException, DecodeException {
+        tupleType.validate(tuple);
+        return Notation.forObjects(SuperSerial.serializeTuple(tupleType, tuple)).toString();
+    }
+
+    public static Tuple fromHuman(TupleType tupleType, String notation) throws DecodeException, ABIException {
+        Tuple tuple = SuperSerial.deserializeTuple(tupleType, RLPEncoder.encodeSequentially(NotationParser.parse(notation)));
+        tupleType.validate(tuple);
+        return tuple;
+    }
+
+    private static List<Object> serializeTuple(TupleType tupleType, Tuple tuple) throws ABIException {
         List<Object> list = new ArrayList<>(tuple.size());
         final int len = tupleType.elements().length;
         for(int i = 0; i < len; i++) {
             list.add(serialize(tupleType.get(i), tuple.get(i)));
         }
-        return RLPEncoder.encodeSequentially(list);
+        return list;
     }
 
-    public static Tuple deserializeFromMachine(TupleType tupleType, String str) throws DecodeException {
-        byte[] bytes = Strings.decode(str, Strings.BASE_64_URL_SAFE);
-        Iterator<RLPItem> sequenceIterator = RLP_STRICT.sequenceIterator(bytes);
+    private static Tuple deserializeTuple(TupleType tupleType, byte[] sequence) throws DecodeException {
+        Iterator<RLPItem> sequenceIterator = RLP_STRICT.sequenceIterator(sequence);
         List<Object> elements = new ArrayList<>();
         final int len = tupleType.elements().length;
         for(int i = 0; i < len; i++) {
@@ -66,7 +88,7 @@ public class SuperSerial {
         case TYPE_CODE_BIG_INTEGER: return ((BigInteger) obj).toByteArray();
         case TYPE_CODE_BIG_DECIMAL: return ((BigDecimal) obj).unscaledValue().toByteArray();
         case TYPE_CODE_ARRAY: return serializeArray((ArrayType<? extends ABIType<?>, ?>) type, obj);
-        case TYPE_CODE_TUPLE: return serializeForMachine((TupleType) type, (Tuple) obj);
+        case TYPE_CODE_TUPLE: return serializeTuple((TupleType) type, (Tuple) obj);
         default: throw new Error();
         }
     }
@@ -80,7 +102,7 @@ public class SuperSerial {
         case TYPE_CODE_BIG_INTEGER: return item.asBigInt();
         case TYPE_CODE_BIG_DECIMAL: return item.asBigDecimal(((BigDecimalType) type).getScale());
         case TYPE_CODE_ARRAY: return deserializeArray((ArrayType<? extends ABIType<?>, ?>) type, item);
-        case TYPE_CODE_TUPLE: return deserializeFromMachine((TupleType) type, item.asString(Strings.BASE_64_URL_SAFE));
+        case TYPE_CODE_TUPLE: return deserializeTuple((TupleType) type, item.asBytes());
         default: throw new Error();
         }
     }
