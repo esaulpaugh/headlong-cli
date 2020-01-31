@@ -19,7 +19,6 @@ import com.esaulpaugh.headlong.abi.ABIException;
 import com.esaulpaugh.headlong.abi.Tuple;
 import com.esaulpaugh.headlong.abi.TupleType;
 import com.esaulpaugh.headlong.exception.DecodeException;
-import com.esaulpaugh.headlong.util.Strings;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigInteger;
@@ -80,15 +79,13 @@ public class MainTest {
                             "fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffa";
 
     @Test
-    public void testEncode() throws ABIException, DecodeException {
-        String[] n = new String[] { "-e", "-n", SIGNATURE, MACHINE_SERIALIZATION };
+    public void testEncode() {
+        String[] n = new String[] { "-em", "-n", SIGNATURE, MACHINE_SERIALIZATION };
 //        String[] a = new String[] { "-e", "-a", "[\"uint112\"]", "[{\"type\":\"string\",\"value\":\"0x5d92d2a10d4e107b1d\"}]" };
 //        String[] sf = new String[] { "-e", "-f", "nam(uint112)", "[{\"type\":\"string\",\"value\":\"0x5d92d2a10d4e107b1d\"}]" };
 //        String[] af = new String[] { "-e", "-af", "nam", "[\"uint112\"]", "[{\"type\":\"string\",\"value\":\"0x5d92d2a10d4e107b1d\"}]" };
 
-        System.out.println(TupleType.format(Strings.decode(Main.encodeABI(n))));
-
-        assertEquals(VALUES_ABI, Main.encodeABI(n));
+        assertEquals(VALUES_ABI, Main.eval(n));
 //        assertEquals(tupleEncoding, Main.encodeABI(a));
 //
 //        final String functionCall = "62279c72" + tupleEncoding;
@@ -97,16 +94,16 @@ public class MainTest {
     }
 
     @Test
-    public void testDecode() throws ABIException {
-        String[] n = new String[] { "-d", "-n", SIGNATURE, VALUES_ABI };
+    public void testDecode() {
+        String[] n = new String[] { "-dm", "-n", SIGNATURE, VALUES_ABI };
 //        String[] a = new String[] { "-d", "-a", "[\"uint112\"]", VALUES_ABI };
-        String[] sf = new String[] { "-d", "-f", "nam" + SIGNATURE, "9e066e5d" + VALUES_ABI };
+        String[] sf = new String[] { "-dm", "-f", "nam" + SIGNATURE, "9e066e5d" + VALUES_ABI };
 //        String[] af = new String[] { "-d", "-af", "nam", "[\"uint112\"]",  VALUES_ABI };
 
-        assertEquals(MACHINE_SERIALIZATION, Main.decodeABI(n));
+        assertEquals(MACHINE_SERIALIZATION, Main.eval(n));
 //        assertEquals(values, Main.decodeABI(a));
 
-        assertEquals(MACHINE_SERIALIZATION, Main.decodeABI(sf));
+        assertEquals(MACHINE_SERIALIZATION, Main.eval(sf));
 //        assertEquals(values, Main.decodeABI(af));
     }
 
@@ -139,11 +136,11 @@ public class MainTest {
 
         Tuple tuple = new Tuple(argsIn);
 
-        String str = SuperSerial.toMachine(tt, tuple);
+        String str = SuperSerial.serialize(tt, tuple, true);
 
         System.out.println(str);
 
-        Tuple deserial = SuperSerial.fromMachine(tt, str);
+        Tuple deserial = SuperSerial.deserialize(tt, str, true);
 
         assertEquals(tuple, deserial);
     }

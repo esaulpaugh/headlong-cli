@@ -38,24 +38,19 @@ public class SuperSerial {
     private static final byte[] TRUE = new byte[] { 0x01 };
     private static final byte[] FALSE = new byte[] { 0x00 };
 
-    public static String toMachine(TupleType tupleType, Tuple tuple) throws ABIException {
+    public static String serialize(TupleType tupleType, Tuple tuple, boolean machine) throws ABIException, DecodeException {
         tupleType.validate(tuple);
-        return Strings.encode(RLPEncoder.encodeSequentially(SuperSerial.serializeTuple(tupleType, tuple)), Strings.BASE_64_URL_SAFE);
+        List<Object> list = SuperSerial.serializeTuple(tupleType, tuple);
+        return machine
+                ? Strings.encode(RLPEncoder.encodeSequentially(list), Strings.BASE_64_URL_SAFE)
+                : Notation.forObjects(list).toString();
     }
 
-    public static Tuple fromMachine(TupleType tupleType, String str) throws DecodeException, ABIException {
-        Tuple tuple = SuperSerial.deserializeTuple(tupleType, Strings.decode(str, Strings.BASE_64_URL_SAFE));
-        tupleType.validate(tuple);
-        return tuple;
-    }
-
-    public static String toHuman(TupleType tupleType, Tuple tuple) throws ABIException, DecodeException {
-        tupleType.validate(tuple);
-        return Notation.forObjects(SuperSerial.serializeTuple(tupleType, tuple)).toString();
-    }
-
-    public static Tuple fromHuman(TupleType tupleType, String notation) throws DecodeException, ABIException {
-        Tuple tuple = SuperSerial.deserializeTuple(tupleType, RLPEncoder.encodeSequentially(NotationParser.parse(notation)));
+    public static Tuple deserialize(TupleType tupleType, String str, boolean machine) throws DecodeException, ABIException {
+        Tuple tuple = SuperSerial.deserializeTuple(
+                tupleType,
+                machine ? Strings.decode(str, Strings.BASE_64_URL_SAFE) : RLPEncoder.encodeSequentially(NotationParser.parse(str))
+        );
         tupleType.validate(tuple);
         return tuple;
     }
