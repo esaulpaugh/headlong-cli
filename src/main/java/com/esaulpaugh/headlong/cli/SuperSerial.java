@@ -226,7 +226,7 @@ public class SuperSerial {
         Object[] objects = (Object[]) Array.newInstance(elementType.clazz(), elements.size()); // reflection ftw
         int i = 0;
         for (RLPItem e : elements) {
-            objects[i++] = deserialize(elementType, e);;
+            objects[i++] = deserialize(elementType, e);
         }
         return objects;
     }
