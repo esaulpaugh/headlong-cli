@@ -7,13 +7,9 @@ Run `gradle fatJar` which outputs headlong-cli-0.1-SNAPSHOT.jar to /build/libs
 
 ### Encode example 1
 
-#### cmd, Git Bash
+#### cmd, Git Bash, Windows PowerShell
 
-`java -jar headlong-cli-0.1-SNAPSHOT.jar -e "(uint112)" "(\"5d92d2a10d4e107b1d\")"`
-
-#### Git Bash
-
-`java -jar headlong-cli-0.1-SNAPSHOT.jar -e '(uint112)' '("5d92d2a10d4e107b1d")'`
+`java -jar headlong-cli-0.1-SNAPSHOT.jar -e "(uint112)" "('5d92d2a10d4e107b1d')"`
 
 Result:
 
@@ -28,20 +24,20 @@ Result:
 Result:
 
 `(
-   { { { "191c766e29a65787b7155dd05f41292438467db93420cade", "191c766e29a65787b7155dd05f41292438467db93420cade" } } },
-   "191c766e29a65787b7155dd05f41292438467db93420cade",
-   { { "7a" } },
-   { "00ff00ee01dd02cc03cafebabe9906880777086609" },
-   "00fdfffffffffffffe04",
-   { "07" },
-   { { { { "09" }, { "fffffff5" } } } },
-   { { "11" }, { "ffffffed" } },
-   "fca527923b",
-   { { "7e" }, { "ffffffffffffff82" } },
-   { "0a" },
-   "01",
-   "6661726f7574",
-   { "01", "01" },
-   { "03", "14", "fffffffa" },
-   { "fffffffe" }
+   { { { '191c766e29a65787b7155dd05f41292438467db93420cade', '191c766e29a65787b7155dd05f41292438467db93420cade' } } },
+   '191c766e29a65787b7155dd05f41292438467db93420cade',
+   { { '7a' } },
+   { '00ff00ee01dd02cc03cafebabe9906880777086609' },
+   '00fdfffffffffffffe04',
+   { '07' },
+   { { { { '09' }, { 'fffffff5' } } } },
+   { { '11' }, { 'ffffffed' } },
+   'fca527923b',
+   { { '7e' }, { 'ffffffffffffff82' } },
+   { '0a' },
+   '01',
+   '6661726f7574',
+   { '01', '01' },
+   { '03', '14', 'fffffffa' },
+   { 'fffffffe' }
  )`
