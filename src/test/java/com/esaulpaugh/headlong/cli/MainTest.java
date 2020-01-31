@@ -99,6 +99,11 @@ public class MainTest {
 
     @Test
     public void testEncode() {
+
+        String[] ex = new String[] { "-e", "(uint112)", "(\"5d92d2a10d4e107b1d\")" };
+
+        System.out.println(Main.eval(ex));
+
         String[] emn = new String[] { "-em", SIGNATURE, MACHINE_SERIALIZATION };
         String[] emf = new String[] { "-emf", "nam" + SIGNATURE, MACHINE_SERIALIZATION };
 
