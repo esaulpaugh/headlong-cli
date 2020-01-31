@@ -93,12 +93,12 @@ public class Main {
         return decodeValues(tt, args[DATA_SECOND.ordinal()], machine);
     }
 
-    static String decodeValues(Function f, String hex, boolean machine) throws ABIException, DecodeException {
+    private static String decodeValues(Function f, String hex, boolean machine) throws ABIException, DecodeException {
         Tuple values = f.decodeCall(FastHex.decode(hex));
         return SuperSerial.serialize(f.getParamTypes(), values, machine);
     }
 
-    static String decodeValues(TupleType tt, String hex, boolean machine) throws ABIException, DecodeException {
+    private static String decodeValues(TupleType tt, String hex, boolean machine) throws ABIException, DecodeException {
         Tuple values = tt.decode(FastHex.decode(hex));
         return SuperSerial.serialize(tt, values, machine);
     }
