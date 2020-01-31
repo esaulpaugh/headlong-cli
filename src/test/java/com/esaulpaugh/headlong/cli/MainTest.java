@@ -32,22 +32,22 @@ public class MainTest {
     private static final String SIGNATURE = "(function[2][][],bytes24,string[1][1],address[],uint72,(uint8),(int16)[2][][1],(int32)[],uint40,(int48)[],(uint),bool,string,bool[2],int24[],uint40[1])";
 
     private static final String SERIALIZATION = "(\n" +
-            "  { { { \"191c766e29a65787b7155dd05f41292438467db93420cade\", \"191c766e29a65787b7155dd05f41292438467db93420cade\" } } }, \n" +
-            "  \"191c766e29a65787b7155dd05f41292438467db93420cade\", \n" +
-            "  { { \"7a\" } }, \n" +
-            "  { \"00ff00ee01dd02cc03cafebabe9906880777086609\" }, \n" +
-            "  \"00fdfffffffffffffe04\", \n" +
-            "  { \"07\" }, \n" +
-            "  { { { { \"09\" }, { \"fffffff5\" } } } }, \n" +
-            "  { { \"11\" }, { \"ffffffed\" } }, \n" +
-            "  \"fca527923b\", \n" +
-            "  { { \"7e\" }, { \"ffffffffffffff82\" } }, \n" +
-            "  { \"0a\" }, \n" +
-            "  \"01\", \n" +
-            "  \"6661726f7574\", \n" +
-            "  { \"01\", \"01\" }, \n" +
-            "  { \"03\", \"14\", \"fffffffa\" }, \n" +
-            "  { \"fffffffe\" }\n" +
+            "  { { { '191c766e29a65787b7155dd05f41292438467db93420cade', '191c766e29a65787b7155dd05f41292438467db93420cade' } } }, \n" +
+            "  '191c766e29a65787b7155dd05f41292438467db93420cade', \n" +
+            "  { { '7a' } }, \n" +
+            "  { '00ff00ee01dd02cc03cafebabe9906880777086609' }, \n" +
+            "  '00fdfffffffffffffe04', \n" +
+            "  { '07' }, \n" +
+            "  { { { { '09' }, { 'fffffff5' } } } }, \n" +
+            "  { { '11' }, { 'ffffffed' } }, \n" +
+            "  'fca527923b', \n" +
+            "  { { '7e' }, { 'ffffffffffffff82' } }, \n" +
+            "  { '0a' }, \n" +
+            "  '01', \n" +
+            "  '6661726f7574', \n" +
+            "  { '01', '01' }, \n" +
+            "  { '03', '14', 'fffffffa' }, \n" +
+            "  { 'fffffffe' }\n" +
             ")";
 
     private static final String MACHINE_SERIALIZATION = "9PPymBkcdm4ppleHtxVd0F9BKSQ4Rn25NCDK3pgZHHZuKaZXh7cVXdBfQSkkOEZ9uTQgyt6YGRx2bimmV4e3FV3QX0EpJDhGfbk0IMrewsF61pUA_wDuAd0CzAPK_rq-mQaIB3cIZgmKAP3________-BMEHysnIwQnFhP____XIwRHFhP___-2F_KUnkjvMwX7JiP________-CwQoBhmZhcm91dMIBAccDFIT____6xYT____-";
