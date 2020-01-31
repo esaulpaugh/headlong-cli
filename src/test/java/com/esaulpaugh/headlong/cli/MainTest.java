@@ -80,31 +80,23 @@ public class MainTest {
 
     @Test
     public void testEncode() {
-        String[] n = new String[] { "-em", "-n", SIGNATURE, MACHINE_SERIALIZATION };
-//        String[] a = new String[] { "-e", "-a", "[\"uint112\"]", "[{\"type\":\"string\",\"value\":\"0x5d92d2a10d4e107b1d\"}]" };
-//        String[] sf = new String[] { "-e", "-f", "nam(uint112)", "[{\"type\":\"string\",\"value\":\"0x5d92d2a10d4e107b1d\"}]" };
-//        String[] af = new String[] { "-e", "-af", "nam", "[\"uint112\"]", "[{\"type\":\"string\",\"value\":\"0x5d92d2a10d4e107b1d\"}]" };
+        String[] emn = new String[] { "-em", SIGNATURE, MACHINE_SERIALIZATION };
+        String[] emf = new String[] { "-emf", "nam" + SIGNATURE, MACHINE_SERIALIZATION };
 
-        assertEquals(VALUES_ABI, Main.eval(n));
-//        assertEquals(tupleEncoding, Main.encodeABI(a));
-//
-//        final String functionCall = "62279c72" + tupleEncoding;
-//        assertEquals(functionCall, Main.encodeABI(sf));
-//        assertEquals(functionCall, Main.encodeABI(af));
+        assertEquals(VALUES_ABI, Main.eval(emn));
+
+        final String functionCall = "9e066e5d" + VALUES_ABI;
+        assertEquals(functionCall, Main.eval(emf));
     }
 
     @Test
     public void testDecode() {
-        String[] n = new String[] { "-dm", "-n", SIGNATURE, VALUES_ABI };
-//        String[] a = new String[] { "-d", "-a", "[\"uint112\"]", VALUES_ABI };
-        String[] sf = new String[] { "-dm", "-f", "nam" + SIGNATURE, "9e066e5d" + VALUES_ABI };
-//        String[] af = new String[] { "-d", "-af", "nam", "[\"uint112\"]",  VALUES_ABI };
+        String[] n = new String[] { "-dm", SIGNATURE, VALUES_ABI };
+        String[] sf = new String[] { "-dmf", "nam" + SIGNATURE, "9e066e5d" + VALUES_ABI };
 
         assertEquals(MACHINE_SERIALIZATION, Main.eval(n));
-//        assertEquals(values, Main.decodeABI(a));
 
         assertEquals(MACHINE_SERIALIZATION, Main.eval(sf));
-//        assertEquals(values, Main.decodeABI(af));
     }
 
     @Test

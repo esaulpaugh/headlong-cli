@@ -21,15 +21,12 @@ import com.esaulpaugh.headlong.abi.Tuple;
 import com.esaulpaugh.headlong.abi.TupleType;
 import com.esaulpaugh.headlong.exception.DecodeException;
 import com.esaulpaugh.headlong.util.FastHex;
-import com.joemelsha.crypto.hash.Keccak;
 
 import java.nio.ByteBuffer;
 
 import static com.esaulpaugh.headlong.cli.Argument.DATA_FIRST;
 import static com.esaulpaugh.headlong.cli.Argument.DATA_SECOND;
-import static com.esaulpaugh.headlong.cli.Argument.DATA_THIRD;
-import static com.esaulpaugh.headlong.cli.Argument.OPTION_PRIMARY;
-import static com.esaulpaugh.headlong.cli.Argument.OPTION_SECONDARY;
+import static com.esaulpaugh.headlong.cli.Argument.OPTION;
 
 public class Main {
 
@@ -55,11 +52,15 @@ public class Main {
 
     static String eval(String[] args) {
         try {
-            switch (args[OPTION_PRIMARY.ordinal()]) {
-            case "-e": return encodeABI(args, false);
-            case "-d": return decodeABI(args, false);
-            case "-em": return encodeABI(args, true);
-            case "-dm": return decodeABI(args, true);
+            switch (args[OPTION.ordinal()]) {
+            case "-e": return encodeABI(args, false, false);
+            case "-ef": return encodeABI(args, false, true);
+            case "-d": return decodeABI(args, false, false);
+            case "-df": return decodeABI(args, false, true);
+            case "-em": return encodeABI(args, true, false);
+            case "-emf": return encodeABI(args, true, true);
+            case "-dm": return decodeABI(args, true, false);
+            case "-dmf": return decodeABI(args, true, true);
             default: throw new IllegalArgumentException("bad primary option");
             }
         } catch (IllegalArgumentException | DecodeException | ABIException e) {
@@ -69,61 +70,27 @@ public class Main {
         }
     }
 
-    private static String encodeABI(String[] args, boolean machine) throws ABIException, DecodeException {
-        return FastHex.encodeToString(_encode(args, machine).array());
+    private static String encodeABI(String[] args, boolean machine, boolean function) throws ABIException, DecodeException {
+        return FastHex.encodeToString(_encode(args, machine, function).array());
     }
 
-    private static ByteBuffer _encode(String[] args, boolean machine) throws ABIException, DecodeException {
-        final String encodeOptions = args[OPTION_SECONDARY.ordinal()];
-        switch (encodeOptions) {
-        case "-f": {
+    private static ByteBuffer _encode(String[] args, boolean machine, boolean function) throws ABIException, DecodeException {
+        if(function) {
             Function f = Function.parse(args[DATA_FIRST.ordinal()]);
             return f.encodeCall(SuperSerial.deserialize(f.getParamTypes(), args[DATA_SECOND.ordinal()], machine));
         }
-        case "-af": {
-            String name = args[DATA_FIRST.ordinal()];
-            TupleType tt = Deserializer.parseTupleType(args[DATA_SECOND.ordinal()]);
-            Function f = new Function(Function.Type.FUNCTION, name, tt, TupleType.EMPTY, null, new Keccak(256));
-            return f.encodeCall(SuperSerial.deserialize(f.getParamTypes(), args[4], machine));
-        }
-        case "-a": {
-            TupleType tt = Deserializer.parseTupleType(args[DATA_FIRST.ordinal()]);
-            return tt.encode(SuperSerial.deserialize(tt, args[DATA_SECOND.ordinal()], machine));
-        }
-        case "-n": {
-            TupleType tt = TupleType.parse(args[DATA_FIRST.ordinal()]);
-            Tuple t = SuperSerial.deserialize(tt, args[DATA_SECOND.ordinal()], machine);
-            return tt.encode(t);
-        }
-        default:
-            throw new IllegalArgumentException("bad secondary option");
-        }
+        TupleType tt = TupleType.parse(args[DATA_FIRST.ordinal()]);
+        Tuple t = SuperSerial.deserialize(tt, args[DATA_SECOND.ordinal()], machine);
+        return tt.encode(t);
     }
 
-    private static String decodeABI(String[] args, boolean machine) throws ABIException, DecodeException {
-        final String decodeOptions = args[OPTION_SECONDARY.ordinal()];
-        switch (decodeOptions) {
-        case "-f": {
+    private static String decodeABI(String[] args, boolean machine, boolean function) throws ABIException, DecodeException {
+        if(function) {
             Function f = Function.parse(args[DATA_FIRST.ordinal()]);
-            return decodeValues(f, args[3], machine);
+            return decodeValues(f, args[DATA_SECOND.ordinal()], machine);
         }
-        case "-af": {
-            String name = args[DATA_FIRST.ordinal()];
-            TupleType tt = Deserializer.parseTupleType(args[DATA_SECOND.ordinal()]);
-            Function f = new Function(Function.Type.FUNCTION, name, tt, TupleType.EMPTY, null, new Keccak(256));
-            return decodeValues(f, args[DATA_THIRD.ordinal()], machine);
-        }
-        case "-a": {
-            TupleType tt = Deserializer.parseTupleType(args[DATA_FIRST.ordinal()]);
-            return decodeValues(tt, args[DATA_SECOND.ordinal()], machine);
-        }
-        case "-n": {
-            TupleType tt = TupleType.parse(args[DATA_FIRST.ordinal()]);
-            return decodeValues(tt, args[DATA_SECOND.ordinal()], machine);
-        }
-        default:
-            throw new IllegalArgumentException("bad secondary option");
-        }
+        TupleType tt = TupleType.parse(args[DATA_FIRST.ordinal()]);
+        return decodeValues(tt, args[DATA_SECOND.ordinal()], machine);
     }
 
     static String decodeValues(Function f, String hex, boolean machine) throws ABIException, DecodeException {
