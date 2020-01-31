@@ -159,12 +159,10 @@ public class MainTest {
         Tuple tuple = new Tuple(argsIn);
 
         String str = SuperSerial.serialize(tt, tuple, false);
-        System.out.println(str);
         Tuple deserial = SuperSerial.deserialize(tt, str, false);
         assertEquals(tuple, deserial);
 
         str = SuperSerial.serialize(tt, tuple, true);
-        System.out.println(str);
         deserial = SuperSerial.deserialize(tt, str, true);
         assertEquals(tuple, deserial);
     }

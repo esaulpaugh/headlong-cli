@@ -30,23 +30,7 @@ import static com.esaulpaugh.headlong.cli.Argument.OPTION;
 
 public class Main {
 
-    // java -jar .\headlong-cli-0.1-SNAPSHOT.jar -e -n '(uint112)' '[{"type":"string","value":"0x5d92d2a10d4e107b1d"}]'
-    // java -jar headlong-cli-0.1-SNAPSHOT.jar -e -n '(uint112)' '[{"type":"string","value":"0x5d92d2a10d4e107b1d"}]'
-
     public static void main(String[] args0) {
-//        args0 = new String[] {
-//                "-e",
-//                "-f",
-//                "(uint112)",
-//                "[{\"type\":\"string\",\"value\":\"0x5d92d2a10d4e107b1d\"}]",
-//        };
-//        args0 = new String[] {
-//                "-d",
-//                "-f",
-//                "(uint112)",
-//                "f745c2d500000000000000000000000000000000000000000000005d92d2a10d4e107b1d"
-//        };
-
         System.out.println(eval(args0));
     }
 
