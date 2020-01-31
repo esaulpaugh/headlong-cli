@@ -21,6 +21,7 @@ import com.esaulpaugh.headlong.abi.Tuple;
 import com.esaulpaugh.headlong.abi.TupleType;
 import com.esaulpaugh.headlong.exception.DecodeException;
 import com.esaulpaugh.headlong.util.FastHex;
+import com.esaulpaugh.headlong.util.SuperSerial;
 
 import java.nio.ByteBuffer;
 

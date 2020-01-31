@@ -20,6 +20,7 @@ import com.esaulpaugh.headlong.abi.Tuple;
 import com.esaulpaugh.headlong.abi.TupleType;
 import com.esaulpaugh.headlong.exception.DecodeException;
 import com.esaulpaugh.headlong.util.Strings;
+import com.esaulpaugh.headlong.util.SuperSerial;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigInteger;
