@@ -1,13 +1,9 @@
 package com.esaulpaugh.headlong.cli;
 
 import com.esaulpaugh.headlong.abi.ABIType;
-import com.esaulpaugh.headlong.abi.Tuple;
 import com.esaulpaugh.headlong.abi.TupleType;
-import com.esaulpaugh.headlong.util.FastHex;
-import com.google.gson.*;
-
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonPrimitive;
 
 public class Serializer {
 

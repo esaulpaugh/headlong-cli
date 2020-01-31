@@ -16,8 +16,14 @@
 package com.esaulpaugh.headlong.cli;
 
 import com.esaulpaugh.headlong.abi.ABIException;
+import com.esaulpaugh.headlong.abi.Tuple;
+import com.esaulpaugh.headlong.abi.TupleType;
 import com.esaulpaugh.headlong.exception.DecodeException;
+import com.esaulpaugh.headlong.util.Strings;
 import org.junit.jupiter.api.Test;
+
+import java.math.BigInteger;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -101,5 +107,45 @@ public class MainTest {
 
         assertEquals(values, Main.decodeABI(sf));
 //        assertEquals(values, Main.decodeABI(af));
+    }
+
+    @Test
+    public void testSerial() throws ABIException, DecodeException {
+
+        TupleType tt = TupleType.parse("(function[2][][],bytes24,string[1][1],address[],uint72,(uint8),(int16)[2][][1],(int32)[],uint40,(int48)[],(uint),bool,string,bool[2],int24[],uint40[1])");
+
+        byte[] func = new byte[24];
+        new Random(System.currentTimeMillis() + System.nanoTime()).nextBytes(func);
+
+        Object[] argsIn = new Object[] {
+                new byte[][][][] { new byte[][][] { new byte[][] { func, func } } },
+                func,
+                new String[][] { new String[] { "z" } },
+                new BigInteger[] { new BigInteger("ff00ee01dd02cc03cafebabe9906880777086609", 16) },
+                BigInteger.valueOf(Long.MAX_VALUE).multiply(BigInteger.valueOf(Byte.MAX_VALUE << 2)),
+                new Tuple(7),
+                new Tuple[][][] { new Tuple[][] { new Tuple[] { new Tuple(9), new Tuple(-11) } } },
+                new Tuple[] { new Tuple(17), new Tuple(-19) },
+                Long.MAX_VALUE / 8_500_000,
+                new Tuple[] { new Tuple((long) 0x7e), new Tuple((long) -0x7e) },
+                new Tuple(BigInteger.TEN),
+                true,
+                "farout",
+                new boolean[] { true, true },
+                new int[] { 3, 20, -6 },
+                new long[] { Integer.MAX_VALUE * 2L }
+        };
+
+        Tuple tuple = new Tuple(argsIn);
+
+        byte[] encoded = SuperSerial.serializeForMachine(tt, tuple);
+
+        String str = Strings.encode(encoded, Strings.BASE_64_URL_SAFE);
+
+        System.out.println(str);
+
+        Tuple deserial = SuperSerial.deserializeFromMachine(tt, str);
+
+        assertEquals(tuple, deserial);
     }
 }
