@@ -19,9 +19,9 @@ import com.esaulpaugh.headlong.abi.ABIException;
 import com.esaulpaugh.headlong.abi.Function;
 import com.esaulpaugh.headlong.abi.Tuple;
 import com.esaulpaugh.headlong.abi.TupleType;
+import com.esaulpaugh.headlong.exception.DecodeException;
 import com.esaulpaugh.headlong.util.FastHex;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
+import com.esaulpaugh.headlong.util.Strings;
 import com.joemelsha.crypto.hash.Keccak;
 
 import java.nio.ByteBuffer;
@@ -64,30 +64,31 @@ public class Main {
         }
     }
 
-    static String encodeABI(String[] args) throws ABIException {
+    static String encodeABI(String[] args) throws ABIException, DecodeException {
         return FastHex.encodeToString(_encode(args).array());
     }
 
-    private static ByteBuffer _encode(String[] args) throws ABIException {
+    private static ByteBuffer _encode(String[] args) throws ABIException, DecodeException {
         final String encodeOptions = args[OPTION_SECONDARY.ordinal()];
         switch (encodeOptions) {
         case "-f": {
             Function f = Function.parse(args[DATA_FIRST.ordinal()]);
-            return f.encodeCall(Deserializer.parseTupleValue(f.getParamTypes(), args[DATA_SECOND.ordinal()]));
+            return f.encodeCall(SuperSerial.deserializeFromMachine(f.getParamTypes(), args[DATA_SECOND.ordinal()]));
         }
         case "-af": {
             String name = args[DATA_FIRST.ordinal()];
             TupleType tt = Deserializer.parseTupleType(args[DATA_SECOND.ordinal()]);
             Function f = new Function(Function.Type.FUNCTION, name, tt, TupleType.EMPTY, null, new Keccak(256));
-            return f.encodeCall(Deserializer.parseTupleValue(f.getParamTypes(), args[4]));
+            return f.encodeCall(SuperSerial.deserializeFromMachine(f.getParamTypes(), args[4]));
         }
         case "-a": {
             TupleType tt = Deserializer.parseTupleType(args[DATA_FIRST.ordinal()]);
-            return tt.encode(Deserializer.parseTupleValue(tt, args[DATA_SECOND.ordinal()]));
+            return tt.encode(SuperSerial.deserializeFromMachine(tt, args[DATA_SECOND.ordinal()]));
         }
         case "-n": {
             TupleType tt = TupleType.parse(args[DATA_FIRST.ordinal()]);
-            return tt.encode(Deserializer.parseTupleValue(tt, args[DATA_SECOND.ordinal()]));
+            Tuple t = SuperSerial.deserializeFromMachine(tt, args[DATA_SECOND.ordinal()]);
+            return tt.encode(t);
         }
         default:
             throw new IllegalArgumentException("bad secondary option");
@@ -95,10 +96,10 @@ public class Main {
     }
 
     static String decodeABI(String[] args) throws ABIException {
-        return new GsonBuilder().disableHtmlEscaping().create().toJson(_decode(args));
+        return Strings.encode(_decode(args), Strings.BASE_64_URL_SAFE);
     }
 
-    private static JsonArray _decode(String[] args) throws ABIException {
+    private static byte[] _decode(String[] args) throws ABIException {
         final String decodeOptions = args[OPTION_SECONDARY.ordinal()];
         switch (decodeOptions) {
         case "-f": {
@@ -124,13 +125,13 @@ public class Main {
         }
     }
 
-    static JsonArray decodeValues(Function f, String hex) throws ABIException {
+    static byte[] decodeValues(Function f, String hex) throws ABIException {
         Tuple values = f.decodeCall(FastHex.decode(hex));
-        return Serializer.serializeValues(values);
+        return SuperSerial.serializeForMachine(f.getParamTypes(), values);
     }
 
-    static JsonArray decodeValues(TupleType tt, String hex) throws ABIException {
+    static byte[] decodeValues(TupleType tt, String hex) throws ABIException {
         Tuple values = tt.decode(FastHex.decode(hex));
-        return Serializer.serializeValues(values);
+        return SuperSerial.serializeForMachine(tt, values);
     }
 }
