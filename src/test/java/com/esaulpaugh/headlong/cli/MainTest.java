@@ -50,7 +50,7 @@ public class MainTest {
             "  { 'fffffffe' }\n" +
             ")";
 
-    private static final String MACHINE_SERIALIZATION = "9PPymBkcdm4ppleHtxVd0F9BKSQ4Rn25NCDK3pgZHHZuKaZXh7cVXdBfQSkkOEZ9uTQgyt6YGRx2bimmV4e3FV3QX0EpJDhGfbk0IMrewsF61pUA_wDuAd0CzAPK_rq-mQaIB3cIZgmKAP3________-BMEHysnIwQnFhP____XIwRHFhP___-2F_KUnkjvMwX7JiP________-CwQoBhmZhcm91dMIBAccDFIT____6xYT____-";
+    private static final String MACHINE_SERIALIZATION = "f4f3f298191c766e29a65787b7155dd05f41292438467db93420cade98191c766e29a65787b7155dd05f41292438467db93420cade98191c766e29a65787b7155dd05f41292438467db93420cadec2c17ad69500ff00ee01dd02cc03cafebabe99068807770866098a00fdfffffffffffffe04c107cac9c8c109c584fffffff5c8c111c584ffffffed85fca527923bccc17ec988ffffffffffffff82c10a01866661726f7574c20101c7031484fffffffac584fffffffe";
 
     private static final String VALUES_ABI =
                                     "0000000000000000000000000000000000000000000000000000000000000220" +
