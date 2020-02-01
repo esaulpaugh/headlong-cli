@@ -5,7 +5,7 @@ Command line interface for https://github.com/esaulpaugh/headlong ABI encoding (
 
 Run `gradle fatJar` which outputs headlong-cli-0.2-SNAPSHOT.jar to /build/libs
 
-### Encode example 1
+### Encode example
 
 #### cmd, Git Bash, Windows PowerShell
 
@@ -15,7 +15,7 @@ Result:
 
 `00000000000000000000000000000000000000000000005d92d2a10d4e107b1d`
 
-### Decode example 1
+### Decode example
 
 #### cmd, Git Bash, Windows PowerShell
 
@@ -43,3 +43,16 @@ Result:
    { 'fffffffe' }
  )
 ```
+
+## Machine-to-machine interface
+
+### Encode example
+
+`java -jar headlong-cli-0.2-SNAPSHOT.jar -me "(function[2][][],bytes24,string[1][1],address[],uint72,(uint8),(int16)[2][][1],(int32)[],uint40,(int48)[],(uint),bool,string,bool[2],int24[],uint40[1])" "f4f3f298191c766e29a65787b7155dd05f41292438467db93420cade98191c766e29a65787b7155dd05f41292438467db93420cade98191c766e29a65787b7155dd05f41292438467db93420cadec2c17ad69500ff00ee01dd02cc03cafebabe99068807770866098a00fdfffffffffffffe04c107cac9c8c109c584fffffff5c8c111c584ffffffed85fca527923bccc17ec988ffffffffffffff82c10a01866661726f7574c20101c7031484fffffffac584fffffffe"`
+
+### Decode
+
+Machine interface decode `-md` will result in hex-encoded RLP data:
+
+Result:
+f4f3f298191c766e29a65787b7155dd05f41292438467db93420cade98191c766e29a65787b7155dd05f41292438467db93420cade98191c766e29a65787b7155dd05f41292438467db93420cadec2c17ad69500ff00ee01dd02cc03cafebabe99068807770866098a00fdfffffffffffffe04c107cac9c8c109c584fffffff5c8c111c584ffffffed85fca527923bccc17ec988ffffffffffffff82c10a01866661726f7574c20101c7031484fffffffac584fffffffe
