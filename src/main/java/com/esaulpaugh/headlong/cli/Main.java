@@ -89,7 +89,6 @@ public class Main {
 
     private static String decodeValues(TupleType tt, String hex, boolean machine) throws ABIException, DecodeException {
         Tuple values = tt.decode(FastHex.decode(hex));
-        System.out.println(values);
         return SuperSerial.serialize(tt, values, machine);
     }
 }
