@@ -99,7 +99,7 @@ public class MainTest {
                                     "fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffa";
 
     @Test
-    public void testEncode() {
+    public void testEncode() throws ABIException, DecodeException {
 
         String[] emn = new String[] { "-em", SIGNATURE, MACHINE_SERIALIZATION };
         String[] emf = new String[] { "-emf", "nam" + SIGNATURE, MACHINE_SERIALIZATION };
@@ -118,7 +118,7 @@ public class MainTest {
     }
 
     @Test
-    public void testDecode() {
+    public void testDecode() throws ABIException, DecodeException {
         String[] dm = new String[] { "-dm", SIGNATURE, VALUES_ABI };
         String[] dmf = new String[] { "-dmf", "nam" + SIGNATURE, "9e066e5d" + VALUES_ABI };
 
