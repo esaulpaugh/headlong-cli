@@ -39,7 +39,7 @@ public class Main {
         try {
             System.out.println(eval(args));
         } catch (IllegalArgumentException | DecodeException | ABIException e) {
-            System.err.println("class: " + e.getClass().getSimpleName() + "\nmessage: " + e.getMessage() + "\ncause: " + e.getCause());
+            System.err.println("exception: " + e.getClass().getSimpleName() + "\nmessage: " + e.getMessage() + "\ncause: " + e.getCause());
         } catch (Throwable t) {
             t.printStackTrace();
         }
