@@ -52,10 +52,10 @@ public class Main {
         case "-ef": return encodeABI(args, false, true);
         case "-d": return decodeABI(args, false, false);
         case "-df": return decodeABI(args, false, true);
-        case "-em": return encodeABI(args, true, false);
-        case "-emf": return encodeABI(args, true, true);
-        case "-dm": return decodeABI(args, true, false);
-        case "-dmf": return decodeABI(args, true, true);
+        case "-me": return encodeABI(args, true, false);
+        case "-mef": return encodeABI(args, true, true);
+        case "-md": return decodeABI(args, true, false);
+        case "-mdf": return decodeABI(args, true, true);
         default: throw new IllegalArgumentException("bad primary option");
         }
     }

@@ -101,8 +101,8 @@ public class MainTest {
     @Test
     public void testEncode() throws ABIException, DecodeException {
 
-        String[] emn = new String[] { "-em", SIGNATURE, MACHINE_SERIALIZATION };
-        String[] emf = new String[] { "-emf", "nam" + SIGNATURE, MACHINE_SERIALIZATION };
+        String[] emn = new String[] { "-me", SIGNATURE, MACHINE_SERIALIZATION };
+        String[] emf = new String[] { "-mef", "nam" + SIGNATURE, MACHINE_SERIALIZATION };
 
         assertEquals(VALUES_ABI, Main.eval(emn));
 
@@ -119,8 +119,8 @@ public class MainTest {
 
     @Test
     public void testDecode() throws ABIException, DecodeException {
-        String[] dm = new String[] { "-dm", SIGNATURE, VALUES_ABI };
-        String[] dmf = new String[] { "-dmf", "nam" + SIGNATURE, "9e066e5d" + VALUES_ABI };
+        String[] dm = new String[] { "-md", SIGNATURE, VALUES_ABI };
+        String[] dmf = new String[] { "-mdf", "nam" + SIGNATURE, "9e066e5d" + VALUES_ABI };
 
         assertEquals(MACHINE_SERIALIZATION, Main.eval(dm));
         assertEquals(MACHINE_SERIALIZATION, Main.eval(dmf));
