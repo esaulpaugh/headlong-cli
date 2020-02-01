@@ -1,5 +1,5 @@
 # headlong-cli
-Command line interface for https://github.com/esaulpaugh/headlong ABI encoding (full ABIv2 support). Licensed under Apache 2.0 terms.
+Command line interface for https://github.com/esaulpaugh/headlong ABI encoding and decoding (full ABIv2 support). Licensed under Apache 2.0 terms.
 
 ### Build
 
@@ -25,22 +25,22 @@ Result is given in RLP Object Notation:
 
 ```
 (
-   { { { '191c766e29a65787b7155dd05f41292438467db93420cade', '191c766e29a65787b7155dd05f41292438467db93420cade' } } },
+   [ [ [ '191c766e29a65787b7155dd05f41292438467db93420cade', '191c766e29a65787b7155dd05f41292438467db93420cade' ] ] ],
    '191c766e29a65787b7155dd05f41292438467db93420cade',
-   { { '7a' } },
-   { '00ff00ee01dd02cc03cafebabe9906880777086609' },
+   [ [ '7a' ] ],
+   [ '00ff00ee01dd02cc03cafebabe9906880777086609' ],
    '00fdfffffffffffffe04',
-   { '07' },
-   { { { { '09' }, { 'fffffff5' } } } },
-   { { '11' }, { 'ffffffed' } },
+   [ '07' ],
+   [ [ [ [ '09' ], [ 'fffffff5' ] ] ] ],
+   [ [ '11' ], [ 'ffffffed' ] ],
    'fca527923b',
-   { { '7e' }, { 'ffffffffffffff82' } },
-   { '0a' },
+   [ [ '7e' ], [ 'ffffffffffffff82' ] ],
+   [ '0a' ],
    '01',
    '6661726f7574',
-   { '01', '01' },
-   { '03', '14', 'fffffffa' },
-   { 'fffffffe' }
+   [ '01', '01' ],
+   [ '03', '14', 'fffffffa' ],
+   [ 'fffffffe' ]
  )
 ```
 
