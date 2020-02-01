@@ -21,6 +21,7 @@ import com.esaulpaugh.headlong.abi.Tuple;
 import com.esaulpaugh.headlong.abi.TupleType;
 import com.esaulpaugh.headlong.exception.DecodeException;
 import com.esaulpaugh.headlong.util.FastHex;
+import com.esaulpaugh.headlong.util.Strings;
 import com.esaulpaugh.headlong.util.SuperSerial;
 
 import java.nio.ByteBuffer;
@@ -60,35 +61,32 @@ public class Main {
     }
 
     private static String encodeABI(String[] args, boolean machine, boolean function) throws ABIException, DecodeException {
-        return FastHex.encodeToString(_encode(args, machine, function).array());
-    }
-
-    private static ByteBuffer _encode(String[] args, boolean machine, boolean function) throws ABIException, DecodeException {
+        final String signature = args[DATA_FIRST.ordinal()];
+        final String values = args[DATA_SECOND.ordinal()];
+        final ByteBuffer abi;
         if(function) {
-            Function f = Function.parse(args[DATA_FIRST.ordinal()]);
-            return f.encodeCall(SuperSerial.deserialize(f.getParamTypes(), args[DATA_SECOND.ordinal()], machine));
+            Function f = Function.parse(signature);
+            abi = f.encodeCall(SuperSerial.deserialize(f.getParamTypes(), values, machine));
+        } else {
+            TupleType tt = TupleType.parse(signature);
+            abi = tt.encode(SuperSerial.deserialize(tt, values, machine));
         }
-        TupleType tt = TupleType.parse(args[DATA_FIRST.ordinal()]);
-        Tuple t = SuperSerial.deserialize(tt, args[DATA_SECOND.ordinal()], machine);
-        return tt.encode(t);
+        return Strings.encode(abi.array());
     }
 
     private static String decodeABI(String[] args, boolean machine, boolean function) throws ABIException, DecodeException {
+        final String signature = args[DATA_FIRST.ordinal()];
+        final String abiHex = args[DATA_SECOND.ordinal()];
+        final TupleType tt;
+        final Tuple values;
         if(function) {
-            Function f = Function.parse(args[DATA_FIRST.ordinal()]);
-            return decodeValues(f, args[DATA_SECOND.ordinal()], machine);
+            Function f = Function.parse(signature);
+            tt = f.getParamTypes();
+            values = f.decodeCall(FastHex.decode(abiHex));
+        } else {
+            tt = TupleType.parse(signature);
+            values = tt.decode(FastHex.decode(abiHex));
         }
-        TupleType tt = TupleType.parse(args[DATA_FIRST.ordinal()]);
-        return decodeValues(tt, args[DATA_SECOND.ordinal()], machine);
-    }
-
-    private static String decodeValues(Function f, String hex, boolean machine) throws ABIException, DecodeException {
-        Tuple values = f.decodeCall(FastHex.decode(hex));
-        return SuperSerial.serialize(f.getParamTypes(), values, machine);
-    }
-
-    private static String decodeValues(TupleType tt, String hex, boolean machine) throws ABIException, DecodeException {
-        Tuple values = tt.decode(FastHex.decode(hex));
         return SuperSerial.serialize(tt, values, machine);
     }
 }
