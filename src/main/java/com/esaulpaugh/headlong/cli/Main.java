@@ -15,11 +15,9 @@
 */
 package com.esaulpaugh.headlong.cli;
 
-import com.esaulpaugh.headlong.abi.ABIException;
 import com.esaulpaugh.headlong.abi.Function;
 import com.esaulpaugh.headlong.abi.Tuple;
 import com.esaulpaugh.headlong.abi.TupleType;
-import com.esaulpaugh.headlong.exception.DecodeException;
 import com.esaulpaugh.headlong.util.FastHex;
 import com.esaulpaugh.headlong.util.Strings;
 import com.esaulpaugh.headlong.util.SuperSerial;
@@ -39,14 +37,14 @@ public class Main {
     static void evalPrint(String[] args) {
         try {
             System.out.println(eval(args));
-        } catch (IllegalArgumentException | DecodeException | ABIException e) {
+        } catch (IllegalArgumentException e) {
             System.err.println("exception: " + e.getClass().getSimpleName() + "\nmessage: " + e.getMessage() + "\ncause: " + e.getCause());
         } catch (Throwable t) {
             t.printStackTrace();
         }
     }
 
-    static String eval(String[] args) throws ABIException, DecodeException {
+    static String eval(String[] args) {
         switch (args[OPTION.ordinal()]) {
         case "-e": return encodeABI(args, false, false);
         case "-ef": return encodeABI(args, false, true);
@@ -60,7 +58,7 @@ public class Main {
         }
     }
 
-    private static String encodeABI(String[] args, boolean machine, boolean function) throws ABIException, DecodeException {
+    private static String encodeABI(String[] args, boolean machine, boolean function) {
         final String signature = args[DATA_FIRST.ordinal()];
         final String values = args[DATA_SECOND.ordinal()];
         final ByteBuffer abi;
@@ -74,7 +72,7 @@ public class Main {
         return Strings.encode(abi.array());
     }
 
-    private static String decodeABI(String[] args, boolean machine, boolean function) throws ABIException, DecodeException {
+    private static String decodeABI(String[] args, boolean machine, boolean function) {
         final String signature = args[DATA_FIRST.ordinal()];
         final String abiHex = args[DATA_SECOND.ordinal()];
         final TupleType tt;

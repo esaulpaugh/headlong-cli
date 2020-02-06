@@ -15,10 +15,8 @@
 */
 package com.esaulpaugh.headlong.cli;
 
-import com.esaulpaugh.headlong.abi.ABIException;
 import com.esaulpaugh.headlong.abi.Tuple;
 import com.esaulpaugh.headlong.abi.TupleType;
-import com.esaulpaugh.headlong.exception.DecodeException;
 import com.esaulpaugh.headlong.util.Strings;
 import com.esaulpaugh.headlong.util.SuperSerial;
 import org.junit.jupiter.api.Test;
@@ -99,7 +97,7 @@ public class MainTest {
                                     "fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffa";
 
     @Test
-    public void testEncode() throws ABIException, DecodeException {
+    public void testEncode() {
 
         String[] emn = new String[] { "-me", SIGNATURE, MACHINE_SERIALIZATION };
         String[] emf = new String[] { "-mef", "nam" + SIGNATURE, MACHINE_SERIALIZATION };
@@ -118,7 +116,7 @@ public class MainTest {
     }
 
     @Test
-    public void testDecode() throws ABIException, DecodeException {
+    public void testDecode() {
         String[] dm = new String[] { "-md", SIGNATURE, VALUES_ABI };
         String[] dmf = new String[] { "-mdf", "nam" + SIGNATURE, "9e066e5d" + VALUES_ABI };
 
@@ -133,7 +131,7 @@ public class MainTest {
     }
 
     @Test
-    public void testSerial() throws ABIException, DecodeException {
+    public void testSerial() {
 
         TupleType tt = TupleType.parse("(function[2][][],bytes24,string[1][1],address[],uint72,(uint8),(int16)[2][][1],(int32)[],uint40,(int48)[],(uint),bool,string,bool[2],int24[],uint40[1])");
 
