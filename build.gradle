@@ -43,7 +43,6 @@ dependencies {
 //    implementation files('libs/headlong-3.0.0-SNAPSHOT.jar')
 
     implementation 'com.esaulpaugh:headlong:3.0.0-SNAPSHOT'
-    implementation 'com.google.code.gson:gson:2.8.6'
 
     test.useJUnitPlatform()
 
