@@ -25,7 +25,6 @@ task fatJar(type: Jar) {
     exclude 'module-info.class'
     exclude 'com/google/**/'
     exclude 'com/migcomponents/**/'
-    exclude 'org/**/' // bouncycastle
 
     manifest {
         attributes 'Main-Class': 'com.esaulpaugh.headlong.cli.Main',
