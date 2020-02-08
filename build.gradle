@@ -13,7 +13,12 @@ repositories {
 }
 
 task fatJar(type: Jar) {
-    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
+    exclude 'META-INF/*.DSA'
+    exclude 'META-INF/*.SF'
+    exclude 'META-INF/*.RSA'
+    exclude 'com/google/**/'
+    exclude 'com/migcomponents/**/'
+    exclude 'org/bouncycastle/**/'
 
     manifest {
         attributes 'Main-Class': 'com.esaulpaugh.headlong.cli.Main',
