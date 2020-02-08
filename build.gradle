@@ -13,12 +13,12 @@ repositories {
 }
 
 task fatJar(type: Jar) {
-    // prevent SecurityException
+    // prevent SecurityException when using headlong jar installed by maven
     exclude 'META-INF/*.DSA'
     exclude 'META-INF/*.SF'
     exclude 'META-INF/*.RSA'
 
-    // exclude maven-specific bloat
+    // exclude maven-specific headlong bloat
     exclude 'META-INF/maven/**/'
     exclude 'META-INF/services/**/'
     exclude 'META-INF/versions/**/'
