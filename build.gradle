@@ -6,6 +6,11 @@ group 'com.esaulpaugh'
 version '0.2-SNAPSHOT'
 
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+compileJava {
+    options.compilerArgs.addAll(['--release', '8'])
+}
 
 repositories {
     mavenCentral()
