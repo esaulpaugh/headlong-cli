@@ -48,6 +48,8 @@ dependencies {
 //    implementation files('libs/headlong-3.0.0-SNAPSHOT.jar')
 
     implementation 'com.esaulpaugh:headlong:3.0.0-SNAPSHOT'
+//    testRuntimeOnly 'com.google.code.gson:gson:2.8.6'
+//    testRuntimeOnly 'org.bouncycastle:bcprov-jdk15on:1.64'
 
     test.useJUnitPlatform()
 
