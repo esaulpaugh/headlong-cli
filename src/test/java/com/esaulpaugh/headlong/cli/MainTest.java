@@ -33,8 +33,8 @@ public class MainTest {
             "  [ [ [ '191c766e29a65787b7155dd05f41292438467db93420cade', '191c766e29a65787b7155dd05f41292438467db93420cade' ] ] ], \n" +
             "  '191c766e29a65787b7155dd05f41292438467db93420cade', \n" +
             "  [ [ '7a' ] ], \n" +
-            "  [ '00ff00ee01dd02cc03cafebabe9906880777086609' ], \n" +
-            "  '00fdfffffffffffffe04', \n" +
+            "  [ 'ff00ee01dd02cc03cafebabe9906880777086609' ], \n" +
+            "  'fdfffffffffffffe04', \n" +
             "  [ '07' ], \n" +
             "  [ [ [ [ '09' ], [ 'fffffff5' ] ] ] ], \n" +
             "  [ [ '11' ], [ 'ffffffed' ] ], \n" +
@@ -48,7 +48,7 @@ public class MainTest {
             "  [ 'fffffffe' ]\n" +
             ")";
 
-    private static final String MACHINE_SERIALIZATION = "f4f3f298191c766e29a65787b7155dd05f41292438467db93420cade98191c766e29a65787b7155dd05f41292438467db93420cade98191c766e29a65787b7155dd05f41292438467db93420cadec2c17ad69500ff00ee01dd02cc03cafebabe99068807770866098a00fdfffffffffffffe04c107cac9c8c109c584fffffff5c8c111c584ffffffed85fca527923bccc17ec988ffffffffffffff82c10a01866661726f7574c20101c7031484fffffffac584fffffffe";
+    private static final String MACHINE_SERIALIZATION = "f4f3f298191c766e29a65787b7155dd05f41292438467db93420cade98191c766e29a65787b7155dd05f41292438467db93420cade98191c766e29a65787b7155dd05f41292438467db93420cadec2c17ad594ff00ee01dd02cc03cafebabe990688077708660989fdfffffffffffffe04c107cac9c8c109c584fffffff5c8c111c584ffffffed85fca527923bccc17ec988ffffffffffffff82c10a01866661726f7574c20101c7031484fffffffac584fffffffe";
 
     private static final String VALUES_ABI =
                                     "0000000000000000000000000000000000000000000000000000000000000220" +
@@ -99,29 +99,29 @@ public class MainTest {
     @Test
     public void testEncode() {
 
-        String[] emn = new String[] { "-me", SIGNATURE, MACHINE_SERIALIZATION };
-        String[] emf = new String[] { "-mef", "nam" + SIGNATURE, MACHINE_SERIALIZATION };
+        String[] me = new String[] { "-me", SIGNATURE, MACHINE_SERIALIZATION };
+        String[] mef = new String[] { "-mef", "nam" + SIGNATURE, MACHINE_SERIALIZATION };
 
-        assertEquals(VALUES_ABI, Main.eval(emn));
+        assertEquals(VALUES_ABI, Main.eval(me));
 
         final String functionCall = "9e066e5d" + VALUES_ABI;
-        assertEquals(functionCall, Main.eval(emf));
+        assertEquals(functionCall, Main.eval(mef));
 
-        String[] en = new String[] { "-e", SIGNATURE, SERIALIZATION };
+        String[] e = new String[] { "-e", SIGNATURE, SERIALIZATION };
         String[] ef = new String[] { "-ef", "nam" + SIGNATURE, SERIALIZATION };
 
-        assertEquals(VALUES_ABI, Main.eval(en));
+        assertEquals(VALUES_ABI, Main.eval(e));
 
         assertEquals(functionCall, Main.eval(ef));
     }
 
     @Test
     public void testDecode() {
-        String[] dm = new String[] { "-md", SIGNATURE, VALUES_ABI };
-        String[] dmf = new String[] { "-mdf", "nam" + SIGNATURE, "9e066e5d" + VALUES_ABI };
+        String[] md = new String[] { "-md", SIGNATURE, VALUES_ABI };
+        String[] mdf = new String[] { "-mdf", "nam" + SIGNATURE, "9e066e5d" + VALUES_ABI };
 
-        assertEquals(MACHINE_SERIALIZATION, Main.eval(dm));
-        assertEquals(MACHINE_SERIALIZATION, Main.eval(dmf));
+        assertEquals(MACHINE_SERIALIZATION, Main.eval(md));
+        assertEquals(MACHINE_SERIALIZATION, Main.eval(mdf));
 
         String[] d = new String[] { "-d", SIGNATURE, VALUES_ABI };
         String[] df = new String[] { "-df", "nam" + SIGNATURE, "9e066e5d" + VALUES_ABI };
