@@ -11,13 +11,13 @@ Run `gradle fatJar` which outputs headlong-cli-0.2-SNAPSHOT.jar to /build/libs
 
 `java -jar headlong-cli-0.2-SNAPSHOT.jar -e "(uint112)" "('5d92d2a10d4e107b1d')"`
 
-`java -jar headlong-cli-0.2-SNAPSHOT.jar -e "(function[2][][],bytes24,string[1][1],address[],uint72,(uint8),(int16)[2][][1],(int32)[],uint40,(int48)[],(uint),bool,string,bool[2],int24[],uint40[1])" "([ [ [ '191c766e29a65787b
-7155dd05f41292438467db93420cade', '191c766e29a65787b7155dd05f41292438467db93420cade' ] ] ], '191c766e29a65787b7155dd05f41292438467db93420cade', [ [ '7a' ] ],   [ 'ff00ee01dd02cc03cafebabe9906880777086609' ], 'fdfffffffffffffe04', [ '07' ], [ [ [ [ '09' ], [ 'fffffff5' ] ] ] ],
- [ [ '11' ], [ 'ffffffed' ] ], 'fca527923b', [ [ '7e' ], [ 'ffffffffffffff82' ] ], [ '0a' ], '01', '6661726f7574', [ '01', '01' ], [ '03', '14', 'fffffffa' ], [ 'fffffffe' ])"`
-
 Result:
 
 `00000000000000000000000000000000000000000000005d92d2a10d4e107b1d`
+
+`java -jar headlong-cli-0.2-SNAPSHOT.jar -e "(function[2][][],bytes24,string[1][1],address[],uint72,(uint8),(int16)[2][][1],(int32)[],uint40,(int48)[],(uint),bool,string,bool[2],int24[],uint40[1])" "( [ [ [ '191c766e29a65787b7155dd05f41292438467db93420cade', '191c766e29a65787b7155dd05f41292438467db93420cade' ] ] ], '191c766e29a65787b7155dd05f41292438467db93420cade', [ [ '7a' ] ], [ 'ff00ee01dd02cc03cafebabe9906880777086609' ], 'fdfffffffffffffe04', [ '07' ], [ [ [ [ '09' ], [ 'fffffff5' ] ] ] ], [ [ '11' ], [ 'ffffffed' ] ], 'fca527923b', [ [ '7e' ], [ 'ffffffffffffff82' ] ], [ '0a' ], '01', '6661726f7574', [ '01', '01' ], [ '03', '14', 'fffffffa' ], [ 'fffffffe' ])"`
+
+Result:
 
 ### Decode example
 
