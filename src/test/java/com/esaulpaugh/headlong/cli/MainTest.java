@@ -105,6 +105,7 @@ public class MainTest {
         assertEquals(VALUES_ABI, Main.eval(me));
 
         final String functionCall = "9e066e5d" + VALUES_ABI;
+
         assertEquals(functionCall, Main.eval(mef));
 
         String[] e = new String[] { "-e", SIGNATURE, SERIALIZATION };
