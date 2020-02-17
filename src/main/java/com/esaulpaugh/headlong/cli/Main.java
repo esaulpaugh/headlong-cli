@@ -18,7 +18,9 @@ package com.esaulpaugh.headlong.cli;
 import com.esaulpaugh.headlong.abi.Function;
 import com.esaulpaugh.headlong.abi.Tuple;
 import com.esaulpaugh.headlong.abi.TupleType;
-import com.esaulpaugh.headlong.util.FastHex;
+import com.esaulpaugh.headlong.rlp.RLPEncoder;
+import com.esaulpaugh.headlong.rlp.util.Notation;
+import com.esaulpaugh.headlong.rlp.util.NotationParser;
 import com.esaulpaugh.headlong.util.Strings;
 import com.esaulpaugh.headlong.util.SuperSerial;
 
@@ -54,6 +56,8 @@ public class Main {
         case "-mef": return encodeABI(args, true, true);
         case "-md": return decodeABI(args, true, false);
         case "-mdf": return decodeABI(args, true, true);
+        case "-re": return encodeRLP(args);
+        case "-rd": return decodeRLP(args);
         default: throw new IllegalArgumentException("bad primary option");
         }
     }
@@ -80,11 +84,21 @@ public class Main {
         if(function) {
             Function f = Function.parse(signature);
             tt = f.getParamTypes();
-            values = f.decodeCall(FastHex.decode(abiHex));
+            values = f.decodeCall(Strings.decode(abiHex));
         } else {
             tt = TupleType.parse(signature);
-            values = tt.decode(FastHex.decode(abiHex));
+            values = tt.decode(Strings.decode(abiHex));
         }
         return SuperSerial.serialize(tt, values, machine);
+    }
+
+    private static String encodeRLP(String[] args) {
+        final String rlpNotation = args[DATA_FIRST.ordinal()];
+        return Strings.encode(RLPEncoder.encodeSequentially(NotationParser.parse(rlpNotation)));
+    }
+
+    private static String decodeRLP(String[] args) {
+        final String rlpHex = args[DATA_FIRST.ordinal()];
+        return Notation.forEncoding(Strings.decode(rlpHex)).toString();
     }
 }
