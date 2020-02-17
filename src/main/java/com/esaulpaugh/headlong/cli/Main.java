@@ -32,6 +32,16 @@ import static com.esaulpaugh.headlong.cli.Argument.OPTION;
 
 public class Main {
 
+    private static final String HELP_STRING = "command format:\n" +
+            "-[m/r][e/d][f][c]\n" +
+            "\tm is for machine (abi only)\n" +
+            "\tr is for rlp\n" +
+            "\te is for encode\n" +
+            "\td is for decode\n" +
+            "\tf is for function (abi only)\n" +
+            "\tc is for compact (decode only)\n" +
+            "only [e/d] is mandatory";
+
     public static void main(String[] args0) {
         evalPrint(args0);
     }
@@ -48,6 +58,7 @@ public class Main {
 
     static String eval(String[] args) {
         switch (args[OPTION.ordinal()]) {
+        case "-help": return HELP_STRING;
         case "-e": return encodeABI(args, false, false);
         case "-ef": return encodeABI(args, false, true);
         case "-d": return decodeABI(args, false, false, false);
