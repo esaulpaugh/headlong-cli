@@ -19,8 +19,12 @@ public class RLPTest {
     @Test
     public void testDecode() {
 
-        String[] re = new String[] { "-rd", MACHINE_SERIALIZATION };
+        String[] rd = new String[] { "-rd", MACHINE_SERIALIZATION };
 
-        assertEquals(SERIALIZATION, Main.eval(re));
+        assertEquals(SERIALIZATION, Main.eval(rd));
+
+        String[] rdc = new String[] { "-rdc", MACHINE_SERIALIZATION };
+
+        assertEquals(SERIALIZATION.replaceAll("[\n ]", ""), Main.eval(rdc));
     }
 }

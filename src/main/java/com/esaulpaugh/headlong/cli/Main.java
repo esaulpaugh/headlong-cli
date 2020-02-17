@@ -50,14 +50,17 @@ public class Main {
         switch (args[OPTION.ordinal()]) {
         case "-e": return encodeABI(args, false, false);
         case "-ef": return encodeABI(args, false, true);
-        case "-d": return decodeABI(args, false, false);
-        case "-df": return decodeABI(args, false, true);
+        case "-d": return decodeABI(args, false, false, false);
+        case "-df": return decodeABI(args, false, true, false);
+        case "-dc": return decodeABI(args, false, false, true);
+        case "-dfc": return decodeABI(args, false, true, true);
         case "-me": return encodeABI(args, true, false);
         case "-mef": return encodeABI(args, true, true);
-        case "-md": return decodeABI(args, true, false);
-        case "-mdf": return decodeABI(args, true, true);
+        case "-md": return decodeABI(args, true, false, false);
+        case "-mdf": return decodeABI(args, true, true, false);
         case "-re": return encodeRLP(args);
-        case "-rd": return decodeRLP(args);
+        case "-rd": return decodeRLP(args, false);
+        case "-rdc": return decodeRLP(args, true);
         default: throw new IllegalArgumentException("bad primary option");
         }
     }
@@ -76,7 +79,7 @@ public class Main {
         return Strings.encode(abi.array());
     }
 
-    private static String decodeABI(String[] args, boolean machine, boolean function) {
+    private static String decodeABI(String[] args, boolean machine, boolean function, boolean compact) {
         final String signature = args[DATA_FIRST.ordinal()];
         final String abiHex = args[DATA_SECOND.ordinal()];
         final TupleType tt;
@@ -89,7 +92,8 @@ public class Main {
             tt = TupleType.parse(signature);
             values = tt.decode(Strings.decode(abiHex));
         }
-        return SuperSerial.serialize(tt, values, machine);
+        String serialization = SuperSerial.serialize(tt, values, machine);
+        return !compact ? serialization : serialization.replaceAll("[\n ]", "");
     }
 
     private static String encodeRLP(String[] args) {
@@ -97,8 +101,9 @@ public class Main {
         return Strings.encode(RLPEncoder.encodeSequentially(NotationParser.parse(rlpNotation)));
     }
 
-    private static String decodeRLP(String[] args) {
+    private static String decodeRLP(String[] args, boolean compact) {
         final String rlpHex = args[DATA_FIRST.ordinal()];
-        return Notation.forEncoding(Strings.decode(rlpHex)).toString();
+        String notationString = Notation.forEncoding(Strings.decode(rlpHex)).toString();
+        return !compact ? notationString : notationString.replaceAll("[\n ]", "");
     }
 }

@@ -126,9 +126,15 @@ public class MainTest {
 
         String[] d = new String[] { "-d", SIGNATURE, VALUES_ABI };
         String[] df = new String[] { "-df", "nam" + SIGNATURE, "9e066e5d" + VALUES_ABI };
+        String[] dc = new String[] { "-dc", SIGNATURE, VALUES_ABI };
+        String[] dfc = new String[] { "-dfc", "nam" + SIGNATURE, "9e066e5d" + VALUES_ABI };
 
         assertEquals(SERIALIZATION, Main.eval(d));
         assertEquals(SERIALIZATION, Main.eval(df));
+
+        String compact = SERIALIZATION.replaceAll("[\n ]", "");
+        assertEquals(compact, Main.eval(dc));
+        assertEquals(compact, Main.eval(dfc));
     }
 
     @Test

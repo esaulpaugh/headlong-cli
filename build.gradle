@@ -28,7 +28,6 @@ task fatJar(type: Jar) {
     exclude 'META-INF/services/**/'
     exclude 'META-INF/versions/**/'
     exclude 'module-info.class'
-    exclude 'com/google/**/'
     exclude 'com/migcomponents/**/'
 
     manifest {
@@ -48,7 +47,7 @@ dependencies {
 //    implementation files('libs/headlong-3.0.1-SNAPSHOT.jar')
 
     implementation 'com.esaulpaugh:headlong:3.0.1-SNAPSHOT'
-//    testRuntimeOnly 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.google.code.gson:gson:2.8.6'
 //    testRuntimeOnly 'org.bouncycastle:bcprov-jdk15on:1.64'
 
     test.useJUnitPlatform()
