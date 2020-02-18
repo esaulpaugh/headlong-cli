@@ -1,5 +1,5 @@
 # headlong-cli
-Command line interface for https://github.com/esaulpaugh/headlong ABI encoding and decoding (full ABIv2 support). Licensed under Apache 2.0 terms.
+Command line interface for https://github.com/esaulpaugh/headlong ABIv2 and RLP codecs. Requires headlong:3.0.1-SNAPSHOT. Licensed under Apache 2.0 terms.
 
 ### Build
 
