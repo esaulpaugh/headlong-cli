@@ -34,12 +34,12 @@ public class Main {
 
     private static final String HELP_STRING = "command format:\n" +
             "-[m/r][e/d][f][c]\n" +
-            "\tm is for machine (abi only)\n" +
-            "\tr is for rlp\n" +
+            "\tm is for machine interface (ABI only)\n" +
+            "\tr is for RLP\n" +
             "\te is for encode\n" +
             "\td is for decode\n" +
-            "\tf is for function (abi only)\n" +
-            "\tc is for compact (decode only)\n" +
+            "\tf is for function call (ABI only)\n" +
+            "\tc is for compact output (decode only)\n" +
             "only [e/d] is mandatory";
 
     public static void main(String[] args0) {
