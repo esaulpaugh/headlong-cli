@@ -9,7 +9,7 @@
     <includeBaseDirectory>false</includeBaseDirectory>
     <dependencySets>
         <dependencySet>
-            <unpack>false</unpack>
+            <unpack>true</unpack>
             <outputDirectory>${file.separator}</outputDirectory>
             <useProjectArtifact>true</useProjectArtifact>
             <scope>compile</scope>
