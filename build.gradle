@@ -35,7 +35,7 @@ task fatJar(type: Jar) {
         'Implementation-Title': project.name,
         'Implementation-Version': project.version
     }
-    archiveBaseName.set(project.name)
+    archiveName(project.name + '-' + project.version + '-interface.jar')
     from {
         configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
