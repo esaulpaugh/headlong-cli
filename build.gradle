@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'com.esaulpaugh'
-version '0.3-SNAPSHOT'
+version '0.4-SNAPSHOT'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -47,7 +47,7 @@ dependencies {
 
 //    implementation files('libs/headlong-3.0.1-SNAPSHOT.jar')
 
-    implementation 'com.esaulpaugh:headlong:3.1.1-SNAPSHOT'
+    implementation 'com.esaulpaugh:headlong:3.2.0-SNAPSHOT'
     implementation 'com.google.code.gson:gson:2.8.6'
 //    testRuntimeOnly 'org.bouncycastle:bcprov-jdk15on:1.64'
 

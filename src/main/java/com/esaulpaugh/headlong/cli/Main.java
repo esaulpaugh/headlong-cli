@@ -92,16 +92,16 @@ public class Main {
 
     private static String decodeABI(String[] args, boolean machine, boolean function, boolean compact) {
         final String signature = args[DATA_FIRST.ordinal()];
-        final String abiHex = args[DATA_SECOND.ordinal()];
+        final byte[] abiBytes = Strings.decode(args[DATA_SECOND.ordinal()]);
         final TupleType tt;
         final Tuple values;
         if(function) {
             Function f = Function.parse(signature);
             tt = f.getParamTypes();
-            values = f.decodeCall(Strings.decode(abiHex));
+            values = f.decodeCall(abiBytes);
         } else {
             tt = TupleType.parse(signature);
-            values = tt.decode(Strings.decode(abiHex));
+            values = tt.decode(abiBytes);
         }
         String serialization = SuperSerial.serialize(tt, values, machine);
         return !compact ? serialization : serialization.replaceAll("[\n ]", "");

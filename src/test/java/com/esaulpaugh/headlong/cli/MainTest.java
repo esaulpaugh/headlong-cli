@@ -36,10 +36,10 @@ public class MainTest {
             "  [ 'ff00ee01dd02cc03cafebabe9906880777086609' ], \n" +
             "  'fdfffffffffffffe04', \n" +
             "  [ '07' ], \n" +
-            "  [ [ [ [ '09' ], [ 'fffffff5' ] ] ] ], \n" +
+            "  [ [ [ [ '09' ], [ 'fff5' ] ] ] ], \n" +
             "  [ [ '11' ], [ 'ffffffed' ] ], \n" +
             "  'fca527923b', \n" +
-            "  [ [ '7e' ], [ 'ffffffffffffff82' ] ], \n" +
+            "  [ [ '7e' ], [ 'ffffffffff82' ] ], \n" +
             "  [ '0a' ], \n" +
             "  '01', \n" +
             "  '6661726f7574', \n" +
@@ -48,7 +48,7 @@ public class MainTest {
             "  [ 'fffffffe' ]\n" +
             ")";
 
-    static final String MACHINE_SERIALIZATION = "f4f3f298191c766e29a65787b7155dd05f41292438467db93420cade98191c766e29a65787b7155dd05f41292438467db93420cade98191c766e29a65787b7155dd05f41292438467db93420cadec2c17ad594ff00ee01dd02cc03cafebabe990688077708660989fdfffffffffffffe04c107cac9c8c109c584fffffff5c8c111c584ffffffed85fca527923bccc17ec988ffffffffffffff82c10a01866661726f7574c20101c7031484fffffffac584fffffffe";
+    static final String MACHINE_SERIALIZATION = "f4f3f298191c766e29a65787b7155dd05f41292438467db93420cade98191c766e29a65787b7155dd05f41292438467db93420cade98191c766e29a65787b7155dd05f41292438467db93420cadec2c17ad594ff00ee01dd02cc03cafebabe990688077708660989fdfffffffffffffe04c107c8c7c6c109c382fff5c8c111c584ffffffed85fca527923bcac17ec786ffffffffff82c10a01866661726f7574c20101c7031484fffffffac584fffffffe";
 
     private static final String VALUES_ABI =
                                     "0000000000000000000000000000000000000000000000000000000000000220" +

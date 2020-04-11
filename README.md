@@ -33,23 +33,23 @@ Result is given in RLP Object Notation:
 
 ```
 (
-   [ [ [ '191c766e29a65787b7155dd05f41292438467db93420cade', '191c766e29a65787b7155dd05f41292438467db93420cade' ] ] ],
-   '191c766e29a65787b7155dd05f41292438467db93420cade',
-   [ [ '7a' ] ],
-   [ 'ff00ee01dd02cc03cafebabe9906880777086609' ],
-   'fdfffffffffffffe04',
-   [ '07' ],
-   [ [ [ [ '09' ], [ 'fffffff5' ] ] ] ],
-   [ [ '11' ], [ 'ffffffed' ] ],
-   'fca527923b',
-   [ [ '7e' ], [ 'ffffffffffffff82' ] ],
-   [ '0a' ],
-   '01',
-   '6661726f7574',
-   [ '01', '01' ],
-   [ '03', '14', 'fffffffa' ],
-   [ 'fffffffe' ]
- )
+  [ [ [ '191c766e29a65787b7155dd05f41292438467db93420cade', '191c766e29a65787b7155dd05f41292438467db93420cade' ] ] ],
+  '191c766e29a65787b7155dd05f41292438467db93420cade',
+  [ [ '7a' ] ],
+  [ 'ff00ee01dd02cc03cafebabe9906880777086609' ],
+  'fdfffffffffffffe04',
+  [ '07' ],
+  [ [ [ [ '09' ], [ 'fff5' ] ] ] ],
+  [ [ '11' ], [ 'ffffffed' ] ],
+  'fca527923b',
+  [ [ '7e' ], [ 'ffffffffff82' ] ],
+  [ '0a' ],
+  '01',
+  '6661726f7574',
+  [ '01', '01' ],
+  [ '03', '14', 'fffffffa' ],
+  [ 'fffffffe' ]
+)
 ```
 
 ## Machine-to-machine interface
@@ -64,4 +64,4 @@ Machine interface encode `-me` expects hex-encoded RLP data:
 
 Machine interface decode `-md` results in hex-encoded RLP data:
 
-`f4f3f298191c766e29a65787b7155dd05f41292438467db93420cade98191c766e29a65787b7155dd05f41292438467db93420cade98191c766e29a65787b7155dd05f41292438467db93420cadec2c17ad594ff00ee01dd02cc03cafebabe990688077708660989fdfffffffffffffe04c107cac9c8c109c584fffffff5c8c111c584ffffffed85fca527923bccc17ec988ffffffffffffff82c10a01866661726f7574c20101c7031484fffffffac584fffffffe`
+`f4f3f298191c766e29a65787b7155dd05f41292438467db93420cade98191c766e29a65787b7155dd05f41292438467db93420cade98191c766e29a65787b7155dd05f41292438467db93420cadec2c17ad594ff00ee01dd02cc03cafebabe990688077708660989fdfffffffffffffe04c107c8c7c6c109c382fff5c8c111c584ffffffed85fca527923bcac17ec786ffffffffff82c10a01866661726f7574c20101c7031484fffffffac584fffffffe`
