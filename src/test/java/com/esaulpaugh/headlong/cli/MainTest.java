@@ -140,7 +140,7 @@ public class MainTest {
     @Test
     public void testSerial() {
 
-        TupleType tt = TupleType.parse("(function[2][][],bytes24,string[1][1],address[],uint72,(uint8),(int16)[2][][1],(int32)[],uint40,(int48)[],(uint),bool,string,bool[2],int24[],uint40[1])");
+        TupleType tt = TupleType.parse(SIGNATURE);
 
         byte[] func = Strings.decode("191c766e29a65787b7155dd05f41292438467db93420cade");
 
