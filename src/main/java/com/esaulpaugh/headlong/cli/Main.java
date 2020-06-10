@@ -18,12 +18,14 @@ package com.esaulpaugh.headlong.cli;
 import com.esaulpaugh.headlong.abi.Function;
 import com.esaulpaugh.headlong.abi.Tuple;
 import com.esaulpaugh.headlong.abi.TupleType;
+import com.esaulpaugh.headlong.abi.util.Uint;
 import com.esaulpaugh.headlong.rlp.RLPEncoder;
 import com.esaulpaugh.headlong.rlp.util.Notation;
 import com.esaulpaugh.headlong.rlp.util.NotationParser;
 import com.esaulpaugh.headlong.util.Strings;
 import com.esaulpaugh.headlong.util.SuperSerial;
 
+import java.math.BigInteger;
 import java.nio.ByteBuffer;
 
 import static com.esaulpaugh.headlong.cli.Argument.DATA_FIRST;
@@ -70,6 +72,8 @@ public class Main {
         case "-md": return decodeABI(args, true, false, false);
         case "-mdf": return decodeABI(args, true, true, false);
         case "-re": return encodeRLP(args);
+        case "-zzz": return convertIntegers(args, false);
+        case "-zzzc": return convertIntegers(args, true);
         case "-rd": return decodeRLP(args, false);
         case "-rdc": return decodeRLP(args, true);
         default: throw new IllegalArgumentException("bad primary option");
@@ -104,7 +108,7 @@ public class Main {
             values = tt.decode(abiBytes);
         }
         String serialization = SuperSerial.serialize(tt, values, machine);
-        return !compact ? serialization : serialization.replaceAll("[\n ]", "");
+        return compact(serialization, compact);
     }
 
     private static String encodeRLP(String[] args) {
@@ -115,6 +119,30 @@ public class Main {
     private static String decodeRLP(String[] args, boolean compact) {
         final String rlpHex = args[DATA_FIRST.ordinal()];
         String notationString = Notation.forEncoding(Strings.decode(rlpHex)).toString();
-        return !compact ? notationString : notationString.replaceAll("[\n ]", "");
+        return compact(notationString, compact);
+    }
+
+    private static String convertIntegers(String[] args, boolean compact) {
+        final int typeBits = Integer.parseInt(args[DATA_FIRST.ordinal()]);
+        if(typeBits < 0 || typeBits % 8 != 0 || typeBits > 256) {
+            throw new IllegalArgumentException("invalid typeBits");
+        }
+        final Uint uint = new Uint(typeBits);
+        final int start = DATA_FIRST.ordinal() + 1;
+        final int end = args.length;
+        Object[] objects = new Object[end - start];
+        int idx = 0;
+        for (int i = start; i < end; i++) {
+            BigInteger bi = new BigInteger(args[i], 10);
+            BigInteger unsigned = uint.toUnsigned(bi);
+//            BigInteger signed = uint.toSigned(unsigned);
+            String hex = unsigned.toString(16);
+            objects[idx++] = Strings.decode(hex.length() % 2 == 0 ? hex : "0" + hex); // SuperSerial.serializeBigInteger(typeBits, unsigned);
+        }
+        return compact(Notation.forObjects(objects).toString(), compact);
+    }
+
+    private static String compact(String str, boolean compact) {
+        return !compact ? str : str.replaceAll("[\n ]", "");
     }
 }
