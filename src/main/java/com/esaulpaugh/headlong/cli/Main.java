@@ -72,8 +72,9 @@ public class Main {
         case "-md": return decodeABI(args, true, false, false);
         case "-mdf": return decodeABI(args, true, true, false);
         case "-re": return encodeRLP(args);
-        case "-zzz": return convertIntegers(args, false);
-        case "-zzzc": return convertIntegers(args, true);
+        case "-zzz": return decToHex(args, false);
+        case "-zzzc": return decToHex(args, true);
+        case "-yyy": return hexToDec(args);
         case "-rd": return decodeRLP(args, false);
         case "-rdc": return decodeRLP(args, true);
         default: throw new IllegalArgumentException("bad primary option");
@@ -122,8 +123,8 @@ public class Main {
         return compact(notationString, compact);
     }
 
-    private static String convertIntegers(String[] args, boolean compact) {
-        final int typeBits = Integer.parseInt(args[DATA_FIRST.ordinal()]);
+    private static String decToHex(String[] args, boolean compact) {
+        final int typeBits = checkTypeBits(Integer.parseInt(args[DATA_FIRST.ordinal()]));
         if(typeBits < 0 || typeBits % 8 != 0 || typeBits > 256) {
             throw new IllegalArgumentException("invalid typeBits");
         }
@@ -140,6 +141,29 @@ public class Main {
             objects[idx++] = Strings.decode(hex.length() % 2 == 0 ? hex : "0" + hex); // SuperSerial.serializeBigInteger(typeBits, unsigned);
         }
         return compact(Notation.forObjects(objects).toString(), compact);
+    }
+
+    private static String hexToDec(String[] args) {
+        final int a = DATA_FIRST.ordinal();
+        final int typeBits = checkTypeBits(Integer.parseInt(args[a]));
+        final Uint uint = new Uint(typeBits);
+        final boolean signed = Boolean.parseBoolean(args[a + 1]);
+        final int start = a + 2;
+        final int end = args.length;
+        StringBuilder sb = new StringBuilder();
+        for (int i = start; i < end; i++) {
+            BigInteger bi = new BigInteger(args[i], 16);
+            BigInteger x = signed ? uint.toSigned(bi) : bi;
+            sb.append(x.toString(10)).append(' ');
+        }
+        return sb.toString();
+    }
+
+    private static int checkTypeBits(int typeBits) {
+        if(typeBits >= 0 && typeBits % 8 == 0 && typeBits <= 256) {
+            return typeBits;
+        }
+        throw new IllegalArgumentException("invalid typeBits");
     }
 
     private static String compact(String str, boolean compact) {
