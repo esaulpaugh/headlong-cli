@@ -74,6 +74,10 @@ public class Main {
         case "-re": return encodeRLP(args);
         case "-zzz": return decToHex(args, false);
         case "-zzzc": return decToHex(args, true);
+        case "-ggg": return utf8ToHex(args, false);
+        case "-gggc": return utf8ToHex(args, true);
+        case "-mmm": return hexToUtf8(args, false);
+        case "-mmmc": return hexToUtf8(args, true);
         case "-yyy": return hexToDec(args);
         case "-rd": return decodeRLP(args, false);
         case "-rdc": return decodeRLP(args, true);
@@ -164,6 +168,28 @@ public class Main {
             return typeBits;
         }
         throw new IllegalArgumentException("invalid typeBits");
+    }
+
+    private static String hexToUtf8(String[] args, boolean compact) {
+        final int start = DATA_FIRST.ordinal();
+        final int end = args.length;
+        StringBuilder sb = new StringBuilder();
+        final char delimiter = compact ? ' ' : '\n';
+        for (int i = start; i < end; i++) {
+            sb.append(Strings.encode(Strings.decode(args[i]), Strings.UTF_8)).append(delimiter);
+        }
+        return sb.toString();
+    }
+
+    private static String utf8ToHex(String[] args, boolean compact) {
+        final int start = DATA_FIRST.ordinal();
+        final int end = args.length;
+        Object[] objects = new Object[end - start];
+        int idx = 0;
+        for (int i = start; i < end; i++) {
+            objects[idx++] = Strings.decode(args[i], Strings.UTF_8);
+        }
+        return compact(Notation.forObjects(objects).toString(), compact);
     }
 
     private static String compact(String str, boolean compact) {
