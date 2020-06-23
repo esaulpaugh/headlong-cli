@@ -72,13 +72,14 @@ public class Main {
         case "-md": return decodeABI(args, true, false, false);
         case "-mdf": return decodeABI(args, true, true, false);
         case "-re": return encodeRLP(args);
+        case "-yyy": return hexToDec(args, false);
+        case "-yyyc": return hexToDec(args, true);
         case "-zzz": return decToHex(args, false);
         case "-zzzc": return decToHex(args, true);
         case "-ggg": return utf8ToHex(args, false);
         case "-gggc": return utf8ToHex(args, true);
         case "-mmm": return hexToUtf8(args, false);
         case "-mmmc": return hexToUtf8(args, true);
-        case "-yyy": return hexToDec(args);
         case "-rd": return decodeRLP(args, false);
         case "-rdc": return decodeRLP(args, true);
         default: throw new IllegalArgumentException("bad primary option");
@@ -147,18 +148,25 @@ public class Main {
         return compact(Notation.forObjects(objects).toString(), compact);
     }
 
-    private static String hexToDec(String[] args) {
+    private static String hexToDec(String[] args, boolean compact) {
         final int a = DATA_FIRST.ordinal();
         final int typeBits = checkTypeBits(Integer.parseInt(args[a]));
         final Uint uint = new Uint(typeBits);
-        final boolean signed = Boolean.parseBoolean(args[a + 1]);
+        final char delimiter = compact ? ' ' : '\n';
+        final String signedStr = args[a + 1];
+        boolean signed = false;
+        if("true".equals(signedStr)) {
+            signed = true;
+        } else if(!"false".equals(signedStr)) {
+            throw new IllegalArgumentException("must specify signed as \"true\" or \"false\"");
+        }
         final int start = a + 2;
         final int end = args.length;
         StringBuilder sb = new StringBuilder();
         for (int i = start; i < end; i++) {
             BigInteger bi = new BigInteger(args[i], 16);
             BigInteger x = signed ? uint.toSigned(bi) : bi;
-            sb.append(x.toString(10)).append(' ');
+            sb.append(x.toString(10)).append(delimiter);
         }
         return sb.toString();
     }
