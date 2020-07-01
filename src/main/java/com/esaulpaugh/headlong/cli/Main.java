@@ -36,12 +36,13 @@ import static com.esaulpaugh.headlong.cli.Argument.OPTION;
 public class Main {
 
     private static final String HELP_STRING = "command format:\n" +
-            "-[m/r][e/d][f][c]\n" +
+            "-[m/r][e/d][f][p][c]\n" +
             "\tm is for machine interface (ABI only)\n" +
             "\tr is for RLP\n" +
             "\te is for encode\n" +
             "\td is for decode\n" +
             "\tf is for function call (ABI only)\n" +
+            "\tp is for packed (ABI only)\n" +
             "\tc is for compact output (decode only)\n" +
             "only [e/d] is mandatory";
 
