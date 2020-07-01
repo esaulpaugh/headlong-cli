@@ -62,6 +62,8 @@ public class Main {
         switch (args[OPTION.ordinal()]) {
         case "-help": return HELP_STRING;
         case "-e": return encodeABI(args, false, false);
+        case "-ep": return encodeABIPacked(args, false);
+        case "-mep": return encodeABIPacked(args, true);
         case "-ef": return encodeABI(args, false, true);
         case "-d": return decodeABI(args, false, false, false);
         case "-df": return decodeABI(args, false, true, false);
@@ -84,6 +86,13 @@ public class Main {
         case "-rdc": return decodeRLP(args, true);
         default: throw new IllegalArgumentException("bad primary option");
         }
+    }
+
+    private static String encodeABIPacked(String[] args, boolean machine) {
+        final String signature = args[DATA_FIRST.ordinal()];
+        final String values = args[DATA_SECOND.ordinal()];
+        final TupleType tt = TupleType.parse(signature);
+        return Strings.encode(tt.encodePacked(SuperSerial.deserialize(tt, values, machine)).array());
     }
 
     private static String encodeABI(String[] args, boolean machine, boolean function) {
