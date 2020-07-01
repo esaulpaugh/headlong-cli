@@ -16,6 +16,7 @@
 package com.esaulpaugh.headlong.cli;
 
 import com.esaulpaugh.headlong.abi.Function;
+import com.esaulpaugh.headlong.abi.PackedDecoder;
 import com.esaulpaugh.headlong.abi.Tuple;
 import com.esaulpaugh.headlong.abi.TupleType;
 import com.esaulpaugh.headlong.abi.util.Uint;
@@ -69,6 +70,7 @@ public class Main {
         case "-df": return decodeABI(args, false, true, false);
         case "-dc": return decodeABI(args, false, false, true);
         case "-dfc": return decodeABI(args, false, true, true);
+        case "-dp": return decodeABIPacked(args);
         case "-me": return encodeABI(args, true, false);
         case "-mef": return encodeABI(args, true, true);
         case "-md": return decodeABI(args, true, false, false);
@@ -93,6 +95,13 @@ public class Main {
         final String values = args[DATA_SECOND.ordinal()];
         final TupleType tt = TupleType.parse(signature);
         return Strings.encode(tt.encodePacked(SuperSerial.deserialize(tt, values, machine)).array());
+    }
+
+    private static String decodeABIPacked(String[] args) {
+        final String signature = args[DATA_FIRST.ordinal()];
+        final String values = args[DATA_SECOND.ordinal()];
+        final TupleType tt = TupleType.parse(signature);
+        return SuperSerial.serialize(tt, PackedDecoder.decode(tt, Strings.decode(values)), false);
     }
 
     private static String encodeABI(String[] args, boolean machine, boolean function) {
