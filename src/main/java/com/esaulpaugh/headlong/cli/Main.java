@@ -64,9 +64,9 @@ public class Main {
         switch (args[OPTION.ordinal()]) {
         case "-help": return HELP_STRING;
         case "-e": return encodeABI(args, false, false);
+        case "-ef": return encodeABI(args, false, true);
         case "-ep": return encodeABIPacked(args, false);
         case "-mep": return encodeABIPacked(args, true);
-        case "-ef": return encodeABI(args, false, true);
         case "-d": return decodeABI(args, false, false, false);
         case "-df": return decodeABI(args, false, true, false);
         case "-dc": return decodeABI(args, false, false, true);
