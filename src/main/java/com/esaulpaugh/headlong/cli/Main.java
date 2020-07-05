@@ -28,6 +28,7 @@ import com.esaulpaugh.headlong.util.SuperSerial;
 
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
+import java.util.List;
 
 import static com.esaulpaugh.headlong.cli.Argument.DATA_FIRST;
 import static com.esaulpaugh.headlong.cli.Argument.DATA_SECOND;
@@ -99,10 +100,9 @@ public class Main {
     }
 
     private static String decodeABIPacked(String[] args) {
-        final String signature = args[DATA_FIRST.ordinal()];
-        final String values = args[DATA_SECOND.ordinal()];
-        final TupleType tt = TupleType.parse(signature);
-        return SuperSerial.serialize(tt, PackedDecoder.decode(tt, Strings.decode(values)), false);
+        final TupleType tt = TupleType.parse(args[DATA_FIRST.ordinal()]);
+        final byte[] packedAbi = Strings.decode(args[DATA_SECOND.ordinal()]);
+        return SuperSerial.serialize(tt, PackedDecoder.decode(tt, packedAbi), false);
     }
 
     private static String encodeABI(String[] args, boolean machine, boolean function) {
@@ -132,19 +132,17 @@ public class Main {
             tt = TupleType.parse(signature);
             values = tt.decode(abiBytes);
         }
-        String serialization = SuperSerial.serialize(tt, values, machine);
-        return compact(serialization, compact);
+        return compact(SuperSerial.serialize(tt, values, machine), compact);
     }
 
     private static String encodeRLP(String[] args) {
-        final String rlpNotation = args[DATA_FIRST.ordinal()];
-        return Strings.encode(RLPEncoder.encodeSequentially(NotationParser.parse(rlpNotation)));
+        final List<Object> objects = NotationParser.parse(args[DATA_FIRST.ordinal()]);
+        return Strings.encode(RLPEncoder.encodeSequentially(objects));
     }
 
     private static String decodeRLP(String[] args, boolean compact) {
-        final String rlpHex = args[DATA_FIRST.ordinal()];
-        String notationString = Notation.forEncoding(Strings.decode(rlpHex)).toString();
-        return compact(notationString, compact);
+        final byte[] rlpBytes = Strings.decode(args[DATA_FIRST.ordinal()]);
+        return compact(Notation.forEncoding(rlpBytes).toString(), compact);
     }
 
     private static String decToHex(String[] args, boolean compact) {
@@ -168,18 +166,18 @@ public class Main {
     }
 
     private static String hexToDec(String[] args, boolean compact) {
-        final int a = DATA_FIRST.ordinal();
-        final int typeBits = checkTypeBits(Integer.parseInt(args[a]));
+        final int idx = DATA_FIRST.ordinal();
+        final int typeBits = checkTypeBits(Integer.parseInt(args[idx]));
         final Uint uint = new Uint(typeBits);
         final char delimiter = compact ? ' ' : '\n';
-        final String signedStr = args[a + 1];
+        final String signedStr = args[idx + 1];
         boolean signed = false;
         if("true".equals(signedStr)) {
             signed = true;
         } else if(!"false".equals(signedStr)) {
             throw new IllegalArgumentException("must specify signed as \"true\" or \"false\"");
         }
-        final int start = a + 2;
+        final int start = idx + 2;
         final int end = args.length;
         StringBuilder sb = new StringBuilder();
         for (int i = start; i < end; i++) {
