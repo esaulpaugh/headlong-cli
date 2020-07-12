@@ -78,16 +78,16 @@ public class Main {
         case "-md": return decodeABI(args, true, false, false);
         case "-mdf": return decodeABI(args, true, true, false);
         case "-re": return encodeRLP(args);
-        case "-yyy": return hexToDec(args, false);
-        case "-yyyc": return hexToDec(args, true);
-        case "-zzz": return decToHex(args, false);
-        case "-zzzc": return decToHex(args, true);
-        case "-ggg": return utf8ToHex(args, false);
-        case "-gggc": return utf8ToHex(args, true);
-        case "-mmm": return hexToUtf8(args, false);
-        case "-mmmc": return hexToUtf8(args, true);
         case "-rd": return decodeRLP(args, false);
         case "-rdc": return decodeRLP(args, true);
+        case "-hexdec": return hexToDec(args, false);
+        case "-hexdecc": return hexToDec(args, true);
+        case "-dechex": return decToHex(args, false);
+        case "-dechexc": return decToHex(args, true);
+        case "-utfhex": return utf8ToHex(args, false);
+        case "-utfhexc": return utf8ToHex(args, true);
+        case "-hexutf": return hexToUtf8(args, false);
+        case "-hexutfc": return hexToUtf8(args, true);
         default: throw new IllegalArgumentException("unrecognized command: " + args[OPTION.ordinal()]);
         }
     }
@@ -132,7 +132,7 @@ public class Main {
             tt = TupleType.parse(signature);
             values = tt.decode(abiBytes);
         }
-        return compact(SuperSerial.serialize(tt, values, machine), compact);
+        return compacted(SuperSerial.serialize(tt, values, machine), compact);
     }
 
     private static String encodeRLP(String[] args) {
@@ -142,7 +142,7 @@ public class Main {
 
     private static String decodeRLP(String[] args, boolean compact) {
         final byte[] rlpBytes = Strings.decode(args[DATA_FIRST.ordinal()]);
-        return compact(Notation.forEncoding(rlpBytes).toString(), compact);
+        return compacted(Notation.forEncoding(rlpBytes).toString(), compact);
     }
 
     private static String decToHex(String[] args, boolean compact) {
@@ -159,7 +159,7 @@ public class Main {
             String hex = unsigned.toString(16);
             objects[idx++] = Strings.decode(hex.length() % 2 == 0 ? hex : "0" + hex); // SuperSerial.serializeBigInteger(typeBits, unsigned);
         }
-        return compact(Notation.forObjects(objects).toString(), compact);
+        return compacted(Notation.forObjects(objects).toString(), compact);
     }
 
     private static String hexToDec(String[] args, boolean compact) {
@@ -182,8 +182,29 @@ public class Main {
             BigInteger x = signed ? uint.toSigned(bi) : bi;
             sb.append(x.toString(10)).append(delimiter);
         }
-        return (end > start ? /* trim */ sb.replace(sb.length() - 1, sb.length(), "") : sb)
-                .toString();
+        return trimmed(sb, end > start);
+    }
+
+    private static String utf8ToHex(String[] args, boolean compact) {
+        final int start = DATA_FIRST.ordinal();
+        final int end = args.length;
+        Object[] objects = new Object[end - start];
+        int idx = 0;
+        for (int i = start; i < end; i++) {
+            objects[idx++] = Strings.decode(args[i], Strings.UTF_8);
+        }
+        return compacted(Notation.forObjects(objects).toString(), compact);
+    }
+
+    private static String hexToUtf8(String[] args, boolean compact) {
+        final int start = DATA_FIRST.ordinal();
+        final int end = args.length;
+        StringBuilder sb = new StringBuilder();
+        final char delimiter = compact ? ' ' : '\n';
+        for (int i = start; i < end; i++) {
+            sb.append(Strings.encode(Strings.decode(args[i]), Strings.UTF_8)).append(delimiter);
+        }
+        return trimmed(sb, end > start);
     }
 
     private static int parseTypeBits(String val) {
@@ -207,30 +228,15 @@ public class Main {
         throw new IllegalArgumentException("specified bit length must be greater than 0");
     }
 
-    private static String hexToUtf8(String[] args, boolean compact) {
-        final int start = DATA_FIRST.ordinal();
-        final int end = args.length;
-        StringBuilder sb = new StringBuilder();
-        final char delimiter = compact ? ' ' : '\n';
-        for (int i = start; i < end; i++) {
-            sb.append(Strings.encode(Strings.decode(args[i]), Strings.UTF_8)).append(delimiter);
+    private static String trimmed(StringBuilder sb, boolean trim) {
+        if(trim) {
+            final int len = sb.length();
+            sb.replace(len - 1, len, "");
         }
-        return (end > start ? /* trim */ sb.replace(sb.length() - 1, sb.length(), "") : sb)
-                .toString();
+        return sb.toString();
     }
 
-    private static String utf8ToHex(String[] args, boolean compact) {
-        final int start = DATA_FIRST.ordinal();
-        final int end = args.length;
-        Object[] objects = new Object[end - start];
-        int idx = 0;
-        for (int i = start; i < end; i++) {
-            objects[idx++] = Strings.decode(args[i], Strings.UTF_8);
-        }
-        return compact(Notation.forObjects(objects).toString(), compact);
-    }
-
-    private static String compact(String str, boolean compact) {
+    private static String compacted(String str, boolean compact) {
         return !compact ? str : str.replaceAll("[\n ]", "");
     }
 }

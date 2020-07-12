@@ -175,26 +175,31 @@ public class MainTest {
     }
 
     @Test
+    public void testUnrecognizedCommand() {
+
+    }
+
+    @Test
     public void testHexToDec() throws Throwable {
-        assertThrown(IllegalArgumentException.class, "first datum must be the bit length of the args", () -> Main.eval(new String[] { "-yyy", "08ff", "08fe" }));
+        assertThrown(IllegalArgumentException.class, "first datum must be the bit length of the args", () -> Main.eval(new String[] { "-hexdec", "08ff", "08fe" }));
 
-        assertThrown(IllegalArgumentException.class, "specified bit length must be greater than 0", () -> Main.eval(new String[] { "-yyy", "0", "true", "08ff", "08fe" }));
-        assertThrown(IllegalArgumentException.class, "specified bit length must be less than or equal to 256", () -> Main.eval(new String[] { "-yyy", "264", "true", "08ff", "08fe" }));
-        assertThrown(IllegalArgumentException.class, "specified bit length must be a multiple of 8", () -> Main.eval(new String[] { "-yyy", "4", "true", "08ff", "08fe" }));
+        assertThrown(IllegalArgumentException.class, "specified bit length must be greater than 0", () -> Main.eval(new String[] { "-hexdec", "0", "true", "08ff", "08fe" }));
+        assertThrown(IllegalArgumentException.class, "specified bit length must be less than or equal to 256", () -> Main.eval(new String[] { "-hexdec", "264", "true", "08ff", "08fe" }));
+        assertThrown(IllegalArgumentException.class, "specified bit length must be a multiple of 8", () -> Main.eval(new String[] { "-hexdec", "4", "true", "08ff", "08fe" }));
 
-        assertThrown(IllegalArgumentException.class, "second datum must specify signedness of the args as \"true\" or \"false\"", () -> Main.eval(new String[] { "-yyy", "16", "1", "08ff", "08fe" }));
+        assertThrown(IllegalArgumentException.class, "second datum must specify signedness of the args as \"true\" or \"false\"", () -> Main.eval(new String[] { "-hexdec", "16", "1", "08ff", "08fe" }));
 
-        assertEquals("2303\n2302", Main.eval(new String[] { "-yyy", "248", "false", "08ff", "08fe" }));
-        assertEquals("-32513 -32514", Main.eval(new String[] { "-yyyc", "16", "true", "80ff", "80fe" }));
+        assertEquals("2303\n2302", Main.eval(new String[] { "-hexdec", "248", "false", "08ff", "08fe" }));
+        assertEquals("-32513 -32514", Main.eval(new String[] { "-hexdecc", "16", "true", "80ff", "80fe" }));
     }
 
     @Test
     public void testDecToHex() throws Throwable {
 
-        assertThrown(IllegalArgumentException.class, "specified bit length must be greater than 0", () -> Main.eval(new String[] { "-zzz", "-32513", "2302" }));
+        assertThrown(IllegalArgumentException.class, "specified bit length must be greater than 0", () -> Main.eval(new String[] { "-dechex", "-32513", "2302" }));
 
-        assertEquals("(\n  '80ff',\n  '08ff'\n)", Main.eval(new String[] { "-zzz", "16", "-32513", "2303" }));
-        assertEquals("('ffff80ff','08ff')", Main.eval(new String[] { "-zzzc", "32", "-32513", "2303" }));
+        assertEquals("(\n  '80ff',\n  '08ff'\n)", Main.eval(new String[] { "-dechex", "16", "-32513", "2303" }));
+        assertEquals("('ffff80ff','08ff')", Main.eval(new String[] { "-dechexc", "32", "-32513", "2303" }));
     }
 
     @Test
@@ -202,18 +207,18 @@ public class MainTest {
         assertEquals("(\n" +
                 "  '776f727420776f727420776f7274',\n" +
                 "  '25486c0a2d2b'\n" +
-                ")", Main.eval(new String[] { "-ggg", "wort wort wort", "%Hl\n-+" }));
+                ")", Main.eval(new String[] { "-utfhex", "wort wort wort", "%Hl\n-+" }));
 
-        assertEquals("('776f727420776f727420776f7274','25486c0a2d2b')", Main.eval(new String[] { "-gggc", "wort wort wort", "%Hl\n-+" }));
+        assertEquals("('776f727420776f727420776f7274','25486c0a2d2b')", Main.eval(new String[] { "-utfhexc", "wort wort wort", "%Hl\n-+" }));
     }
 
     @Test
     public void testHexToUtf8() throws Throwable {
 
-        assertThrown(IllegalArgumentException.class, "illegal hex val @ 0", () -> Main.eval(new String[] { "-mmm", "-32513", "25486c0a2d2b" }));
+        assertThrown(IllegalArgumentException.class, "illegal hex val @ 0", () -> Main.eval(new String[] { "-hexutf", "-32513", "25486c0a2d2b" }));
 
-        assertEquals("wort wort wort\n%Hl\n-+", Main.eval(new String[] { "-mmm", "776f727420776f727420776f7274", "25486c0a2d2b" }));
-        assertEquals("wort wort wort %Hl\n-+", Main.eval(new String[] { "-mmmc", "776f727420776f727420776f7274", "25486c0a2d2b" }));
+        assertEquals("wort wort wort\n%Hl\n-+", Main.eval(new String[] { "-hexutf", "776f727420776f727420776f7274", "25486c0a2d2b" }));
+        assertEquals("wort wort wort %Hl\n-+", Main.eval(new String[] { "-hexutfc", "776f727420776f727420776f7274", "25486c0a2d2b" }));
     }
 
     @FunctionalInterface
