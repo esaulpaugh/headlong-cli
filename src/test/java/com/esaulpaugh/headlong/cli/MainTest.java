@@ -203,6 +203,8 @@ public class MainTest {
                 "  '776f727420776f727420776f7274',\n" +
                 "  '25486c0a2d2b'\n" +
                 ")", Main.eval(new String[] { "-ggg", "wort wort wort", "%Hl\n-+" }));
+
+        assertEquals("('776f727420776f727420776f7274','25486c0a2d2b')", Main.eval(new String[] { "-gggc", "wort wort wort", "%Hl\n-+" }));
     }
 
     @Test
