@@ -30,21 +30,21 @@ public class MainTest {
     private static final String SIGNATURE = "(function[2][][],bytes24,string[1][1],address[],uint72,(uint8),(int16)[2][][1],(int32)[],uint40,(int48)[],(uint),bool,string,bool[2],int24[],uint40[1])";
 
     static final String SERIALIZATION = "(\n" +
-            "  [ [ [ '191c766e29a65787b7155dd05f41292438467db93420cade', '191c766e29a65787b7155dd05f41292438467db93420cade' ] ] ], \n" +
-            "  '191c766e29a65787b7155dd05f41292438467db93420cade', \n" +
-            "  [ [ '7a' ] ], \n" +
-            "  [ 'ff00ee01dd02cc03cafebabe9906880777086609' ], \n" +
-            "  'fdfffffffffffffe04', \n" +
-            "  [ '07' ], \n" +
-            "  [ [ [ [ '09' ], [ 'fff5' ] ] ] ], \n" +
-            "  [ [ '11' ], [ 'ffffffed' ] ], \n" +
-            "  'fca527923b', \n" +
-            "  [ [ '7e' ], [ 'ffffffffff82' ] ], \n" +
-            "  [ '0a' ], \n" +
-            "  '01', \n" +
-            "  '6661726f7574', \n" +
-            "  [ '01', '01' ], \n" +
-            "  [ '03', '14', 'fffffffa' ], \n" +
+            "  [ [ [ '191c766e29a65787b7155dd05f41292438467db93420cade', '191c766e29a65787b7155dd05f41292438467db93420cade' ] ] ],\n" +
+            "  '191c766e29a65787b7155dd05f41292438467db93420cade',\n" +
+            "  [ [ '7a' ] ],\n" +
+            "  [ 'ff00ee01dd02cc03cafebabe9906880777086609' ],\n" +
+            "  'fdfffffffffffffe04',\n" +
+            "  [ '07' ],\n" +
+            "  [ [ [ [ '09' ], [ 'fff5' ] ] ] ],\n" +
+            "  [ [ '11' ], [ 'ffffffed' ] ],\n" +
+            "  'fca527923b',\n" +
+            "  [ [ '7e' ], [ 'ffffffffff82' ] ],\n" +
+            "  [ '0a' ],\n" +
+            "  '01',\n" +
+            "  '6661726f7574',\n" +
+            "  [ '01', '01' ],\n" +
+            "  [ '03', '14', 'fffffffa' ],\n" +
             "  [ 'fffffffe' ]\n" +
             ")";
 
@@ -172,5 +172,43 @@ public class MainTest {
         str = SuperSerial.serialize(tt, tuple, true);
         deserial = SuperSerial.deserialize(tt, str, true);
         assertEquals(tuple, deserial);
+    }
+
+    @Test
+    public void testHexToDec() throws Throwable {
+        assertThrown(IllegalArgumentException.class, "first datum must be the bit length of the args", () -> Main.eval(new String[] { "-yyy", "08ff", "08fe" }));
+
+        assertThrown(IllegalArgumentException.class, "specified bit length must be greater than 0", () -> Main.eval(new String[] { "-yyy", "0", "true", "08ff", "08fe" }));
+        assertThrown(IllegalArgumentException.class, "specified bit length must be less than or equal to 256", () -> Main.eval(new String[] { "-yyy", "264", "true", "08ff", "08fe" }));
+        assertThrown(IllegalArgumentException.class, "specified bit length must be a multiple of 8", () -> Main.eval(new String[] { "-yyy", "4", "true", "08ff", "08fe" }));
+
+        assertThrown(IllegalArgumentException.class, "second datum must specify signedness of the args as \"true\" or \"false\"", () -> Main.eval(new String[] { "-yyy", "16", "1", "08ff", "08fe" }));
+
+        assertEquals("2303\n2302", Main.eval(new String[] { "-yyy", "248", "false", "08ff", "08fe" }));
+        assertEquals("-32513 -32514", Main.eval(new String[] { "-yyyc", "16", "true", "80ff", "80fe" }));
+    }
+
+    @Test
+    public void testDecToHex() {
+        assertEquals("(\n  '08ff',\n  '08fe'\n)", Main.eval(new String[] { "-zzz", "16", "2303", "2302" }));
+        assertEquals("('08ff','08fe')", Main.eval(new String[] { "-zzzc", "248", "2303", "2302" }));
+    }
+
+    @FunctionalInterface
+    public interface CustomRunnable {
+        void run() throws Throwable;
+    }
+
+    public static void assertThrown(Class<? extends Throwable> clazz, String substr, CustomRunnable r) throws Throwable {
+        try {
+            r.run();
+        } catch (Throwable t) {
+            if(clazz.isInstance(t)
+                    && (t.getMessage() == null || t.getMessage().contains(substr))) {
+                return;
+            }
+            throw t;
+        }
+        throw new AssertionError("no " + clazz.getName() + " thrown");
     }
 }

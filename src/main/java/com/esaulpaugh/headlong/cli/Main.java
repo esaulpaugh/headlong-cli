@@ -88,7 +88,7 @@ public class Main {
         case "-mmmc": return hexToUtf8(args, true);
         case "-rd": return decodeRLP(args, false);
         case "-rdc": return decodeRLP(args, true);
-        default: throw new IllegalArgumentException("bad primary option");
+        default: throw new IllegalArgumentException("unrecognized command: " + args[OPTION.ordinal()]);
         }
     }
 
@@ -146,10 +146,7 @@ public class Main {
     }
 
     private static String decToHex(String[] args, boolean compact) {
-        final int typeBits = checkTypeBits(Integer.parseInt(args[DATA_FIRST.ordinal()]));
-        if(typeBits < 0 || typeBits % 8 != 0 || typeBits > 256) {
-            throw new IllegalArgumentException("invalid typeBits");
-        }
+        final int typeBits = parseTypeBits(args[DATA_FIRST.ordinal()]);
         final Uint uint = new Uint(typeBits);
         final int start = DATA_FIRST.ordinal() + 1;
         final int end = args.length;
@@ -167,7 +164,7 @@ public class Main {
 
     private static String hexToDec(String[] args, boolean compact) {
         final int idx = DATA_FIRST.ordinal();
-        final int typeBits = checkTypeBits(Integer.parseInt(args[idx]));
+        final int typeBits = parseTypeBits(args[idx]);
         final Uint uint = new Uint(typeBits);
         final char delimiter = compact ? ' ' : '\n';
         final String signedStr = args[idx + 1];
@@ -175,7 +172,7 @@ public class Main {
         if("true".equals(signedStr)) {
             signed = true;
         } else if(!"false".equals(signedStr)) {
-            throw new IllegalArgumentException("must specify signed as \"true\" or \"false\"");
+            throw new IllegalArgumentException("second datum must specify signedness of the args as \"true\" or \"false\"");
         }
         final int start = idx + 2;
         final int end = args.length;
@@ -185,14 +182,29 @@ public class Main {
             BigInteger x = signed ? uint.toSigned(bi) : bi;
             sb.append(x.toString(10)).append(delimiter);
         }
-        return sb.toString();
+        return (end > start ? /* trim */ sb.replace(sb.length() - 1, sb.length(), "") : sb)
+                .toString();
+    }
+
+    private static int parseTypeBits(String val) {
+        try {
+            return checkTypeBits(Integer.parseInt(val));
+        } catch (NumberFormatException nfe) {
+            throw new IllegalArgumentException("first datum must be the bit length of the args");
+        }
     }
 
     private static int checkTypeBits(int typeBits) {
-        if(typeBits >= 0 && typeBits % 8 == 0 && typeBits <= 256) {
-            return typeBits;
+        if(typeBits > 0) {
+            if(typeBits <= 256) {
+                if(typeBits % 8 == 0) {
+                    return typeBits;
+                }
+                throw new IllegalArgumentException("specified bit length must be a multiple of 8");
+            }
+            throw new IllegalArgumentException("specified bit length must be less than or equal to 256");
         }
-        throw new IllegalArgumentException("invalid typeBits");
+        throw new IllegalArgumentException("specified bit length must be greater than 0");
     }
 
     private static String hexToUtf8(String[] args, boolean compact) {
