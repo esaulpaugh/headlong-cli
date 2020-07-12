@@ -197,6 +197,23 @@ public class MainTest {
         assertEquals("('ffff80ff','08ff')", Main.eval(new String[] { "-zzzc", "32", "-32513", "2303" }));
     }
 
+    @Test
+    public void testUtf8ToHex() {
+        assertEquals("(\n" +
+                "  '776f727420776f727420776f7274',\n" +
+                "  '25486c0a2d2b'\n" +
+                ")", Main.eval(new String[] { "-ggg", "wort wort wort", "%Hl\n-+" }));
+    }
+
+    @Test
+    public void testHexToUtf8() throws Throwable {
+
+        assertThrown(IllegalArgumentException.class, "illegal hex val @ 0", () -> Main.eval(new String[] { "-mmm", "-32513", "25486c0a2d2b" }));
+
+        assertEquals("wort wort wort\n%Hl\n-+", Main.eval(new String[] { "-mmm", "776f727420776f727420776f7274", "25486c0a2d2b" }));
+        assertEquals("wort wort wort %Hl\n-+", Main.eval(new String[] { "-mmmc", "776f727420776f727420776f7274", "25486c0a2d2b" }));
+    }
+
     @FunctionalInterface
     public interface CustomRunnable {
         void run() throws Throwable;

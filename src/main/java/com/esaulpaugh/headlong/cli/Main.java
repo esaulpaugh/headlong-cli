@@ -215,7 +215,8 @@ public class Main {
         for (int i = start; i < end; i++) {
             sb.append(Strings.encode(Strings.decode(args[i]), Strings.UTF_8)).append(delimiter);
         }
-        return sb.toString();
+        return (end > start ? /* trim */ sb.replace(sb.length() - 1, sb.length(), "") : sb)
+                .toString();
     }
 
     private static String utf8ToHex(String[] args, boolean compact) {
