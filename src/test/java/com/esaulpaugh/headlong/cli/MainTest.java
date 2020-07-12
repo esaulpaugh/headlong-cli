@@ -189,9 +189,12 @@ public class MainTest {
     }
 
     @Test
-    public void testDecToHex() {
-        assertEquals("(\n  '08ff',\n  '08fe'\n)", Main.eval(new String[] { "-zzz", "16", "2303", "2302" }));
-        assertEquals("('08ff','08fe')", Main.eval(new String[] { "-zzzc", "248", "2303", "2302" }));
+    public void testDecToHex() throws Throwable {
+
+        assertThrown(IllegalArgumentException.class, "specified bit length must be greater than 0", () -> Main.eval(new String[] { "-zzz", "-32513", "2302" }));
+
+        assertEquals("(\n  '80ff',\n  '08ff'\n)", Main.eval(new String[] { "-zzz", "16", "-32513", "2303" }));
+        assertEquals("('ffff80ff','08ff')", Main.eval(new String[] { "-zzzc", "32", "-32513", "2303" }));
     }
 
     @FunctionalInterface
