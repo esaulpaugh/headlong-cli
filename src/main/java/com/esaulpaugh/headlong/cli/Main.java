@@ -36,7 +36,7 @@ import static com.esaulpaugh.headlong.cli.Argument.OPTION;
 
 public class Main {
 
-    private static final String HELP_STRING = "command format:\n" +
+    private static final String HELP_STRING = "primary command format:\n" +
             "-[m/r][e/d][f][p][c]\n" +
             "\tm is for machine interface (ABI only)\n" +
             "\tr is for RLP\n" +
@@ -45,7 +45,17 @@ public class Main {
             "\tf is for function call (ABI only)\n" +
             "\tp is for packed (ABI only)\n" +
             "\tc is for compact output (decode only)\n" +
-            "only [e/d] is mandatory";
+            "only [e/d] is mandatory\n" +
+            "\n" +
+            "secondary commands:\n" +
+            "-hexdec [bitlen] [signed] [args...]\n" +
+            "-hexdecc [bitlen] [signed] [args...]\n" +
+            "-dechex [bitlen] [args...]\n" +
+            "-dechexc [bitlen] [args...]\n" +
+            "-utfhex [args...]\n" +
+            "-utfhexc [args...]\n" +
+            "-hexutf [args...]\n" +
+            "-hexutfc [args...]\n";
 
     public static void main(String[] args0) {
         evalPrint(args0);
