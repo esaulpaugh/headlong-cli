@@ -175,8 +175,8 @@ public class MainTest {
     }
 
     @Test
-    public void testUnrecognizedCommand() {
-
+    public void testUnrecognizedCommand() throws Throwable {
+        assertThrown(IllegalArgumentException.class, "unrecognized command: -utfdec", () -> Main.eval(new String[] { "-utfdec", "08ff", "08fe" }));
     }
 
     @Test
