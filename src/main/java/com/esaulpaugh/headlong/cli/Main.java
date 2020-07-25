@@ -104,7 +104,8 @@ public class Main {
     }
 
     private static String versionString() {
-        return "headlong-cli version " + Main.class.getPackage().getImplementationVersion();
+        final Package enclosingPackage = Main.class.getPackage();
+        return enclosingPackage.getImplementationTitle() + " version " + enclosingPackage.getImplementationVersion();
     }
 
     private static String encodeABIPacked(String[] args, boolean machine) {
