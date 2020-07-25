@@ -74,6 +74,7 @@ public class Main {
     static String eval(String[] args) {
         switch (args[OPTION.ordinal()]) {
         case "-help": return HELP_STRING;
+        case "-version": return "headlong-cli version 0.5-SNAPSHOT";
         case "-e": return encodeABI(args, false, false);
         case "-ef": return encodeABI(args, false, true);
         case "-ep": return encodeABIPacked(args, false);
