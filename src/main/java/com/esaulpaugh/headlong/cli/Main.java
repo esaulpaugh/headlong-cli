@@ -74,7 +74,7 @@ public class Main {
     }
 
     static String eval(String[] args) {
-        switch (args[OPTION.ordinal()]) {
+        switch (validateCommand(args[OPTION.ordinal()])) {
         case "-help": return HELP_STRING;
         case "-version": return versionString();
         case "-e": return encodeABI(args, false, false);
@@ -105,6 +105,13 @@ public class Main {
         case "-formatf": return Function.formatCall(Strings.decode(args[DATA_FIRST.ordinal()]));
         default: throw new IllegalArgumentException("unrecognized command: " + args[OPTION.ordinal()]);
         }
+    }
+
+    private static String validateCommand(String command) {
+        if(command.charAt(0) == '-') {
+            return command;
+        }
+        throw new IllegalArgumentException("commands must start with a hyphen: -");
     }
 
     private static String versionString() {
