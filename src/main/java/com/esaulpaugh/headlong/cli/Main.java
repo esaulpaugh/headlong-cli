@@ -74,7 +74,7 @@ public class Main {
     static String eval(String[] args) {
         switch (args[OPTION.ordinal()]) {
         case "-help": return HELP_STRING;
-        case "-version": return "headlong-cli version 0.5-SNAPSHOT";
+        case "-version": return versionString();
         case "-e": return encodeABI(args, false, false);
         case "-ef": return encodeABI(args, false, true);
         case "-ep": return encodeABIPacked(args, false);
@@ -101,6 +101,10 @@ public class Main {
         case "-hexutfc": return hexToUtf8(args, true);
         default: throw new IllegalArgumentException("unrecognized command: " + args[OPTION.ordinal()]);
         }
+    }
+
+    private static String versionString() {
+        return "headlong-cli version " + Main.class.getPackage().getImplementationVersion();
     }
 
     private static String encodeABIPacked(String[] args, boolean machine) {

@@ -6,7 +6,7 @@
 
     <groupId>com.esaulpaugh</groupId>
     <artifactId>headlong-cli</artifactId>
-    <version>0.5-SNAPSHOT</version>
+    <version>${version}</version>
 
     <name>headlong-cli</name>
     <url>https://github.com/esaulpaugh/headlong</url>
@@ -17,6 +17,7 @@
     <inceptionYear>2019</inceptionYear>
 
     <properties>
+        <version>0.6-SNAPSHOT</version>
         <argLine>-Dfile.encoding=UTF-8</argLine>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -71,6 +72,9 @@
                             <addClasspath>true</addClasspath>
                             <mainClass>com.esaulpaugh.headlong.cli.Main</mainClass>
                         </manifest>
+                        <manifestEntries>
+                            <Implementation-Version>${version}</Implementation-Version>
+                        </manifestEntries>
                     </archive>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
