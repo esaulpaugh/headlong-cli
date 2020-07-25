@@ -7,7 +7,7 @@ Run `gradle fatJar` which produces `build/libs/headlong-cli-0.5-SNAPSHOT.jar`
 
 Or `mvn package` which produces `target/headlong-cli-0.5-SNAPSHOT.jar`
 
-##Usage (cmd, Git Bash, Windows PowerShell)
+## Usage (cmd, Git Bash, Windows PowerShell)
 
 #### Encode
 
