@@ -27,7 +27,7 @@
         <dependency>
             <groupId>com.esaulpaugh</groupId>
             <artifactId>headlong</artifactId>
-            <version>3.4.2-SNAPSHOT</version>
+            <version>3.5.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

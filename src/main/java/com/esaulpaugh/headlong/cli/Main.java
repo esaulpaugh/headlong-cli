@@ -15,6 +15,8 @@
 */
 package com.esaulpaugh.headlong.cli;
 
+import com.esaulpaugh.headlong.abi.ABIJSON;
+import com.esaulpaugh.headlong.abi.ABIObject;
 import com.esaulpaugh.headlong.abi.Function;
 import com.esaulpaugh.headlong.abi.PackedDecoder;
 import com.esaulpaugh.headlong.abi.Tuple;
@@ -29,6 +31,7 @@ import com.esaulpaugh.headlong.util.SuperSerial;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.esaulpaugh.headlong.cli.Argument.DATA_FIRST;
 import static com.esaulpaugh.headlong.cli.Argument.DATA_SECOND;
@@ -57,7 +60,9 @@ public class Main {
             "-hexutf [args...]\n" +
             "-hexutfc [args...]\n" +
             "-format [abi hex]\n" +
-            "-formatf [abi function call hex]";
+            "-formatf [abi function call hex]\n" +
+            "-parse [abi json array]\n" +
+            "-parseobj [abi json object]";
 
     public static void main(String[] args0) {
         evalPrint(args0);
@@ -101,8 +106,10 @@ public class Main {
         case "-utfhexc": return utf8ToHex(args, true);
         case "-hexutf": return hexToUtf8(args, false);
         case "-hexutfc": return hexToUtf8(args, true);
-        case "-format": return TupleType.format(Strings.decode(args[DATA_FIRST.ordinal()]));
-        case "-formatf": return Function.formatCall(Strings.decode(args[DATA_FIRST.ordinal()]));
+        case "-format": return format(args);
+        case "-formatf": return formatFunctionCall(args);
+        case "-parse": return parse(args);
+        case "-parseobj": return parseObject(args);
         default: throw new IllegalArgumentException("unrecognized command: " + args[OPTION.ordinal()]);
         }
     }
@@ -265,5 +272,30 @@ public class Main {
 
     private static String compacted(String str, boolean compact) {
         return !compact ? str : str.replaceAll("[\n ]", "");
+    }
+
+    private static String format(String[] args) {
+        return TupleType.format(Strings.decode(args[DATA_FIRST.ordinal()]));
+    }
+
+    private static String formatFunctionCall(String[] args) {
+        return Function.formatCall(Strings.decode(args[DATA_FIRST.ordinal()]));
+    }
+
+    private static String parse(String[] args) {
+        return ABIJSON.parseObjects(args[DATA_FIRST.ordinal()], true, true, Function.newDefaultDigest(), ABIObject.class)
+                .stream()
+                .map(Main::describe)
+                .collect(Collectors.joining("\n"));
+    }
+
+    private static String parseObject(String[] args) {
+        return describe(ABIJSON.parseABIObject(args[DATA_FIRST.ordinal()]));
+    }
+
+    private static String describe(ABIObject o) {
+        return o instanceof Function
+                ? o.getCanonicalSignature() + " returns " + ((Function) o).getOutputTypes().getCanonicalType()
+                : o.getCanonicalSignature() + " event";
     }
 }
