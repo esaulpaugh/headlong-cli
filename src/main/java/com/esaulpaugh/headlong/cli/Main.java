@@ -55,7 +55,9 @@ public class Main {
             "-utfhex [args...]\n" +
             "-utfhexc [args...]\n" +
             "-hexutf [args...]\n" +
-            "-hexutfc [args...]\n";
+            "-hexutfc [args...]\n" +
+            "-format [abi hex]\n" +
+            "-formatf [abi function call hex]";
 
     public static void main(String[] args0) {
         evalPrint(args0);
@@ -99,6 +101,8 @@ public class Main {
         case "-utfhexc": return utf8ToHex(args, true);
         case "-hexutf": return hexToUtf8(args, false);
         case "-hexutfc": return hexToUtf8(args, true);
+        case "-format": return TupleType.format(Strings.decode(args[DATA_FIRST.ordinal()]));
+        case "-formatf": return Function.formatCall(Strings.decode(args[DATA_FIRST.ordinal()]));
         default: throw new IllegalArgumentException("unrecognized command: " + args[OPTION.ordinal()]);
         }
     }
