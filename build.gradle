@@ -35,7 +35,7 @@ task fatJar(type: Jar) {
         'Implementation-Title': project.name,
         'Implementation-Version': project.version
     }
-    archiveName(project.name + '-' + project.version + '-interface.jar') // deprecated
+    archiveName(project.name + '-' + project.version + '.jar') // deprecated
 //    archiveFileName(project.name + '-' + project.version + '-interface.jar')
     from {
         configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
