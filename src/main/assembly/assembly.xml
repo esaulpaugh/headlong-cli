@@ -13,11 +13,6 @@ xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assemb
         <outputDirectory>${file.separator}</outputDirectory>
         <useProjectArtifact>true</useProjectArtifact>
         <scope>compile</scope>
-        <excludes>
-            <exclude>org.junit.jupiter:junit-jupiter-api</exclude>
-            <exclude>org.opentest4j:opentest4j</exclude>
-            <exclude>org.apiguardian:apiguardian-api</exclude>
-        </excludes>
     </dependencySet>
 </dependencySets>
 <fileSets>
