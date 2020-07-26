@@ -45,6 +45,8 @@ import static com.esaulpaugh.headlong.cli.Argument.OPTION;
 
 public class Main {
 
+    private static final String COMPILE_DATE;
+
     private static final String HELP_STRING = "primary command format:\n" +
             "-[m/r][e/d][f][p][c]\n" +
             "\tm is for machine interface (ABI only)\n" +
@@ -69,33 +71,6 @@ public class Main {
             "-formatf [abi function call hex]\n" +
             "-parse [abi json array]\n" +
             "-parseobj [abi json object]";
-
-    private static final String COMPILE_DATE;
-
-    static {
-        try {
-            final Enumeration<URL> urls = Main.class.getClassLoader().getResources(JarFile.MANIFEST_NAME);
-            String buildTime = null;
-            while (urls.hasMoreElements()) {
-                final Attributes attrs = new Manifest(urls.nextElement().openStream()).getMainAttributes();
-                if ("headlong-cli".equals(attrs.getValue("Implementation-Title"))) {
-                    if (buildTime != null) {
-                        throw new Error("multiple matching manifests");
-                    }
-                    buildTime = attrs.getValue("Build-Time");
-                }
-            }
-            COMPILE_DATE = buildTime == null
-                    ? null
-                    : new SimpleDateFormat("MMMMM d yyyy")
-                        .format(
-                                new SimpleDateFormat("yyyy-MM-dd")
-                                    .parse(buildTime.substring(0, buildTime.indexOf('T')))
-                        );
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     public static void main(String[] args0) {
         evalPrint(args0);
@@ -331,5 +306,30 @@ public class Main {
         return o instanceof Function
                 ? o.getCanonicalSignature() + " returns " + ((Function) o).getOutputTypes().getCanonicalType()
                 : o.getCanonicalSignature() + " event";
+    }
+
+    static {
+        try {
+            final Enumeration<URL> urls = Main.class.getClassLoader().getResources(JarFile.MANIFEST_NAME);
+            String buildTime = null;
+            while (urls.hasMoreElements()) {
+                final Attributes attrs = new Manifest(urls.nextElement().openStream()).getMainAttributes();
+                if ("headlong-cli".equals(attrs.getValue("Implementation-Title"))) {
+                    if (buildTime != null) {
+                        throw new Error("multiple matching manifests");
+                    }
+                    buildTime = attrs.getValue("Build-Time");
+                }
+            }
+            COMPILE_DATE = buildTime == null
+                    ? null
+                    : new SimpleDateFormat("MMMMM d yyyy")
+                    .format(
+                            new SimpleDateFormat("yyyy-MM-dd")
+                                    .parse(buildTime.substring(0, buildTime.indexOf('T')))
+                    );
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
