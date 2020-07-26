@@ -70,6 +70,33 @@ public class Main {
             "-parse [abi json array]\n" +
             "-parseobj [abi json object]";
 
+    private static final String COMPILE_DATE;
+
+    static {
+        try {
+            final Enumeration<URL> urls = Main.class.getClassLoader().getResources(JarFile.MANIFEST_NAME);
+            String buildTime = null;
+            while (urls.hasMoreElements()) {
+                final Attributes attrs = new Manifest(urls.nextElement().openStream()).getMainAttributes();
+                if ("headlong-cli".equals(attrs.getValue("Implementation-Title"))) {
+                    if (buildTime != null) {
+                        throw new Error("multiple matching manifests");
+                    }
+                    buildTime = attrs.getValue("Build-Time");
+                }
+            }
+            COMPILE_DATE = buildTime == null
+                    ? null
+                    : new SimpleDateFormat("MMMMM d yyyy")
+                        .format(
+                                new SimpleDateFormat("yyyy-MM-dd")
+                                    .parse(buildTime.substring(0, buildTime.indexOf('T')))
+                        );
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void main(String[] args0) {
         evalPrint(args0);
     }
@@ -85,7 +112,8 @@ public class Main {
     }
 
     static String eval(String[] args) {
-        switch (validateCommand(args[OPTION.ordinal()])) {
+        final String command = args[OPTION.ordinal()];
+        switch (validateCommand(command)) {
         case "-help": return HELP_STRING;
         case "-version": return versionString();
         case "-e": return encodeABI(args, false, false);
@@ -116,7 +144,7 @@ public class Main {
         case "-formatf": return formatFunctionCall(args);
         case "-parse": return parse(args);
         case "-parseobj": return parseObject(args);
-        default: throw new IllegalArgumentException("unrecognized command: " + args[OPTION.ordinal()]);
+        default: throw new IllegalArgumentException("unrecognized command: " + command);
         }
     }
 
@@ -129,32 +157,7 @@ public class Main {
 
     private static String versionString() {
         final Package enclosingPackage = Main.class.getPackage();
-        return enclosingPackage.getImplementationTitle() + " version " + enclosingPackage.getImplementationVersion() + " compiled on " + getBuildDate();
-    }
-
-    public static String getBuildDate() {
-        try {
-            Enumeration<URL> urls = Main.class.getClassLoader()
-                    .getResources(JarFile.MANIFEST_NAME);
-            while (urls.hasMoreElements()) {
-                Attributes attrs = new Manifest(
-                        urls.nextElement()
-                        .openStream()
-                ).getMainAttributes();
-                if("headlong-cli".equals(attrs.getValue("Implementation-Title"))
-                        && "com.esaulpaugh".equals(attrs.getValue("Created-By"))) {
-                    String timestamp = attrs.getValue("Build-Time");
-                    return new SimpleDateFormat("MMMMM d yyyy")
-                            .format(
-                                    new SimpleDateFormat("yyyy-MM-dd")
-                                            .parse(timestamp.substring(0, timestamp.indexOf('T')))
-                            );
-                }
-            }
-        } catch (Throwable t) {
-            // do nothing
-        }
-        return null;
+        return enclosingPackage.getImplementationTitle() + " version " + enclosingPackage.getImplementationVersion() + " compiled on " + COMPILE_DATE;
     }
 
     private static String encodeABIPacked(String[] args, boolean machine) {
