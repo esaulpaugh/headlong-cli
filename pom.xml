@@ -67,14 +67,17 @@
                 <version>3.3.0</version>
                 <configuration>
                     <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <mainClass>com.esaulpaugh.headlong.cli.Main</mainClass>
-                        </manifest>
                         <manifestEntries>
                             <Implementation-Title>${project.artifactId}</Implementation-Title>
                             <Implementation-Version>${project.version}</Implementation-Version>
+                            <Created-By/>
+                            <Build-Tool>${maven.build.version}</Build-Tool>
+                            <Main-Class>com.esaulpaugh.headlong.cli.Main</Main-Class>
+                            <Build-Time>${maven.build.timestamp}</Build-Time>
                         </manifestEntries>
+                        <manifest>
+                            <addDefaultEntries>false</addDefaultEntries>
+                        </manifest>
                     </archive>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>

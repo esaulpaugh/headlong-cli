@@ -28,9 +28,13 @@ import com.esaulpaugh.headlong.rlp.util.NotationParser;
 import com.esaulpaugh.headlong.util.Strings;
 import com.esaulpaugh.headlong.util.SuperSerial;
 
+import java.io.InputStream;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.jar.JarFile;
+import java.util.jar.Manifest;
 import java.util.stream.Collectors;
 
 import static com.esaulpaugh.headlong.cli.Argument.DATA_FIRST;
@@ -123,7 +127,24 @@ public class Main {
 
     private static String versionString() {
         final Package enclosingPackage = Main.class.getPackage();
-        return enclosingPackage.getImplementationTitle() + " version " + enclosingPackage.getImplementationVersion();
+        return enclosingPackage.getImplementationTitle() + " version " + enclosingPackage.getImplementationVersion() + " compiled on " + getBuildDate();
+    }
+
+    public static String getBuildDate() {
+        try {
+            InputStream in = Main.class.getClassLoader().getResources(JarFile.MANIFEST_NAME).nextElement().openStream();
+            if (in != null) {
+                String timestamp = new Manifest(in).getMainAttributes().getValue("Build-Time");
+                return new SimpleDateFormat("MMMMM d yyyy")
+                        .format(
+                                new SimpleDateFormat("yyyy-MM-dd")
+                                        .parse(timestamp.substring(0, timestamp.indexOf('T')))
+                        );
+            }
+        } catch (Throwable t) {
+            // do nothing
+        }
+        return null;
     }
 
     private static String encodeABIPacked(String[] args, boolean machine) {
