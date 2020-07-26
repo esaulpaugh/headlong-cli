@@ -31,7 +31,6 @@ import com.esaulpaugh.headlong.util.SuperSerial;
 import java.math.BigInteger;
 import java.net.URL;
 import java.nio.ByteBuffer;
-import java.text.SimpleDateFormat;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.jar.Attributes;
