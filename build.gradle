@@ -1,3 +1,5 @@
+import java.text.SimpleDateFormat
+
 plugins {
     id 'java'
 }
@@ -17,6 +19,12 @@ repositories {
     mavenLocal()
 }
 
+def getDateTime() {
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd")
+    sdf.setTimeZone(TimeZone.getTimeZone("UTC"))
+    return sdf.format(new Date()) + "T00:00:00Z"
+}
+
 task fatJar(type: Jar) {
     // prevent SecurityException when using headlong jar installed by maven
     exclude 'META-INF/*.DSA'
@@ -33,7 +41,8 @@ task fatJar(type: Jar) {
     manifest {
         attributes 'Main-Class': 'com.esaulpaugh.headlong.cli.Main',
                    'Implementation-Title': project.name,
-                   'Implementation-Version': project.version
+                   'Implementation-Version': project.version,
+                   'Build-Time': getDateTime()
     }
     archiveName(project.name + '-' + project.version + '.jar') // deprecated
 //    archiveFileName(project.name + '-' + project.version + '-interface.jar')
