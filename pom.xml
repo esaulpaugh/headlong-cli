@@ -19,6 +19,7 @@
     <properties>
         <argLine>-Dfile.encoding=UTF-8</argLine>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.build.timestamp.format>MMMMM d yyyy</maven.build.timestamp.format>
     </properties>
 
     <dependencies>
@@ -68,13 +69,13 @@
                 <configuration>
                     <archive>
                         <manifestEntries>
-                            <Implementation-Title>${project.artifactId}</Implementation-Title>
+                            <Implementation-Title>${project.name}</Implementation-Title>
                             <Implementation-Version>${project.version}</Implementation-Version>
                             <Created-By>${project.groupId}</Created-By>
                             <!--suppress UnresolvedMavenProperty -->
                             <Build-Tool>${maven.build.version}</Build-Tool>
                             <Main-Class>com.esaulpaugh.headlong.cli.Main</Main-Class>
-                            <Build-Time>${maven.build.timestamp}</Build-Time>
+                            <Build-Date>${maven.build.timestamp}</Build-Date>
                         </manifestEntries>
                         <manifest>
                             <addDefaultEntries>false</addDefaultEntries>

@@ -19,10 +19,10 @@ repositories {
     mavenLocal()
 }
 
-def getDateTime() {
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd")
+static def todayUTC() {
+    SimpleDateFormat sdf = new SimpleDateFormat("MMMMM d yyyy")
     sdf.setTimeZone(TimeZone.getTimeZone("UTC"))
-    return sdf.format(new Date()) + "T00:00:00Z"
+    return sdf.format(new Date())
 }
 
 task fatJar(type: Jar) {
@@ -42,7 +42,7 @@ task fatJar(type: Jar) {
         attributes 'Main-Class': 'com.esaulpaugh.headlong.cli.Main',
                    'Implementation-Title': project.name,
                    'Implementation-Version': project.version,
-                   'Build-Time': getDateTime()
+                   'Build-Date': todayUTC()
     }
     archiveName(project.name + '-' + project.version + '.jar') // deprecated
 //    archiveFileName(project.name + '-' + project.version + '-interface.jar')

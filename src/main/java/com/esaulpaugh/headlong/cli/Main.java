@@ -311,23 +311,17 @@ public class Main {
     static {
         try {
             final Enumeration<URL> urls = Main.class.getClassLoader().getResources(JarFile.MANIFEST_NAME);
-            String buildTime = null;
+            String buildDate = null;
             while (urls.hasMoreElements()) {
                 final Attributes attrs = new Manifest(urls.nextElement().openStream()).getMainAttributes();
                 if ("headlong-cli".equals(attrs.getValue("Implementation-Title"))) {
-                    if (buildTime != null) {
+                    if (buildDate != null) {
                         throw new Error("multiple matching manifests");
                     }
-                    buildTime = attrs.getValue("Build-Time");
+                    buildDate = attrs.getValue("Build-Date");
                 }
             }
-            COMPILE_DATE = buildTime == null
-                    ? null
-                    : new SimpleDateFormat("MMMMM d yyyy")
-                    .format(
-                            new SimpleDateFormat("yyyy-MM-dd")
-                                    .parse(buildTime.substring(0, buildTime.indexOf('T')))
-                    );
+            COMPILE_DATE = buildDate;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
