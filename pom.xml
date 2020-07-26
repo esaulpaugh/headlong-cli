@@ -70,7 +70,7 @@
                         <manifestEntries>
                             <Implementation-Title>${project.artifactId}</Implementation-Title>
                             <Implementation-Version>${project.version}</Implementation-Version>
-                            <Created-By/>
+                            <Created-By>${project.groupId}</Created-By>
                             <Build-Tool>${maven.build.version}</Build-Tool>
                             <Main-Class>com.esaulpaugh.headlong.cli.Main</Main-Class>
                             <Build-Time>${maven.build.timestamp}</Build-Time>

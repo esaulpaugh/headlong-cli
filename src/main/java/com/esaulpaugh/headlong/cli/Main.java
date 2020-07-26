@@ -28,11 +28,13 @@ import com.esaulpaugh.headlong.rlp.util.NotationParser;
 import com.esaulpaugh.headlong.util.Strings;
 import com.esaulpaugh.headlong.util.SuperSerial;
 
-import java.io.InputStream;
 import java.math.BigInteger;
+import java.net.URL;
 import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 import java.util.stream.Collectors;
@@ -132,18 +134,23 @@ public class Main {
 
     public static String getBuildDate() {
         try {
-            String timestamp = new Manifest(
-                    Main.class.getClassLoader()
-                            .getResources(JarFile.MANIFEST_NAME)
-                            .nextElement()
-                            .openStream()
-                ).getMainAttributes()
-                    .getValue("Build-Time");
-            return new SimpleDateFormat("MMMMM d yyyy")
-                    .format(
-                            new SimpleDateFormat("yyyy-MM-dd")
-                                    .parse(timestamp.substring(0, timestamp.indexOf('T')))
-                    );
+            Enumeration<URL> urls = Main.class.getClassLoader()
+                    .getResources(JarFile.MANIFEST_NAME);
+            while (urls.hasMoreElements()) {
+                Attributes attrs = new Manifest(
+                        urls.nextElement()
+                        .openStream()
+                ).getMainAttributes();
+                if("headlong-cli".equals(attrs.getValue("Implementation-Title"))
+                        && "com.esaulpaugh".equals(attrs.getValue("Created-By"))) {
+                    String timestamp = attrs.getValue("Build-Time");
+                    return new SimpleDateFormat("MMMMM d yyyy")
+                            .format(
+                                    new SimpleDateFormat("yyyy-MM-dd")
+                                            .parse(timestamp.substring(0, timestamp.indexOf('T')))
+                            );
+                }
+            }
         } catch (Throwable t) {
             // do nothing
         }
