@@ -44,7 +44,7 @@ import static com.esaulpaugh.headlong.cli.Argument.OPTION;
 
 public class Main {
 
-    private static final String COMPILE_DATE;
+    private static final String VERSION_STRING;
 
     private static final String HELP_STRING = "primary command format:\n" +
             "-[m/r][e/d][f][p][c]\n" +
@@ -89,7 +89,7 @@ public class Main {
         final String command = args[OPTION.ordinal()];
         switch (validateCommand(command)) {
         case "-help": return HELP_STRING;
-        case "-version": return versionString();
+        case "-version": return VERSION_STRING;
         case "-e": return encodeABI(args, false, false);
         case "-ef": return encodeABI(args, false, true);
         case "-ep": return encodeABIPacked(args, false);
@@ -127,11 +127,6 @@ public class Main {
             return command;
         }
         throw new IllegalArgumentException("commands must start with a hyphen: -");
-    }
-
-    private static String versionString() {
-        final Package enclosingPackage = Main.class.getPackage();
-        return enclosingPackage.getImplementationTitle() + " version " + enclosingPackage.getImplementationVersion() + " compiled on " + COMPILE_DATE;
     }
 
     private static String encodeABIPacked(String[] args, boolean machine) {
@@ -320,7 +315,12 @@ public class Main {
                     buildDate = attrs.getValue("Build-Date");
                 }
             }
-            COMPILE_DATE = buildDate;
+            final Package pkg = Main.class.getPackage();
+            VERSION_STRING = pkg.getImplementationTitle()
+                    + " version "
+                    + pkg.getImplementationVersion()
+                    + " compiled on "
+                    + buildDate;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
