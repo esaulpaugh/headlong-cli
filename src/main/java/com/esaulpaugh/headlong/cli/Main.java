@@ -132,15 +132,18 @@ public class Main {
 
     public static String getBuildDate() {
         try {
-            InputStream in = Main.class.getClassLoader().getResources(JarFile.MANIFEST_NAME).nextElement().openStream();
-            if (in != null) {
-                String timestamp = new Manifest(in).getMainAttributes().getValue("Build-Time");
-                return new SimpleDateFormat("MMMMM d yyyy")
-                        .format(
-                                new SimpleDateFormat("yyyy-MM-dd")
-                                        .parse(timestamp.substring(0, timestamp.indexOf('T')))
-                        );
-            }
+            String timestamp = new Manifest(
+                    Main.class.getClassLoader()
+                            .getResources(JarFile.MANIFEST_NAME)
+                            .nextElement()
+                            .openStream()
+                ).getMainAttributes()
+                    .getValue("Build-Time");
+            return new SimpleDateFormat("MMMMM d yyyy")
+                    .format(
+                            new SimpleDateFormat("yyyy-MM-dd")
+                                    .parse(timestamp.substring(0, timestamp.indexOf('T')))
+                    );
         } catch (Throwable t) {
             // do nothing
         }
