@@ -47,7 +47,7 @@ public class Main {
     private static final String VERSION_STRING;
 
     private static final String HELP_STRING = "primary command format:\n" +
-            "-[m/r][e/d][f][p][c]\n" +
+            "-[m/r][e/d][f/p][c]\n" +
             "\tm is for machine interface (ABI only)\n" +
             "\tr is for RLP\n" +
             "\te is for encode\n" +
