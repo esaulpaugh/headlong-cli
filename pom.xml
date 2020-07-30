@@ -26,7 +26,7 @@
         <dependency>
             <groupId>com.esaulpaugh</groupId>
             <artifactId>headlong</artifactId>
-            <version>3.6.0</version>
+            <version>3.6.1</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
