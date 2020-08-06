@@ -30,7 +30,7 @@ task fatJar(type: Jar) {
         attributes 'Main-Class': 'com.esaulpaugh.headlong.cli.Main',
                    'Implementation-Title': project.name,
                    'Implementation-Version': project.version,
-                   'Build-Date': todayUTC()
+                   'Build-Date': todayUTC() // TODO headlong version string
     }
     archiveName(project.name + '-' + project.version + '.jar') // deprecated
 //    archiveFileName(project.name + '-' + project.version + '.jar')
@@ -42,9 +42,9 @@ task fatJar(type: Jar) {
 
 dependencies {
 
-//    implementation files('libs/headlong-3.4.0.jar')
+//    implementation files('libs/headlong-3.7.0.jar')
 
-    implementation 'com.esaulpaugh:headlong:3.6.1'
+    implementation 'com.esaulpaugh:headlong:3.7.0'
     implementation 'com.google.code.gson:gson:2.8.6'
 //    testRuntimeOnly 'org.bouncycastle:bcprov-jdk15on:1.65'
 
