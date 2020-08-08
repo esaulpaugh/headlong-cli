@@ -42,9 +42,9 @@ task fatJar(type: Jar) {
 
 dependencies {
 
-//    implementation files('libs/headlong-3.7.0.jar')
+//    implementation files('libs/headlong-3.7.1.jar')
 
-    implementation 'com.esaulpaugh:headlong:3.7.0'
+    implementation 'com.esaulpaugh:headlong:3.7.1'
     implementation 'com.google.code.gson:gson:2.8.6'
 //    testRuntimeOnly 'org.bouncycastle:bcprov-jdk15on:1.65'
 
