@@ -20,13 +20,14 @@
         <argLine>-Dfile.encoding=UTF-8</argLine>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.build.timestamp.format>MMMMM d yyyy</maven.build.timestamp.format>
+        <headlong.version>3.7.1</headlong.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.esaulpaugh</groupId>
             <artifactId>headlong</artifactId>
-            <version>3.7.1</version>
+            <version>${headlong.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -75,6 +76,7 @@
                             <!--suppress UnresolvedMavenProperty -->
                             <Build-Tool>${maven.build.version}</Build-Tool>
                             <Main-Class>com.esaulpaugh.headlong.cli.Main</Main-Class>
+                            <headlong-version>${headlong.version}</headlong-version>
                             <Build-Date>${maven.build.timestamp}</Build-Date>
                         </manifestEntries>
                         <manifest>

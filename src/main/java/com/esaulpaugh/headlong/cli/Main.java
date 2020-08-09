@@ -305,6 +305,7 @@ public class Main {
     static {
         try {
             final Enumeration<URL> urls = Main.class.getClassLoader().getResources(JarFile.MANIFEST_NAME);
+            String headlongVersion = null;
             String buildDate = null;
             while (urls.hasMoreElements()) {
                 final Attributes attrs = new Manifest(urls.nextElement().openStream()).getMainAttributes();
@@ -312,6 +313,7 @@ public class Main {
                     if (buildDate != null) {
                         throw new Error("multiple matching manifests");
                     }
+                    headlongVersion = attrs.getValue("headlong-version");
                     buildDate = attrs.getValue("Build-Date");
                 }
             }
@@ -319,8 +321,9 @@ public class Main {
             VERSION_STRING = pkg.getImplementationTitle()
                     + " version "
                     + pkg.getImplementationVersion()
-                    + " compiled on "
-                    + buildDate;
+                    + "\ncompiled "
+                    + buildDate
+                    + "\nusing headlong v" + headlongVersion;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
