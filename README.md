@@ -1,5 +1,5 @@
 # headlong-cli
-Command line interface for https://github.com/esaulpaugh/headlong ABI (v2) and RLP codecs. Depends on headlong v3.7.0. Licensed under Apache 2.0 terms.
+Command line interface for https://github.com/esaulpaugh/headlong ABI (v2) and RLP codecs. Depends on headlong v3.7.2. Licensed under Apache 2.0 terms.
 
 ## Build
 
