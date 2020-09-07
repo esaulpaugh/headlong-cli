@@ -17,6 +17,8 @@ package com.esaulpaugh.headlong.cli;
 
 import com.esaulpaugh.headlong.abi.ABIJSON;
 import com.esaulpaugh.headlong.abi.ABIObject;
+import com.esaulpaugh.headlong.abi.ABIType;
+import com.esaulpaugh.headlong.abi.Event;
 import com.esaulpaugh.headlong.abi.Function;
 import com.esaulpaugh.headlong.abi.PackedDecoder;
 import com.esaulpaugh.headlong.abi.Tuple;
@@ -31,6 +33,7 @@ import com.esaulpaugh.headlong.util.SuperSerial;
 import java.math.BigInteger;
 import java.net.URL;
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.jar.Attributes;
@@ -301,10 +304,32 @@ public class Main {
     private static String describe(ABIObject o) {
         if(o instanceof Function) {
             Function foo = (Function) o;
-            return foo.getType().name() + " " + foo.getCanonicalSignature() + " returns: " + foo.getOutputTypes().getCanonicalType() + " stateMutability: " + foo.getStateMutability();
+            return foo.getType().name() + " " + foo.getCanonicalSignature() + getParamNames(foo.getParamTypes()) + " returns: " + foo.getOutputTypes().getCanonicalType() + " stateMutability: " + foo.getStateMutability();
         } else {
-            return o.getCanonicalSignature() + " event";
+            Event e = (Event) o;
+            return "event " + e.getCanonicalSignature() + getParamNames(e.getParams()) + " indexed:" + Arrays.toString(e.getIndexManifest());
         }
+    }
+
+    private static String getParamNames(TupleType params) {
+        boolean hasName = false;
+        for (ABIType<?> type : params) {
+            hasName |= type.getName() != null;
+        }
+        if(!hasName) return " ";
+        StringBuilder sb = new StringBuilder(" names:(");
+        for (ABIType<?> type : params) {
+            sb.append(type.getName())
+                    .append(',');
+        }
+        return completeNameString(sb);
+    }
+
+    static String completeNameString(StringBuilder sb) {
+        final int len = sb.length();
+        return len != 1
+                ? sb.replace(len - 1, len, ")").toString() // replace trailing comma
+                : " ";
     }
 
     static {
