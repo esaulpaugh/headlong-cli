@@ -116,8 +116,7 @@ public class Main {
         case "-hexutfc": return hexToUtf8(args, true);
         case "-format": return format(args);
         case "-formatf": return formatFunctionCall(args);
-        case "-parse": return parse(args);
-        case "-parseobj": return parseObject(args);
+        case "-parseabijson": return parseAbiJson(args);
         default: throw new IllegalArgumentException("unrecognized command: " + command);
         }
     }
@@ -285,15 +284,18 @@ public class Main {
         return Function.formatCall(Strings.decode(args[DATA_FIRST.ordinal()]));
     }
 
-    private static String parse(String[] args) {
-        return ABIJSON.parseObjects(args[DATA_FIRST.ordinal()], true, true, Function.newDefaultDigest(), ABIObject.class)
-                .stream()
-                .map(Main::describe)
-                .collect(Collectors.joining("\n"));
-    }
-
-    private static String parseObject(String[] args) {
-        return describe(ABIJSON.parseABIObject(args[DATA_FIRST.ordinal()]));
+    private static String parseAbiJson(String[] args) {
+        final String json = args[DATA_FIRST.ordinal()];
+        if(json.startsWith("[")) {
+            return ABIJSON.parseObjects(json, true, true, Function.newDefaultDigest(), ABIObject.class)
+                    .stream()
+                    .map(Main::describe)
+                    .collect(Collectors.joining("\n"));
+        } else if(json.startsWith("{")) {
+            return describe(ABIJSON.parseABIObject(json));
+        } else {
+            throw new IllegalArgumentException("json must start with '[' or '{'");
+        }
     }
 
     private static String describe(ABIObject o) {
