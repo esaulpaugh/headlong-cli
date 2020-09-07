@@ -299,9 +299,12 @@ public class Main {
     }
 
     private static String describe(ABIObject o) {
-        return o instanceof Function
-                ? o.getCanonicalSignature() + " returns " + ((Function) o).getOutputTypes().getCanonicalType()
-                : o.getCanonicalSignature() + " event";
+        if(o instanceof Function) {
+            Function foo = (Function) o;
+            return foo.getType().name() + " " + foo.getCanonicalSignature() + " returns: " + foo.getOutputTypes().getCanonicalType() + " stateMutability: " + foo.getStateMutability();
+        } else {
+            return o.getCanonicalSignature() + " event";
+        }
     }
 
     static {
