@@ -11,7 +11,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 compileJava {
-//    options.compilerArgs.addAll(['--release', '8'])
+    options.compilerArgs.addAll(['--release', '8'])
 }
 
 repositories {
@@ -20,7 +20,7 @@ repositories {
 }
 
 static def headlongVersion() {
-    return '3.7.2'
+    return '3.8.0'
 }
 
 static def todayUTC() {
