@@ -334,17 +334,17 @@ public class Main {
 
     static {
         try {
-            final Enumeration<URL> urls = Main.class.getClassLoader().getResources(JarFile.MANIFEST_NAME);
-            String headlongVersion = null;
             String buildDate = null;
+            String headlongVersion = null;
+            final Enumeration<URL> urls = Main.class.getClassLoader().getResources(JarFile.MANIFEST_NAME);
             while (urls.hasMoreElements()) {
                 final Attributes attrs = new Manifest(urls.nextElement().openStream()).getMainAttributes();
                 if ("headlong-cli".equals(attrs.getValue("Implementation-Title"))) {
                     if (buildDate != null) {
                         throw new Error("multiple matching manifests");
                     }
-                    headlongVersion = attrs.getValue("headlong-version");
                     buildDate = attrs.getValue("Build-Date");
+                    headlongVersion = attrs.getValue("headlong-version");
                 }
             }
             final Package pkg = Main.class.getPackage();
