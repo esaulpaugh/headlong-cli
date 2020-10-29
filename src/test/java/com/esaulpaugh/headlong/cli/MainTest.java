@@ -15,8 +15,12 @@
 */
 package com.esaulpaugh.headlong.cli;
 
+import com.esaulpaugh.headlong.abi.ABIType;
+import com.esaulpaugh.headlong.abi.ArrayType;
+import com.esaulpaugh.headlong.abi.ByteType;
 import com.esaulpaugh.headlong.abi.Tuple;
 import com.esaulpaugh.headlong.abi.TupleType;
+import com.esaulpaugh.headlong.abi.TypeFactory;
 import com.esaulpaugh.headlong.util.Strings;
 import com.esaulpaugh.headlong.util.SuperSerial;
 import org.junit.jupiter.api.Test;
@@ -219,6 +223,14 @@ public class MainTest {
 
         assertEquals("wort wort wort\n%Hl\n-+", Main.eval(new String[] { "-hexutf", "776f727420776f727420776f7274", "25486c0a2d2b" }));
         assertEquals("wort wort wort %Hl\n-+", Main.eval(new String[] { "-hexutfc", "776f727420776f727420776f7274", "25486c0a2d2b" }));
+    }
+
+    @Test
+    public void testTypeFactory() {
+        final ABIType<?> type = TypeFactory.create("string[]");
+        assertEquals(ABIType.TYPE_CODE_ARRAY, type.typeCode());
+        final ArrayType<ArrayType<ByteType, String>, String[]> arrayType = (ArrayType<ArrayType<ByteType, String>, String[]>) TypeFactory.create("string[]", String[].class);
+        assertEquals(ArrayType.DYNAMIC_LENGTH, arrayType.getLength());
     }
 
     @FunctionalInterface

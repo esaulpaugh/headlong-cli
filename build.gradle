@@ -24,7 +24,7 @@ repositories {
 }
 
 static def headlongVersion() {
-    return '3.8.3'
+    return '4.0.0'
 }
 
 static def todayUTC() {
