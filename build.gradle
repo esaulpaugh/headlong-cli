@@ -7,7 +7,7 @@ plugins {
 }
 
 group 'com.esaulpaugh'
-version '0.6-SNAPSHOT'
+version '0.7-SNAPSHOT'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
