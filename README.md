@@ -17,7 +17,7 @@ Result:
 
 `00000000000000000000000000000000000000000000005d92d2a10d4e107b1d`
 
-`java -jar headlong-cli-0.6-SNAPSHOT.jar -e "(function[2][][],bytes24,string[1][1],address[],uint72,(uint8),(int16)[2][][1],(int32)[],uint40,(int48)[],(uint),bool,string,bool[2],int24[],uint40[1])" "( [ [ [ '191c766e29a65787b7155dd05f41292438467db93420cade', '191c766e29a65787b7155dd05f41292438467db93420cade' ] ] ], '191c766e29a65787b7155dd05f41292438467db93420cade', [ [ '7a' ] ], [ 'ff00ee01dd02cc03cafebabe9906880777086609' ], 'fdfffffffffffffe04', [ '07' ], [ [ [ [ '09' ], [ 'fffffff5' ] ] ] ], [ [ '11' ], [ 'ffffffed' ] ], 'fca527923b', [ [ '7e' ], [ 'ffffffffffffff82' ] ], [ '0a' ], '01', '6661726f7574', [ '01', '01' ], [ '03', '14', 'fffffffa' ], [ 'fffffffe' ])"`
+`java -jar headlong-cli-0.6-SNAPSHOT.jar -e "(function[2][][],bytes24,string[1][1],address[],uint72,(uint8),(int16)[2][][1],(int32)[],uint40,(int48)[],(uint),bool,string,bool[2],int24[],uint40[1])" "( [ [ [ '191c766e29a65787b7155dd05f41292438467db93420cade', '191c766e29a65787b7155dd05f41292438467db93420cade' ] ] ], '191c766e29a65787b7155dd05f41292438467db93420cade', [ [ '7a' ] ], [ 'ff00ee01dd02cc03cafebabe9906880777086609' ], 'fdfffffffffffffe04', [ '07' ], [ [ [ [ '09' ], [ 'fffffff5' ] ] ] ], [ [ '11' ], [ 'ffffffed' ] ], 'fca527923b', [ [ '7e' ], [ 'ffffffffffffff82' ] ], [ '0a' ], '01', '6661726f7574', [ '01', '01' ], [ '03', '14', 'fffffa' ], [ 'fffffffe' ])"`
 
 Result:
 
@@ -45,7 +45,7 @@ Gives a result in RLP Object Notation:
   '01',
   '6661726f7574',
   [ '01', '01' ],
-  [ '03', '14', 'fffffffa' ],
+  [ '03', '14', 'fffffa' ],
   [ 'fffffffe' ]
 )
 ```
@@ -82,10 +82,10 @@ Result: `('48656c6c6f2c20776f726c6421')`
 
 Machine interface encode `-me` expects hex-encoded RLP data:
 
-`java -jar headlong-cli-0.6-SNAPSHOT.jar -me "(function[2][][],bytes24,string[1][1],address[],uint72,(uint8),(int16)[2][][1],(int32)[],uint40,(int48)[],(uint),bool,string,bool[2],int24[],uint40[1])" "f4f3f298191c766e29a65787b7155dd05f41292438467db93420cade98191c766e29a65787b7155dd05f41292438467db93420cade98191c766e29a65787b7155dd05f41292438467db93420cadec2c17ad594ff00ee01dd02cc03cafebabe990688077708660989fdfffffffffffffe04c107cac9c8c109c584fffffff5c8c111c584ffffffed85fca527923bccc17ec988ffffffffffffff82c10a01866661726f7574c20101c7031484fffffffac584fffffffe"`
+`java -jar headlong-cli-0.6-SNAPSHOT.jar -me "(function[2][][],bytes24,string[1][1],address[],uint72,(uint8),(int16)[2][][1],(int32)[],uint40,(int48)[],(uint),bool,string,bool[2],int24[],uint40[1])" "f4f3f298191c766e29a65787b7155dd05f41292438467db93420cade98191c766e29a65787b7155dd05f41292438467db93420cade98191c766e29a65787b7155dd05f41292438467db93420cadec2c17ad594ff00ee01dd02cc03cafebabe990688077708660989fdfffffffffffffe04c107c8c7c6c109c382fff5c8c111c584ffffffed85fca527923bcac17ec786ffffffffff82c10a01866661726f7574c20101c6031483fffffac584fffffffe"`
 
 #### Decode
 
 Machine interface decode `-md` results in hex-encoded RLP data:
 
-`f4f3f298191c766e29a65787b7155dd05f41292438467db93420cade98191c766e29a65787b7155dd05f41292438467db93420cade98191c766e29a65787b7155dd05f41292438467db93420cadec2c17ad594ff00ee01dd02cc03cafebabe990688077708660989fdfffffffffffffe04c107c8c7c6c109c382fff5c8c111c584ffffffed85fca527923bcac17ec786ffffffffff82c10a01866661726f7574c20101c7031484fffffffac584fffffffe`
+`f4f3f298191c766e29a65787b7155dd05f41292438467db93420cade98191c766e29a65787b7155dd05f41292438467db93420cade98191c766e29a65787b7155dd05f41292438467db93420cadec2c17ad594ff00ee01dd02cc03cafebabe990688077708660989fdfffffffffffffe04c107c8c7c6c109c382fff5c8c111c584ffffffed85fca527923bcac17ec786ffffffffff82c10a01866661726f7574c20101c6031483fffffac584fffffffe`
