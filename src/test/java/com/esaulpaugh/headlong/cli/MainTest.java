@@ -48,11 +48,11 @@ public class MainTest {
             "  '01',\n" +
             "  '6661726f7574',\n" +
             "  [ '01', '01' ],\n" +
-            "  [ '03', '14', 'fffffffa' ],\n" +
+            "  [ '03', '14', 'fffffa' ],\n" +
             "  [ 'fffffffe' ]\n" +
             ")";
 
-    static final String MACHINE_SERIALIZATION = "f4f3f298191c766e29a65787b7155dd05f41292438467db93420cade98191c766e29a65787b7155dd05f41292438467db93420cade98191c766e29a65787b7155dd05f41292438467db93420cadec2c17ad594ff00ee01dd02cc03cafebabe990688077708660989fdfffffffffffffe04c107c8c7c6c109c382fff5c8c111c584ffffffed85fca527923bcac17ec786ffffffffff82c10a01866661726f7574c20101c7031484fffffffac584fffffffe";
+    static final String MACHINE_SERIALIZATION = "f4f3f298191c766e29a65787b7155dd05f41292438467db93420cade98191c766e29a65787b7155dd05f41292438467db93420cade98191c766e29a65787b7155dd05f41292438467db93420cadec2c17ad594ff00ee01dd02cc03cafebabe990688077708660989fdfffffffffffffe04c107c8c7c6c109c382fff5c8c111c584ffffffed85fca527923bcac17ec786ffffffffff82c10a01866661726f7574c20101c6031483fffffac584fffffffe";
 
     private static final String VALUES_ABI =
                                     "0000000000000000000000000000000000000000000000000000000000000220" +
