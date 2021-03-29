@@ -24,7 +24,7 @@ repositories {
 }
 
 static def headlongVersion() {
-    return '4.5.0'
+    return '5.0.0'
 }
 
 static def todayUTC() {
@@ -56,10 +56,8 @@ dependencies {
 
     implementation 'com.esaulpaugh:headlong:' + headlongVersion()
     implementation 'com.google.code.gson:gson:2.8.6'
-//    testRuntimeOnly 'org.bouncycastle:bcprov-jdk15on:1.66'
 
     test.useJUnitPlatform()
-
     testImplementation "org.junit.jupiter:junit-jupiter-api:5.7.0"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.7.0"
 }

@@ -20,15 +20,15 @@ import com.esaulpaugh.headlong.abi.ABIObject;
 import com.esaulpaugh.headlong.abi.ABIType;
 import com.esaulpaugh.headlong.abi.Event;
 import com.esaulpaugh.headlong.abi.Function;
-import com.esaulpaugh.headlong.abi.PackedDecoder;
 import com.esaulpaugh.headlong.abi.Tuple;
 import com.esaulpaugh.headlong.abi.TupleType;
 import com.esaulpaugh.headlong.abi.util.Uint;
 import com.esaulpaugh.headlong.rlp.RLPEncoder;
 import com.esaulpaugh.headlong.rlp.util.Notation;
-import com.esaulpaugh.headlong.rlp.util.NotationParser;
+import com.esaulpaugh.headlong.util.JsonUtils;
 import com.esaulpaugh.headlong.util.Strings;
 import com.esaulpaugh.headlong.util.SuperSerial;
+import com.google.gson.JsonArray;
 
 import java.math.BigInteger;
 import java.net.URL;
@@ -141,7 +141,7 @@ public class Main {
     private static String decodeABIPacked(String[] args) {
         final TupleType tt = TupleType.parse(args[DATA_FIRST.ordinal()]);
         final byte[] packedAbi = Strings.decode(args[DATA_SECOND.ordinal()]);
-        return SuperSerial.serialize(tt, PackedDecoder.decode(tt, packedAbi), false);
+        return SuperSerial.serialize(tt, tt.decodePacked(packedAbi), false);
     }
 
     private static String encodeABI(String[] args, boolean machine, boolean function) {
@@ -150,7 +150,7 @@ public class Main {
         final ByteBuffer abi;
         if(function) {
             Function f = Function.parse(signature);
-            abi = f.encodeCall(SuperSerial.deserialize(f.getParamTypes(), values, machine));
+            abi = f.encodeCall(SuperSerial.deserialize(f.getInputs(), values, machine));
         } else {
             TupleType tt = TupleType.parse(signature);
             abi = tt.encode(SuperSerial.deserialize(tt, values, machine));
@@ -165,7 +165,7 @@ public class Main {
         final Tuple values;
         if(function) {
             Function f = Function.parse(signature);
-            tt = f.getParamTypes();
+            tt = f.getInputs();
             values = f.decodeCall(abiBytes);
         } else {
             tt = TupleType.parse(signature);
@@ -175,7 +175,7 @@ public class Main {
     }
 
     private static String encodeRLP(String[] args) {
-        final List<Object> objects = NotationParser.parse(args[DATA_FIRST.ordinal()]);
+        final List<Object> objects = Notation.parse(args[DATA_FIRST.ordinal()]);
         return Strings.encode(RLPEncoder.encodeSequentially(objects));
     }
 
@@ -290,12 +290,12 @@ public class Main {
     private static String parseAbiJson(String[] args) {
         final String json = args[DATA_FIRST.ordinal()];
         if(json.startsWith("[")) {
-            return ABIJSON.parseObjects(json, true, true, Function.newDefaultDigest(), ABIObject.class)
+            return ABIJSON.parseElements(json)
                     .stream()
                     .map(Main::describe)
                     .collect(Collectors.joining("\n"));
         } else if(json.startsWith("{")) {
-            return describe(ABIJSON.parseABIObject(json));
+            return describe(ABIJSON.parseABIObject(JsonUtils.parseObject(json)));
         } else {
             throw new IllegalArgumentException("json must start with '[' or '{'");
         }
@@ -304,10 +304,10 @@ public class Main {
     private static String describe(ABIObject o) {
         if(o instanceof Function) {
             Function foo = (Function) o;
-            return foo.getType().name() + " " + foo.getCanonicalSignature() + getParamNames(foo.getParamTypes()) + " returns: " + foo.getOutputTypes().getCanonicalType() + " stateMutability: " + foo.getStateMutability();
+            return foo.getType().name() + " " + foo.getCanonicalSignature() + getParamNames(foo.getInputs()) + " returns: " + foo.getOutputs().getCanonicalType() + " stateMutability: " + foo.getStateMutability();
         } else {
             Event e = (Event) o;
-            return "event " + e.getCanonicalSignature() + getParamNames(e.getParams()) + " indexed:" + Arrays.toString(e.getIndexManifest());
+            return "event " + e.getCanonicalSignature() + getParamNames(e.getInputs()) + " indexed:" + Arrays.toString(e.getIndexManifest());
         }
     }
 
