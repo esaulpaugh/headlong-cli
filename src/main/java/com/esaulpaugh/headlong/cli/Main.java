@@ -28,7 +28,6 @@ import com.esaulpaugh.headlong.rlp.util.Notation;
 import com.esaulpaugh.headlong.util.JsonUtils;
 import com.esaulpaugh.headlong.util.Strings;
 import com.esaulpaugh.headlong.util.SuperSerial;
-import com.google.gson.JsonArray;
 
 import java.math.BigInteger;
 import java.net.URL;
