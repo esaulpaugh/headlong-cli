@@ -60,6 +60,7 @@ public class Main {
             "only [e/d] is mandatory\n" +
             "\n" +
             "secondary commands:\n" +
+            "-efform [fn signature] [fn args rlp object notation]\n" +
             "-hexdec [bitlen] [signed] [args...]\n" +
             "-hexdecc [bitlen] [signed] [args...]\n" +
             "-dechex [bitlen] [args...]\n" +
@@ -94,6 +95,7 @@ public class Main {
         case "-version": return VERSION_STRING;
         case "-e": return encodeABI(args, false, false);
         case "-ef": return encodeABI(args, false, true);
+        case "-efform": return Function.formatCall(Strings.decode(encodeABI(args, false, true)));
         case "-ep": return encodeABIPacked(args, false);
         case "-mep": return encodeABIPacked(args, true);
         case "-d": return decodeABI(args, false, false, false);
