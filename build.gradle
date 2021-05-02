@@ -23,9 +23,8 @@ repositories {
 //    mavenLocal()
 }
 
-static def headlongVersion() {
-    return '5.1.0'
-}
+def headlongVersion = '5.1.0'
+def junitVersion = '5.7.1'
 
 static def todayUTC() {
     SimpleDateFormat sdf = new SimpleDateFormat("MMMMM d yyyy")
@@ -38,7 +37,7 @@ task fatJar(type: Jar) {
         attributes 'Main-Class': 'com.esaulpaugh.headlong.cli.Main',
                    'Implementation-Title': project.name,
                    'Implementation-Version': project.version,
-                   'headlong-version': headlongVersion(),
+                   'headlong-version': headlongVersion,
                    'Build-Date': todayUTC()
 
     }
@@ -54,10 +53,10 @@ dependencies {
 
 //    implementation files('libs/headlong-' + headlongVersion() + '.jar')
 
-    implementation 'com.esaulpaugh:headlong:' + headlongVersion()
+    implementation 'com.esaulpaugh:headlong:' + headlongVersion
     implementation 'com.google.code.gson:gson:2.8.6'
 
     test.useJUnitPlatform()
-    testImplementation "org.junit.jupiter:junit-jupiter-api:5.7.0"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.7.0"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:" + junitVersion
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:" + junitVersion
 }
