@@ -6,7 +6,7 @@
 
     <groupId>com.esaulpaugh</groupId>
     <artifactId>headlong-cli</artifactId>
-    <version>0.7-SNAPSHOT</version>
+    <version>0.8-SNAPSHOT</version>
 
     <name>headlong-cli</name>
     <url>https://github.com/esaulpaugh/headlong</url>
