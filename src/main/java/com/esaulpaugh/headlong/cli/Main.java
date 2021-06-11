@@ -83,7 +83,7 @@ public class Main {
             System.out.println(eval(args));
         } catch (IllegalArgumentException e) {
             System.err.println("exception: " + e.getClass().getSimpleName() + "\nmessage: " + e.getMessage() + "\ncause: " + e.getCause());
-        } catch (Throwable t) {
+        } catch (Exception t) {
             t.printStackTrace();
         }
     }
@@ -281,7 +281,7 @@ public class Main {
     }
 
     private static String format(String[] args) {
-        return TupleType.format(Strings.decode(args[DATA_FIRST.ordinal()]));
+        return ABIType.format(Strings.decode(args[DATA_FIRST.ordinal()]));
     }
 
     private static String formatFunctionCall(String[] args) {
@@ -342,7 +342,7 @@ public class Main {
                 final Attributes attrs = new Manifest(urls.nextElement().openStream()).getMainAttributes();
                 if ("headlong-cli".equals(attrs.getValue("Implementation-Title"))) {
                     if (buildDate != null) {
-                        throw new Error("multiple matching manifests");
+                        throw new RuntimeException("multiple matching manifests");
                     }
                     buildDate = attrs.getValue("Build-Date");
                     headlongVersion = attrs.getValue("headlong-version");
