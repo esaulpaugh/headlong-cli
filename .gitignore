@@ -9,6 +9,5 @@
 .classpath
 .navigation
 *.iml
-*.jar
 *.log
 gradle.properties
