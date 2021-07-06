@@ -23,7 +23,7 @@ repositories {
 //    mavenLocal()
 }
 
-def headlongVersion = '5.2.0'
+def headlongVersion = '5.3.0'
 def junitVersion = '5.7.2'
 
 static def todayUTC() {
@@ -51,7 +51,7 @@ task fatJar(type: Jar) {
 
 dependencies {
 
-//    implementation files('libs/headlong-' + headlongVersion() + '.jar')
+//    implementation files('libs/headlong-' + headlongVersion + '.jar')
 
     implementation 'com.esaulpaugh:headlong:' + headlongVersion
     implementation 'com.google.code.gson:gson:2.8.7'

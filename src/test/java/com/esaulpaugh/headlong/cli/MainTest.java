@@ -229,7 +229,7 @@ public class MainTest {
     public void testTypeFactory() {
         final ABIType<?> type = TypeFactory.create("string[]");
         assertEquals(ABIType.TYPE_CODE_ARRAY, type.typeCode());
-        final ArrayType<ArrayType<ByteType, String>, String[]> arrayType = (ArrayType<ArrayType<ByteType, String>, String[]>) TypeFactory.create("string[]", String[].class);
+        final ArrayType<ArrayType<ByteType, String>, String[]> arrayType = TypeFactory.create("string[]");
         assertEquals(ArrayType.DYNAMIC_LENGTH, arrayType.getLength());
     }
 
