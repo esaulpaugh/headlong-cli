@@ -78,7 +78,7 @@ public class Main {
         evalPrint(args0);
     }
 
-    static void evalPrint(String[] args) {
+    private static void evalPrint(String[] args) {
         try {
             System.out.println(eval(args));
         } catch (IllegalArgumentException e) {
@@ -326,7 +326,7 @@ public class Main {
         return completeNameString(sb);
     }
 
-    static String completeNameString(StringBuilder sb) {
+    private static String completeNameString(StringBuilder sb) {
         final int len = sb.length();
         return len != 1
                 ? sb.replace(len - 1, len, ")").toString() // replace trailing comma
