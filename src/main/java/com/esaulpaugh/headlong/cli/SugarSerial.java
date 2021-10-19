@@ -58,19 +58,20 @@ public class SugarSerial {
 
     private static byte[] serializeBigInteger(BigInteger val) {
         if(val.signum() > 0) {
-            return Integers.toBytesUnsigned(val);
+            final byte[] bytes = Integers.toBytesUnsigned(val);
+            return signExtend(bytes, (byte) 0x00);
         }
         if(val.signum() != 0) {
             final byte[] bytes = val.toByteArray();
-            return signExtendNegative(bytes);
+            return signExtend(bytes, (byte) 0xff);
         }
         return EMPTY_BYTE_ARRAY;
     }
 
-    private static byte[] signExtendNegative(final byte[] negative) {
+    private static byte[] signExtend(final byte[] bytes, byte signByte) {
         final byte[] extended = new byte[UnitType.UNIT_LENGTH_BYTES];
-        Arrays.fill(extended, (byte) 0xff);
-        System.arraycopy(negative, 0, extended, UnitType.UNIT_LENGTH_BYTES - negative.length, negative.length);
+        Arrays.fill(extended, signByte);
+        System.arraycopy(bytes, 0, extended, UnitType.UNIT_LENGTH_BYTES - bytes.length, bytes.length);
         return extended;
     }
 }
