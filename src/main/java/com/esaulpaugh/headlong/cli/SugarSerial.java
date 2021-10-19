@@ -16,7 +16,7 @@ public class SugarSerial {
 
     private static final char SINGLE_QUOTE = '\'';
 
-    static String desugar(String values) {
+    static String desugar(String values, boolean extend) {
         final StringBuilder sb = new StringBuilder();
         final int end = values.length();
         int i = 0;
@@ -34,7 +34,7 @@ public class SugarSerial {
             switch (values.charAt(codeIdx)) {
             case 'd': {
                 BigInteger bi = new BigInteger(val, 10);
-                byte[] bytes = serializeBigInteger(bi);
+                byte[] bytes = serializeBigInteger(bi, extend);
                 String hex = Strings.encode(bytes);
                 sb.append(hex);
                 break;
@@ -57,14 +57,14 @@ public class SugarSerial {
         return sb.append(')').toString();
     }
 
-    private static byte[] serializeBigInteger(BigInteger val) {
+    private static byte[] serializeBigInteger(BigInteger val, boolean extend) {
         if(val.signum() > 0) {
             final byte[] bytes = Integers.toBytesUnsigned(val);
-            return signExtend(bytes, (byte) 0x00);
+            return extend ? signExtend(bytes, (byte) 0x00) : bytes;
         }
         if(val.signum() != 0) {
             final byte[] bytes = val.toByteArray();
-            return signExtend(bytes, (byte) 0xff);
+            return extend ? signExtend(bytes, (byte) 0xff) : bytes;
         }
         return EMPTY_BYTE_ARRAY;
     }
