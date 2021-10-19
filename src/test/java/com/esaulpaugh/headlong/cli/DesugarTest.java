@@ -8,7 +8,7 @@ public class DesugarTest {
 
     @Test
     public void testVector() {
-        String[] command = new String[] { "-ef", "sam(bytes,bool,uint256[])", "(u'dave', '01', [ d'1', d'2', d'3' ])" };
+        String[] command = new String[] { "-ef", "sam(bytes,bool,uint256[])", "(u'dave', b'true', [ d'1', d'2', d'3' ])" };
         String out = Main.eval(command);
         assertEquals(
                 "a5643bf2" +

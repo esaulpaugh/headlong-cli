@@ -42,6 +42,11 @@ public class SugarSerial {
                 String hex = Strings.encode(bytes);
                 sb.append(hex);
                 break;
+            case 'b':
+                if(val.equals("true")) sb.append("01");
+                else if(val.equals("false")) sb.append("00");
+                else throw new IllegalArgumentException("unexpected boolean syntax");
+                break;
             default:
                 sb.append(val);
             }
