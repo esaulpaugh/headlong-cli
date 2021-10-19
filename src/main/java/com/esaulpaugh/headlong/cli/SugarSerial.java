@@ -14,22 +14,25 @@ public class SugarSerial {
 
     private SugarSerial() {}
 
+    private static final char SINGLE_QUOTE = '\'';
+
     static String desugar(String values) {
         final StringBuilder sb = new StringBuilder();
         final int end = values.length();
         int i = 0;
         int prevIdx = 0;
         while(i < end) {
-            final int q = values.indexOf('\'', i);
+            final int q = values.indexOf(SINGLE_QUOTE, i);
             if (q <= 0) {
                 break;
             }
-            sb.append(values, prevIdx, q - 1).append('\'');
-            final int valEnd = values.indexOf('\'', q + 1);
+            final int codeIdx = q - 1;
+            final int valIdx = q + 1;
+            sb.append(values, prevIdx, codeIdx).append(SINGLE_QUOTE);
+            final int valEnd = values.indexOf(SINGLE_QUOTE, valIdx);
             prevIdx = valEnd + 1;
-            final String val = values.substring(q + 1, valEnd);
-            char prev = values.charAt(q - 1);
-            switch (prev) {
+            final String val = values.substring(valIdx, valEnd);
+            switch (values.charAt(codeIdx)) {
             case 'd': {
                 BigInteger bi = new BigInteger(val, 10);
                 byte[] bytes = serializeBigInteger(bi);
@@ -50,7 +53,7 @@ public class SugarSerial {
             default:
                 sb.append(val);
             }
-            sb.append('\'');
+            sb.append(SINGLE_QUOTE);
             i = prevIdx;
         }
         return sb.append(')').toString();
