@@ -1,7 +1,5 @@
 package com.esaulpaugh.headlong.cli;
 
-import com.esaulpaugh.headlong.abi.Function;
-import com.esaulpaugh.headlong.util.FastHex;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
