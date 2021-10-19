@@ -22,10 +22,12 @@ import com.esaulpaugh.headlong.abi.Event;
 import com.esaulpaugh.headlong.abi.Function;
 import com.esaulpaugh.headlong.abi.Tuple;
 import com.esaulpaugh.headlong.abi.TupleType;
+import com.esaulpaugh.headlong.abi.UnitType;
 import com.esaulpaugh.headlong.abi.util.Uint;
 import com.esaulpaugh.headlong.rlp.RLPEncoder;
 import com.esaulpaugh.headlong.rlp.util.Notation;
 import com.esaulpaugh.headlong.abi.util.JsonUtils;
+import com.esaulpaugh.headlong.util.Integers;
 import com.esaulpaugh.headlong.util.Strings;
 import com.esaulpaugh.headlong.util.SuperSerial;
 
@@ -43,6 +45,7 @@ import java.util.stream.Collectors;
 import static com.esaulpaugh.headlong.cli.Argument.DATA_FIRST;
 import static com.esaulpaugh.headlong.cli.Argument.DATA_SECOND;
 import static com.esaulpaugh.headlong.cli.Argument.OPTION;
+import static com.esaulpaugh.headlong.util.Strings.EMPTY_BYTE_ARRAY;
 
 public class Main {
 
@@ -125,6 +128,13 @@ public class Main {
         }
     }
 
+    private static String parseVals(String[] args) {
+        final String values = args[DATA_SECOND.ordinal()];
+        return values.contains("d'") || values.contains("u'")
+                ? SugarSerial.desugar(values)
+                : values;
+    }
+
     private static String validateCommand(String command) {
         if(command.charAt(0) == '-') {
             return command;
@@ -147,7 +157,7 @@ public class Main {
 
     private static String encodeABI(String[] args, boolean machine, boolean function) {
         final String signature = args[DATA_FIRST.ordinal()];
-        final String values = args[DATA_SECOND.ordinal()];
+        final String values = parseVals(args);
         final ByteBuffer abi;
         if(function) {
             Function f = Function.parse(signature);
