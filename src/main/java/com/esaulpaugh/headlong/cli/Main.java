@@ -141,7 +141,7 @@ public class Main {
 
     private static String encodeABIPacked(String[] args, boolean machine) {
         final String signature = args[DATA_FIRST.ordinal()];
-        final String values = args[DATA_SECOND.ordinal()];
+        final String values = parseVals(args);
         final TupleType tt = TupleType.parse(signature);
         return Strings.encode(tt.encodePacked(SuperSerial.deserialize(tt, values, machine)).array());
     }

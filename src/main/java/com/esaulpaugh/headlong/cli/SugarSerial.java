@@ -20,7 +20,6 @@ public class SugarSerial {
         final StringBuilder sb = new StringBuilder();
         final int end = values.length();
         int i = 0;
-        int prevIdx = 0;
         while(i < end) {
             final int q = values.indexOf(SINGLE_QUOTE, i);
             if (q <= 0) {
@@ -28,9 +27,9 @@ public class SugarSerial {
             }
             final int codeIdx = q - 1;
             final int valIdx = q + 1;
-            sb.append(values, prevIdx, codeIdx).append(SINGLE_QUOTE);
+            sb.append(values, i, codeIdx).append(SINGLE_QUOTE);
             final int valEnd = values.indexOf(SINGLE_QUOTE, valIdx);
-            prevIdx = valEnd + 1;
+            i = valEnd + 1;
             final String val = values.substring(valIdx, valEnd);
             switch (values.charAt(codeIdx)) {
             case 'd': {
@@ -54,7 +53,6 @@ public class SugarSerial {
                 sb.append(val);
             }
             sb.append(SINGLE_QUOTE);
-            i = prevIdx;
         }
         return sb.append(')').toString();
     }
