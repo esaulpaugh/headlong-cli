@@ -22,12 +22,10 @@ import com.esaulpaugh.headlong.abi.Event;
 import com.esaulpaugh.headlong.abi.Function;
 import com.esaulpaugh.headlong.abi.Tuple;
 import com.esaulpaugh.headlong.abi.TupleType;
-import com.esaulpaugh.headlong.abi.UnitType;
+import com.esaulpaugh.headlong.abi.util.JsonUtils;
 import com.esaulpaugh.headlong.abi.util.Uint;
 import com.esaulpaugh.headlong.rlp.RLPEncoder;
 import com.esaulpaugh.headlong.rlp.util.Notation;
-import com.esaulpaugh.headlong.abi.util.JsonUtils;
-import com.esaulpaugh.headlong.util.Integers;
 import com.esaulpaugh.headlong.util.Strings;
 import com.esaulpaugh.headlong.util.SuperSerial;
 
@@ -45,7 +43,6 @@ import java.util.stream.Collectors;
 import static com.esaulpaugh.headlong.cli.Argument.DATA_FIRST;
 import static com.esaulpaugh.headlong.cli.Argument.DATA_SECOND;
 import static com.esaulpaugh.headlong.cli.Argument.OPTION;
-import static com.esaulpaugh.headlong.util.Strings.EMPTY_BYTE_ARRAY;
 
 public class Main {
 
