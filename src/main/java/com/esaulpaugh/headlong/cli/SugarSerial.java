@@ -1,5 +1,6 @@
 package com.esaulpaugh.headlong.cli;
 
+import com.esaulpaugh.headlong.abi.Address;
 import com.esaulpaugh.headlong.abi.UnitType;
 import com.esaulpaugh.headlong.util.Integers;
 import com.esaulpaugh.headlong.util.Strings;
@@ -32,6 +33,9 @@ public class SugarSerial {
             i = valEnd + 1;
             final String val = values.substring(valIdx, valEnd);
             switch (values.charAt(codeIdx)) {
+            case 'a':
+                sb.append(Address.wrap(val).toString().substring(Address.ADDRESS_PREFIX.length()));
+                break;
             case 'd': {
                 BigInteger bi = new BigInteger(val, 10);
                 byte[] bytes = serializeBigInteger(bi, extend);

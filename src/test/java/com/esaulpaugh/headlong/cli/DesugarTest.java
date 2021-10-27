@@ -44,4 +44,11 @@ public class DesugarTest {
                 tuple
         );
     }
+
+    @Test
+    public void testAddress() {
+        String[] command = new String[] { "-e", "(address)", "( a'0x000000000000f9087abcdef00CAFEBABE86244aa' ])" };
+        String out = Main.eval(command);
+        assertEquals("000000000000000000000000000000000000f9087abcdef00cafebabe86244aa", out);
+    }
 }

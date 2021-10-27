@@ -19,11 +19,11 @@ compileJava {
 }
 
 repositories {
-    mavenCentral()
-//    mavenLocal()
+//    mavenCentral()
+    mavenLocal()
 }
 
-def headlongVersion = '5.4.1'
+def headlongVersion = '5.4.2-SNAPSHOT'
 def junitVersion = '5.8.1'
 
 static def todayUTC() {
