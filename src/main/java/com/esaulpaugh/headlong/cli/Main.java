@@ -125,10 +125,8 @@ public class Main {
         }
     }
 
-    private static String parseVals(String raw, boolean extend) {
-        return raw.contains("d'") || raw.contains("u'")
-                ? SugarSerial.desugar(raw, extend)
-                : raw;
+    private static String parseVals(String raw, boolean machine, boolean extend) {
+        return machine ? raw : SugarSerial.desugar(raw, extend);
     }
 
     private static String validateCommand(String command) {
@@ -140,7 +138,7 @@ public class Main {
 
     private static String encodeABIPacked(String[] args, boolean machine) {
         final String signature = args[DATA_FIRST.ordinal()];
-        final String values = parseVals(args[DATA_SECOND.ordinal()], true);
+        final String values = parseVals(args[DATA_SECOND.ordinal()], machine, true);
         final TupleType tt = TupleType.parse(signature);
         return Strings.encode(tt.encodePacked(SuperSerial.deserialize(tt, values, machine)).array());
     }
@@ -153,7 +151,7 @@ public class Main {
 
     private static String encodeABI(String[] args, boolean machine, boolean function) {
         final String signature = args[DATA_FIRST.ordinal()];
-        final String values = parseVals(args[DATA_SECOND.ordinal()], true);
+        final String values = parseVals(args[DATA_SECOND.ordinal()], machine, true);
         final ByteBuffer abi;
         if(function) {
             Function f = Function.parse(signature);
@@ -182,7 +180,7 @@ public class Main {
     }
 
     private static String encodeRLP(String[] args) {
-        final String values = parseVals(args[DATA_FIRST.ordinal()], false);
+        final String values = parseVals(args[DATA_FIRST.ordinal()], false, false);
         final List<Object> objects = Notation.parse(values);
         return Strings.encode(RLPEncoder.encodeSequentially(objects));
     }
