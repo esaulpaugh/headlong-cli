@@ -1,5 +1,6 @@
 package com.esaulpaugh.headlong.cli;
 
+import com.esaulpaugh.headlong.abi.Address;
 import com.esaulpaugh.headlong.abi.Function;
 import com.esaulpaugh.headlong.abi.Tuple;
 import com.esaulpaugh.headlong.util.FastHex;
@@ -47,7 +48,7 @@ public class DesugarTest {
 
     @Test
     public void testAddress() {
-        String[] command = new String[] { "-e", "(address)", "( a'0x000000000000f9087abcdef00CAFEBABE86244aa' ])" };
+        String[] command = new String[] { "-e", "(address)", "( a'0x000000000000F9087ABcDEf00CafeBaBE86244AA' ])" };
         String out = Main.eval(command);
         assertEquals("000000000000000000000000000000000000f9087abcdef00cafebabe86244aa", out);
     }
