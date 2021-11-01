@@ -16,6 +16,7 @@
 package com.esaulpaugh.headlong.cli;
 
 import com.esaulpaugh.headlong.abi.ABIType;
+import com.esaulpaugh.headlong.abi.Address;
 import com.esaulpaugh.headlong.abi.ArrayType;
 import com.esaulpaugh.headlong.abi.ByteType;
 import com.esaulpaugh.headlong.abi.Tuple;
@@ -152,7 +153,7 @@ public class MainTest {
                 new byte[][][][] { new byte[][][] { new byte[][] { func, func } } },
                 func,
                 new String[][] { new String[] { "z" } },
-                new BigInteger[] { new BigInteger("ff00ee01dd02cc03cafebabe9906880777086609", 16) },
+                new Address[] { Address.wrap("0xFF00eE01dd02cC03cafEBAbe9906880777086609") },
                 BigInteger.valueOf(Long.MAX_VALUE).multiply(BigInteger.valueOf(Byte.MAX_VALUE << 2)),
                 new Tuple(7),
                 new Tuple[][][] { new Tuple[][] { new Tuple[] { new Tuple(9), new Tuple(-11) } } },

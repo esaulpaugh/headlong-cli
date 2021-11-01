@@ -34,7 +34,7 @@ public class SugarSerial {
             final String val = values.substring(valIdx, valEnd);
             switch (values.charAt(codeIdx)) {
             case 'a':
-                sb.append(Address.toChecksumAddress(val).substring(Address.HEX_PREFIX.length()));
+                sb.append(Address.toChecksumAddress(val).substring("0x".length()));
                 break;
             case 'd': {
                 BigInteger bi = new BigInteger(val, 10);

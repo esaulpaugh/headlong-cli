@@ -19,11 +19,11 @@ compileJava {
 }
 
 repositories {
-    mavenCentral()
-//    mavenLocal()
+//    mavenCentral()
+    mavenLocal()
 }
 
-def headlongVersion = '5.4.2'
+def headlongVersion = '5.5.0-SNAPSHOT'
 def junitVersion = '5.8.1'
 
 static def todayUTC() {
@@ -54,7 +54,7 @@ dependencies {
 //    implementation files('libs/headlong-' + headlongVersion + '.jar')
 
     implementation 'com.esaulpaugh:headlong:' + headlongVersion
-    implementation 'com.google.code.gson:gson:2.8.8'
+    implementation 'com.google.code.gson:gson:2.8.9'
 
     test.useJUnitPlatform()
     testImplementation "org.junit.jupiter:junit-jupiter-api:" + junitVersion
