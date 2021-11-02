@@ -234,6 +234,13 @@ public class MainTest {
         assertEquals(ArrayType.DYNAMIC_LENGTH, arrayType.getLength());
     }
 
+    @Test
+    public void testEIP55() {
+        final String expected = "0xfAfFffFFffFFFFFFFfFFfffFfFfFFFFfFfFFfFFF";
+        assertEquals(expected, Main.eval(new String[] { "-eip55", "0xfaffffffffffffffffffffffffffffffffffffff" }));
+        assertEquals(new BigInteger(expected.substring(2), 16), Address.wrap(expected).value());
+    }
+
     @FunctionalInterface
     public interface CustomRunnable {
         void run() throws Throwable;

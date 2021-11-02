@@ -18,6 +18,7 @@ package com.esaulpaugh.headlong.cli;
 import com.esaulpaugh.headlong.abi.ABIJSON;
 import com.esaulpaugh.headlong.abi.ABIObject;
 import com.esaulpaugh.headlong.abi.ABIType;
+import com.esaulpaugh.headlong.abi.Address;
 import com.esaulpaugh.headlong.abi.Event;
 import com.esaulpaugh.headlong.abi.Function;
 import com.esaulpaugh.headlong.abi.Tuple;
@@ -121,6 +122,7 @@ public class Main {
         case "-format": return format(args);
         case "-formatf": return formatFunctionCall(args);
         case "-parseabijson": return parseAbiJson(args);
+        case "-eip55": return Address.toChecksumAddress(args[DATA_FIRST.ordinal()]);
         default: throw new IllegalArgumentException("unrecognized command: " + command);
         }
     }
