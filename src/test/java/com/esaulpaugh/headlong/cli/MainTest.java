@@ -19,6 +19,7 @@ import com.esaulpaugh.headlong.abi.ABIType;
 import com.esaulpaugh.headlong.abi.Address;
 import com.esaulpaugh.headlong.abi.ArrayType;
 import com.esaulpaugh.headlong.abi.ByteType;
+import com.esaulpaugh.headlong.abi.Function;
 import com.esaulpaugh.headlong.abi.Tuple;
 import com.esaulpaugh.headlong.abi.TupleType;
 import com.esaulpaugh.headlong.abi.TypeFactory;
@@ -26,11 +27,40 @@ import com.esaulpaugh.headlong.util.Strings;
 import com.esaulpaugh.headlong.util.SuperSerial;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.nio.ByteBuffer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MainTest {
+
+    private static final Function FUNCTION = new Function("gogo((fixed[],int8)[1][][5])", "(ufixed,string)");
+
+    private static final Tuple RETURN_ARGS = Tuple.of(new BigDecimal(BigInteger.valueOf(69L), 18), "w00t");
+
+    @Test
+    public void testLenient() throws Throwable {
+        final byte[] lenientBytes = Strings.decode(
+                "0000000000000000000000000000000000000000000000000000000000000045"
+                        + "00000000000000000000000000000000000000000000000000000000000000a3"
+                        + "0000000000000000000000000000000000000000000000000000000000000000"
+                        + "0000000000000000000000000000000000000000000000000000000000000000"
+                        + "0000000000000000000000000000000000000000000000000000000000000000000000"
+                        + "0000000000000000000000000000000000000000000000000000000000000004"
+                        + "7730307400000000000000000000000000000000000000000000000000000000");
+
+        if(!RETURN_ARGS.equals(FUNCTION.decodeReturn(lenientBytes))) throw new Error();
+        if(!RETURN_ARGS.equals(FUNCTION.decodeReturn(ByteBuffer.wrap(lenientBytes)))) throw new Error();
+
+        final byte[] tooSmallOffset = Strings.decode(
+                "0000000000000000000000000000000000000000000000000000000000000045"
+                        + "000000000000000000000000000000000000000000000000000000000000003f"
+                        + "0000000000000000000000000000000000000000000000000000000000000004"
+                        + "7730307400000000000000000000000000000000000000000000000000000000");
+
+        assertThrown(IllegalArgumentException.class, "illegal backwards jump: (0+63=63)<64", () -> FUNCTION.decodeReturn(tooSmallOffset));
+    }
 
     private static final String SIGNATURE = "(function[2][][],bytes24,string[1][1],address[],uint72,(uint8),(int16)[2][][1],(int32)[],uint40,(int48)[],(uint),bool,string,bool[2],int24[],uint40[1])";
 
