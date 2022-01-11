@@ -210,24 +210,25 @@ public class Main {
     }
 
     private static String hexToDec(String[] args, boolean compact) {
-        final int idx = DATA_FIRST.ordinal();
-        final int typeBits = parseTypeBits(args[idx]);
+        final int typeBits = parseTypeBits(args[DATA_FIRST.ordinal()]);
         final Uint uint = new Uint(typeBits);
         final char delimiter = compact ? ' ' : '\n';
-        final String signedStr = args[idx + 1];
+        final String signedStr = args[DATA_SECOND.ordinal()];
         boolean signed = false;
         if("true".equals(signedStr)) {
             signed = true;
         } else if(!"false".equals(signedStr)) {
             throw new IllegalArgumentException("second datum must specify signedness of the args as \"true\" or \"false\"");
         }
-        final int start = idx + 2;
+        final int start = DATA_SECOND.ordinal() + 1;
         final int end = args.length;
-        StringBuilder sb = new StringBuilder();
+        final StringBuilder sb = new StringBuilder();
         for (int i = start; i < end; i++) {
-            BigInteger bi = new BigInteger(args[i], 16);
-            BigInteger x = signed ? uint.toSigned(bi) : bi;
-            sb.append(x.toString(10)).append(delimiter);
+            BigInteger val = new BigInteger(args[i], 16);
+            if(signed) {
+                val = uint.toSigned(val);
+            }
+            sb.append(val.toString(10)).append(delimiter);
         }
         return trimmed(sb, end > start);
     }
