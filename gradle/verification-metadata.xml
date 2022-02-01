@@ -1,158 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<verification-metadata>
-    <configuration>
-        <verify-metadata>true</verify-metadata>
-        <verify-signatures>false</verify-signatures>
-<!--        <trusted-keys>-->
-<!--            <trusted-key id="d2ea6bcd43b3663cdf6222c135ae09fd38f0cfae" group="com.esaulpaugh"/>-->
-<!--        </trusted-keys>-->
-    </configuration>
-    <components>
-        <component group="com.esaulpaugh" name="headlong" version="5.6.1">
-            <artifact name="headlong-5.6.1.jar">
-                <sha256 value="40b52b633b212402459e2e83cd4035779fb175944b9daa9c608e2f4753ed032e" origin="maven central"/>
-            </artifact>
-        </component>
-        <component group="com.esaulpaugh" name="headlong" version="5.6.1">
-            <artifact name="headlong-5.6.1-sources.jar">
-                <sha256 value="2f832675e5afb5385ff97ff9a4c69470119882a4f36f95a4b072a1216f1a037d" origin="maven central"/>
-            </artifact>
-        </component>
-        <component group="com.esaulpaugh" name="headlong" version="5.6.1">
-            <artifact name="headlong-5.6.1.module">
-                <sha256 value="d126565c55d9544258cfd1f9cfdd460dcf2263f331eb8d73e2ad6c06329035b2" origin="maven central"/>
-            </artifact>
-        </component>
-        <component group="com.google.code.gson" name="gson" version="2.8.9">
-            <artifact name="gson-2.8.9.jar" >
-                <sha256 value="d3999291855de495c94c743761b8ab5176cfeabe281a5ab0d8e8d45326fd703e" origin="maven central"/>
-            </artifact>
-        </component>
-        <component group="com.google.code.gson" name="gson" version="2.8.9">
-            <artifact name="gson-2.8.9-sources.jar" >
-                <sha256 value="ba5bddb1a89eb721fcca39f3b34294532060f851e2407a82d82134a41eec4719" origin="maven central"/>
-            </artifact>
-        </component>
-        <component group="com.google.code.gson" name="gson" version="2.8.9">
-            <artifact name="gson-2.8.9.pom" >
-                <sha256 value="afded6e6a690fbf3ad4ae65ada397f0a90a5f630b303d1b741b9c97926fdd4de" origin="maven central"/>
-            </artifact>
-        </component>
-        <component group="com.google.code.gson" name="gson-parent" version="2.8.9">
-            <artifact name="gson-parent-2.8.9.pom" >
-                <sha256 value="b16e026e63427c1972ad0fc68703ec379b1576e411ba49c32fa9a31ab0bbcffb" origin="maven central"/>
-            </artifact>
-        </component>
-        <component group="org.sonatype.oss" name="oss-parent" version="7">
-            <artifact name="oss-parent-7.pom" >
-                <sha256 value="b51f8867c92b6a722499557fc3a1fdea77bdf9ef574722fe90ce436a29559454" origin="maven central"/>
-            </artifact>
-        </component>
-        <component group="org.opentest4j" name="opentest4j" version="1.2.0">
-            <artifact name="opentest4j-1.2.0.jar" >
-                <sha256 value="58812de60898d976fb81ef3b62da05c6604c18fd4a249f5044282479fc286af2" origin="maven central"/>
-            </artifact>
-        </component>
-        <component group="org.opentest4j" name="opentest4j" version="1.2.0">
-            <artifact name="opentest4j-1.2.0-sources.jar" >
-                <sha256 value="b63495ef700fb2af2cdee8dd68659b27822650058234a602f9ed1d14b909a1a8" origin="maven central"/>
-            </artifact>
-        </component>
-        <component group="org.opentest4j" name="opentest4j" version="1.2.0">
-            <artifact name="opentest4j-1.2.0.pom" >
-                <sha256 value="a96e671816c1ff8803bdec74c9241f025bdfb277da5d2b4ee02266405936f994" origin="maven central"/>
-            </artifact>
-        </component>
-
-        <component group="org.apiguardian" name="apiguardian-api" version="1.1.2">
-            <artifact name="apiguardian-api-1.1.2.jar" >
-                <sha256 value="b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38" origin="maven central"/>
-            </artifact>
-        </component>
-        <component group="org.apiguardian" name="apiguardian-api" version="1.1.2">
-            <artifact name="apiguardian-api-1.1.2-sources.jar" >
-                <sha256 value="277a7a4315412817beb6655b324dc7276621e95ebff00b8bf65e17a27b685e2d" origin="maven central"/>
-            </artifact>
-        </component>
-        <component group="org.apiguardian" name="apiguardian-api" version="1.1.2">
-            <artifact name="apiguardian-api-1.1.2.module" >
-                <sha256 value="e08028131375b357d1d28734e9a4fb4216da84b240641cb3ef7e7c7d628223fc" origin="maven central"/>
-            </artifact>
-        </component>
-
-        <component group="org.junit.jupiter" name="junit-jupiter-api" version="5.8.2">
-            <artifact name="junit-jupiter-api-5.8.2.jar" >
-                <sha256 value="1808ee87e0f718cd6e25f3b75afc17956ac8a3edc48c7e9bab9f19f9a79e3801" origin="maven central"/>
-            </artifact>
-        </component>
-        <component group="org.junit.jupiter" name="junit-jupiter-api" version="5.8.2">
-            <artifact name="junit-jupiter-api-5.8.2-sources.jar" >
-                <sha256 value="cb38569ae9005eb54c7cbc181b842e6eb01be57ae0d785f9167d9e019b44a670" origin="maven central"/>
-            </artifact>
-        </component>
-        <component group="org.junit.jupiter" name="junit-jupiter-api" version="5.8.2">
-            <artifact name="junit-jupiter-api-5.8.2.module" >
-                <sha256 value="7e9af4dfff6267acddd157d9e11ba0d5dc91b332fa74bc4c65939e4517a1b770" origin="maven central"/>
-            </artifact>
-        </component>
-
-        <component group="org.junit.platform" name="junit-platform-commons" version="1.8.2">
-            <artifact name="junit-platform-commons-1.8.2.jar" >
-                <sha256 value="d2e015fca7130e79af2f4608dc54415e4b10b592d77333decb4b1a274c185050" origin="maven central"/>
-            </artifact>
-        </component>
-        <component group="org.junit.platform" name="junit-platform-commons" version="1.8.2">
-            <artifact name="junit-platform-commons-1.8.2-sources.jar" >
-                <sha256 value="7ae3683c452ee4259b2d205d56c7172fd178180b02d20b4430368ef6ee501c3b" origin="maven central"/>
-            </artifact>
-        </component>
-        <component group="org.junit.platform" name="junit-platform-commons" version="1.8.2">
-            <artifact name="junit-platform-commons-1.8.2.module" >
-                <sha256 value="342847d3046fea435595692db4f05d5f039e0e1d1e204f4d5755902557082626" origin="maven central"/>
-            </artifact>
-        </component>
-
-        <component group="org.junit" name="junit-bom" version="5.8.2">
-            <artifact name="junit-bom-5.8.2.pom" >
-                <sha256 value="836069ca9e8ee3c56e48376222da291263f137bd3fd16d84fdd47efcc3f286e2" origin="maven central"/>
-            </artifact>
-        </component>
-        <component group="org.junit" name="junit-bom" version="5.8.2">
-            <artifact name="junit-bom-5.8.2.module" >
-                <sha256 value="40cfad993fa70ecdf2af74d0c56da1484ee220964be8f932cfe632be9a2733fa" origin="maven central"/>
-            </artifact>
-        </component>
-
-        <component group="org.junit.jupiter" name="junit-jupiter-engine" version="5.8.2">
-            <artifact name="junit-jupiter-engine-5.8.2.jar" >
-                <sha256 value="753b7726cdd158bb34cedb94c161e2291896f47832a1e9eda53d970020a8184e" origin="maven central"/>
-            </artifact>
-        </component>
-        <component group="org.junit.jupiter" name="junit-jupiter-engine" version="5.8.2">
-            <artifact name="junit-jupiter-engine-5.8.2-sources.jar" >
-                <sha256 value="9ed4edf417cbc6028c634a0b407061433327c9ef4235fca35b9183da855e2e8f" origin="maven central"/>
-            </artifact>
-        </component>
-        <component group="org.junit.jupiter" name="junit-jupiter-engine" version="5.8.2">
-            <artifact name="junit-jupiter-engine-5.8.2.module" >
-                <sha256 value="a56204c716c2379970ca8e3fe2a72e3a030cd9027328d3ce1457dd10c0150e7e" origin="maven central"/>
-            </artifact>
-        </component>
-
-        <component group="org.junit.platform" name="junit-platform-engine" version="1.8.2">
-            <artifact name="junit-platform-engine-1.8.2.jar" >
-                <sha256 value="0b7d000f8c3e8e5f7d6b819649936e7b9938314e87c8f983805218ea57567e59" origin="maven central"/>
-            </artifact>
-        </component>
-        <component group="org.junit.platform" name="junit-platform-engine" version="1.8.2">
-            <artifact name="junit-platform-engine-1.8.2-sources.jar" >
-                <sha256 value="4cfda26b1dc0812fcf0a14b0bb5612b7c697e50afd79819d2e07b1faef9c239b" origin="maven central"/>
-            </artifact>
-        </component>
-        <component group="org.junit.platform" name="junit-platform-engine" version="1.8.2">
-            <artifact name="junit-platform-engine-1.8.2.module" >
-                <sha256 value="eba77b36efdf75a67f46438333825f9e448f550d521e7249d950358580ee636b" origin="maven central"/>
-            </artifact>
-        </component>
-    </components>
+<verification-metadata xmlns="https://schema.gradle.org/dependency-verification" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://schema.gradle.org/dependency-verification https://schema.gradle.org/dependency-verification/dependency-verification-1.1.xsd">
+   <configuration>
+      <verify-metadata>true</verify-metadata>
+      <verify-signatures>true</verify-signatures>
+      <key-servers enabled="false"/>
+      <ignored-keys>
+         <ignored-key id="b0f3710fa64900e7" reason="Key couldn't be downloaded from any key server"/>
+      </ignored-keys>
+      <trusted-keys>
+         <trusted-key id="b0f3710fa64900e7" group="com.google.code.gson"/>
+         <trusted-key id="d2ea6bcd43b3663cdf6222c135ae09fd38f0cfae" group="com.esaulpaugh" name="headlong" version="5.6.1"/>
+         <trusted-key id="ff6e2c001948c5f2f38b0cc385911f425ec61b51">
+            <trusting group="^org[.]junit($|([.].*))" regex="true"/>
+            <trusting group="org.opentest4j"/>
+            <trusting group="org.apiguardian"/>
+         </trusted-key>
+      </trusted-keys>
+   </configuration>
+   <components>
+      <component group="com.esaulpaugh" name="headlong" version="5.6.1">
+         <artifact name="headlong-5.6.1.jar">
+            <pgp value="d2ea6bcd43b3663cdf6222c135ae09fd38f0cfae"/>
+         </artifact>
+      </component>
+      <component group="com.google.code.gson" name="gson" version="2.8.9">
+         <artifact name="gson-2.8.9-sources.jar">
+            <sha256 value="ba5bddb1a89eb721fcca39f3b34294532060f851e2407a82d82134a41eec4719" origin="repo.maven.apache.org/maven2/"/>
+         </artifact>
+         <artifact name="gson-2.8.9.jar">
+            <sha256 value="d3999291855de495c94c743761b8ab5176cfeabe281a5ab0d8e8d45326fd703e" origin="Generated by Gradle because a key couldn't be downloaded"/>
+         </artifact>
+         <artifact name="gson-2.8.9.pom">
+            <sha256 value="afded6e6a690fbf3ad4ae65ada397f0a90a5f630b303d1b741b9c97926fdd4de" origin="Generated by Gradle because a key couldn't be downloaded"/>
+         </artifact>
+      </component>
+      <component group="com.google.code.gson" name="gson-parent" version="2.8.9">
+         <artifact name="gson-parent-2.8.9.pom">
+            <sha256 value="b16e026e63427c1972ad0fc68703ec379b1576e411ba49c32fa9a31ab0bbcffb" origin="Generated by Gradle because a key couldn't be downloaded"/>
+         </artifact>
+      </component>
+      <component group="org.apiguardian" name="apiguardian-api" version="1.1.2">
+         <artifact name="apiguardian-api-1.1.2.jar">
+            <sha256 value="b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38" origin="Generated by Gradle because artifact wasn't signed"/>
+         </artifact>
+         <artifact name="apiguardian-api-1.1.2.module">
+            <pgp value="ff6e2c001948c5f2f38b0cc385911f425ec61b51"/>
+         </artifact>
+      </component>
+      <component group="org.junit.jupiter" name="junit-jupiter-api" version="5.8.2">
+         <artifact name="junit-jupiter-api-5.8.2.jar">
+            <sha256 value="1808ee87e0f718cd6e25f3b75afc17956ac8a3edc48c7e9bab9f19f9a79e3801" origin="Generated by Gradle because artifact wasn't signed"/>
+         </artifact>
+      </component>
+      <component group="org.junit.jupiter" name="junit-jupiter-engine" version="5.8.2">
+         <artifact name="junit-jupiter-engine-5.8.2.jar">
+            <sha256 value="753b7726cdd158bb34cedb94c161e2291896f47832a1e9eda53d970020a8184e" origin="Generated by Gradle because artifact wasn't signed"/>
+         </artifact>
+      </component>
+      <component group="org.junit.platform" name="junit-platform-commons" version="1.8.2">
+         <artifact name="junit-platform-commons-1.8.2.jar">
+            <sha256 value="d2e015fca7130e79af2f4608dc54415e4b10b592d77333decb4b1a274c185050" origin="Generated by Gradle because artifact wasn't signed"/>
+         </artifact>
+      </component>
+      <component group="org.junit.platform" name="junit-platform-engine" version="1.8.2">
+         <artifact name="junit-platform-engine-1.8.2.jar">
+            <sha256 value="0b7d000f8c3e8e5f7d6b819649936e7b9938314e87c8f983805218ea57567e59" origin="Generated by Gradle because artifact wasn't signed"/>
+         </artifact>
+      </component>
+      <component group="org.opentest4j" name="opentest4j" version="1.2.0">
+         <artifact name="opentest4j-1.2.0.jar">
+            <sha256 value="58812de60898d976fb81ef3b62da05c6604c18fd4a249f5044282479fc286af2" origin="Generated by Gradle because artifact wasn't signed"/>
+         </artifact>
+         <artifact name="opentest4j-1.2.0.pom">
+            <pgp value="ff6e2c001948c5f2f38b0cc385911f425ec61b51"/>
+         </artifact>
+      </component>
+      <component group="org.sonatype.oss" name="oss-parent" version="7">
+         <artifact name="oss-parent-7.pom">
+            <sha256 value="b51f8867c92b6a722499557fc3a1fdea77bdf9ef574722fe90ce436a29559454" origin="Generated by Gradle because artifact wasn't signed"/>
+         </artifact>
+      </component>
+   </components>
 </verification-metadata>
