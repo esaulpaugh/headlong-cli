@@ -9,7 +9,7 @@
       </ignored-keys>
       <trusted-keys>
          <trusted-key id="b0f3710fa64900e7" group="com.google.code.gson"/>
-         <trusted-key id="d2ea6bcd43b3663cdf6222c135ae09fd38f0cfae" group="com.esaulpaugh" name="headlong" version="5.6.1"/>
+         <trusted-key id="d2ea6bcd43b3663cdf6222c135ae09fd38f0cfae" group="com.esaulpaugh" name="headlong" version="5.7.0"/>
          <trusted-key id="ff6e2c001948c5f2f38b0cc385911f425ec61b51">
             <trusting group="^org[.]junit($|([.].*))" regex="true"/>
             <trusting group="org.opentest4j"/>
@@ -18,9 +18,15 @@
       </trusted-keys>
    </configuration>
    <components>
-      <component group="com.esaulpaugh" name="headlong" version="5.6.1">
-         <artifact name="headlong-5.6.1.jar">
-            <pgp value="d2ea6bcd43b3663cdf6222c135ae09fd38f0cfae"/>
+      <component group="com.esaulpaugh" name="headlong" version="5.7.0">
+         <artifact name="headlong-5.7.0.jar">
+            <sha256 value="846c2562c10e0bc1f3d488d45d84d2e7ca9ec6ffcfab71c02d5cf770b879a042" origin="repo.maven.apache.org/maven2/"/>
+         </artifact>
+         <artifact name="headlong-5.7.0.module">
+            <sha256 value="84025b7e6fd8f0b85ff31006b8fb5075219b7b32eaff9eca65de662e912c7edb" origin="repo.maven.apache.org/maven2/"/>
+         </artifact>
+         <artifact name="headlong-5.7.0-sources.jar">
+            <sha256 value="76dbf98fd776ce27b58210c0bb57a95c2be94d041c73bd428de9c82bed2e783f" origin="repo.maven.apache.org/maven2/"/>
          </artifact>
       </component>
       <component group="com.google.code.gson" name="gson" version="2.8.9">
