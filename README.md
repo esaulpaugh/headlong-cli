@@ -29,7 +29,7 @@ Prepending a human-friendly code to an item affects how it is interpreted:
 
 `a` for address (e.g. `a'0x000000000000F9087ABcDEf00CafeBaBE86244AA'`)
 
-`d` for decimal (e.g. `d'45'`)
+`d` for decimal (e.g. `d'255'`)
 
 #### More examples
 
