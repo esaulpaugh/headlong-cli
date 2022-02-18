@@ -1,5 +1,5 @@
 # headlong-cli
-Command line interface for https://github.com/esaulpaugh/headlong ABI (v2) and RLP codecs. Depends on headlong v6.0.0. Licensed under Apache 2.0 terms.
+Command line interface for https://github.com/esaulpaugh/headlong ABI and RLP codecs. Depends on headlong v6.0.1. Licensed under Apache 2.0 terms.
 
 ## Build
 
@@ -86,7 +86,7 @@ Result:
 
 Use `-help` for a full list.
 
-Utf-8 to (compact) hexadecimal: `java -jar headlong-cli-0.9-SNAPSHOT.jar -utfhexc "Hello, world!"`
+UTF-8 to (compact) hexadecimal: `java -jar headlong-cli-0.9-SNAPSHOT.jar -utfhexc "Hello, world!"`
 
 Result: `('48656c6c6f2c20776f726c6421')`
 
