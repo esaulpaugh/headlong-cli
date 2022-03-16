@@ -26,7 +26,7 @@ import com.esaulpaugh.headlong.abi.TupleType;
 import com.esaulpaugh.headlong.abi.util.JsonUtils;
 import com.esaulpaugh.headlong.abi.util.Uint;
 import com.esaulpaugh.headlong.rlp.RLPEncoder;
-import com.esaulpaugh.headlong.rlp.util.Notation;
+import com.esaulpaugh.headlong.rlp.Notation;
 import com.esaulpaugh.headlong.util.Strings;
 import com.esaulpaugh.headlong.util.SuperSerial;
 
