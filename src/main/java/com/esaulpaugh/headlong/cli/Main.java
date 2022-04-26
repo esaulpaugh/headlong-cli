@@ -100,8 +100,8 @@ public class Main {
         case "-ep": return encodeABIPacked(args, false);
         case "-mep": return encodeABIPacked(args, true);
         case "-d": return decodeABI(args, false, false, false);
-        case "-df": return decodeABI(args, false, true, false);
         case "-dc": return decodeABI(args, false, false, true);
+        case "-df": return decodeABI(args, false, true, false);
         case "-dfc": return decodeABI(args, false, true, true);
         case "-dp": return decodeABIPacked(args, false);
         case "-dpc": return decodeABIPacked(args, true);
