@@ -103,7 +103,8 @@ public class Main {
         case "-df": return decodeABI(args, false, true, false);
         case "-dc": return decodeABI(args, false, false, true);
         case "-dfc": return decodeABI(args, false, true, true);
-        case "-dp": return decodeABIPacked(args);
+        case "-dp": return decodeABIPacked(args, false);
+        case "-dpc": return decodeABIPacked(args, true);
         case "-me": return encodeABI(args, true, false);
         case "-mef": return encodeABI(args, true, true);
         case "-md": return decodeABI(args, true, false, false);
@@ -145,10 +146,10 @@ public class Main {
         return Strings.encode(tt.encodePacked(SuperSerial.deserialize(tt, values, machine)).array());
     }
 
-    private static String decodeABIPacked(String[] args) {
+    private static String decodeABIPacked(String[] args, boolean compact) {
         final TupleType tt = TupleType.parse(args[DATA_FIRST.ordinal()]);
         final byte[] packedAbi = Strings.decode(args[DATA_SECOND.ordinal()]);
-        return SuperSerial.serialize(tt, tt.decodePacked(packedAbi), false);
+        return compacted(SuperSerial.serialize(tt, tt.decodePacked(packedAbi), false), compact);
     }
 
     private static String encodeABI(String[] args, boolean machine, boolean function) {
