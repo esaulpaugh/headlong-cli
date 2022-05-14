@@ -1,6 +1,9 @@
 import org.gradle.internal.jvm.Jvm
 
-import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
 plugins {
     id 'java'
@@ -27,9 +30,7 @@ def headlongVersion = '6.3.1'
 def junitVersion = '5.8.2'
 
 static def todayUTC() {
-    SimpleDateFormat sdf = new SimpleDateFormat("MMMMM d yyyy")
-    sdf.setTimeZone(TimeZone.getTimeZone("UTC"))
-    return sdf.format(new Date())
+    return ZonedDateTime.of(LocalDateTime.now(), ZoneId.of("UTC")).format(DateTimeFormatter.ofPattern("MMMM d yyyy"))
 }
 
 task fatJar(type: Jar) {
