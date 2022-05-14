@@ -27,10 +27,7 @@ repositories {
 
 def headlongVersion = '6.3.1'
 def junitVersion = '5.8.2'
-
-static String todayUTC() {
-    return DateTimeFormatter.ofPattern("MMMM d yyyy").withZone(ZoneId.of("UTC")).format(Instant.now())
-}
+def dateFormatter = DateTimeFormatter.ofPattern("MMMM d yyyy").withZone(ZoneId.of("UTC"))
 
 task fatJar(type: Jar) {
     manifest {
@@ -38,7 +35,7 @@ task fatJar(type: Jar) {
                    'Implementation-Title': project.name,
                    'Implementation-Version': project.version,
                    'headlong-version': headlongVersion,
-                   'Build-Date': todayUTC()
+                   'Build-Date': dateFormatter.format(Instant.now())
 
     }
     archiveName(project.name + '-' + project.version + '.jar') // deprecated
