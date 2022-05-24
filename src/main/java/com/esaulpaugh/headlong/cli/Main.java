@@ -369,8 +369,7 @@ public class Main {
                         " |_   =  _    _| |  _   _   _      _ | `\n" +
                         " | | |_ |_|_ |_| | |_| | | |_| -- |_ | |\n";
         String versionLine = "version " + Main.class.getPackage().getImplementationVersion();
-        final int versionLineLen = versionLine.length();
-        final int padding = 28 - versionLineLen;
+        final int padding = 28 - versionLine.length();
         if(padding > 0) {
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < padding; i++) {
