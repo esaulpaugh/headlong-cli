@@ -357,15 +357,33 @@ public class Main {
                     headlongVersion = attrs.getValue("headlong-version");
                 }
             }
-            final Package pkg = Main.class.getPackage();
-            VERSION_STRING = pkg.getImplementationTitle()
-                    + " version "
-                    + pkg.getImplementationVersion()
-                    + "\ncompiled "
-                    + buildDate
-                    + "\nusing headlong v" + headlongVersion;
+            VERSION_STRING = makeVersionString(buildDate, headlongVersion);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private static String makeVersionString(String buildDate, String headlongVersion) {
+        final String graphic =
+                        " |             | |                   |\n" +
+                        " |_   =  _    _| |  _   _   _      _ | `\n" +
+                        " | | |_ |_|_ |_| | |_| | | |_| -- |_ | |\n";
+        String versionLine = "version " + Main.class.getPackage().getImplementationVersion();
+        final int versionLineLen = versionLine.length();
+        final int padding = 28 - versionLineLen;
+        if(padding > 0) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < padding; i++) {
+                sb.append(' ');
+            }
+            versionLine += sb.append("_|");
+        } else {
+            versionLine = "                            _|\n" + versionLine;
+        }
+        return graphic
+                + versionLine
+                + "\ncompiled "
+                + buildDate
+                + "\nusing headlong v" + headlongVersion;
     }
 }
