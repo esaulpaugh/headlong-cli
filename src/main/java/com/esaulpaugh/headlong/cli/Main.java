@@ -354,7 +354,7 @@ public class Main {
                         throw new RuntimeException("multiple matching manifests");
                     }
                     buildDate = attrs.getValue("Build-Date");
-                    headlongVersion = attrs.getValue("headlong-version");
+                    headlongVersion = attrs.getValue("headlong-Version");
                 }
             }
             VERSION_STRING = makeVersionString(buildDate, headlongVersion);
