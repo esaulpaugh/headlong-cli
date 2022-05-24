@@ -350,7 +350,7 @@ public class Main {
             while (urls.hasMoreElements()) {
                 final Attributes attrs = new Manifest(urls.nextElement().openStream()).getMainAttributes();
                 if ("headlong-cli".equals(attrs.getValue("Implementation-Title"))) {
-                    if (buildDate != null) {
+                    if (buildDate != null || headlongVersion != null) {
                         throw new RuntimeException("multiple matching manifests");
                     }
                     buildDate = attrs.getValue("Build-Date");
