@@ -19,6 +19,9 @@ public enum Argument {
 
     OPTION,
     DATA_FIRST,
-    DATA_SECOND
+    DATA_SECOND;
 
+    public String from(String[] args) {
+        return args[ordinal()];
+    }
 }

@@ -90,7 +90,7 @@ public class Main {
     }
 
     static String eval(String[] args) {
-        final String command = args[OPTION.ordinal()];
+        final String command = OPTION.from(args);
         switch (validateCommand(command)) {
         case "-help": return HELP_STRING;
         case "-version": return VERSION_STRING;
@@ -123,7 +123,7 @@ public class Main {
         case "-format": return format(args);
         case "-formatf": return formatFunctionCall(args);
         case "-parseabijson": return parseAbiJson(args);
-        case "-eip55": return Address.toChecksumAddress(args[DATA_FIRST.ordinal()]);
+        case "-eip55": return Address.toChecksumAddress(DATA_FIRST.from(args));
         default: throw new IllegalArgumentException("unrecognized command: " + command);
         }
     }
@@ -140,21 +140,21 @@ public class Main {
     }
 
     private static String encodeABIPacked(String[] args, boolean machine) {
-        final String signature = args[DATA_FIRST.ordinal()];
-        final String values = parseVals(args[DATA_SECOND.ordinal()], machine, true);
+        final String signature = DATA_FIRST.from(args);
+        final String values = parseVals(DATA_SECOND.from(args), machine, true);
         final TupleType tt = TupleType.parse(signature);
         return Strings.encode(tt.encodePacked(SuperSerial.deserialize(tt, values, machine)).array());
     }
 
     private static String decodeABIPacked(String[] args, boolean compact) {
-        final TupleType tt = TupleType.parse(args[DATA_FIRST.ordinal()]);
-        final byte[] packedAbi = Strings.decode(args[DATA_SECOND.ordinal()]);
+        final TupleType tt = TupleType.parse(DATA_FIRST.from(args));
+        final byte[] packedAbi = Strings.decode(DATA_SECOND.from(args));
         return compacted(SuperSerial.serialize(tt, tt.decodePacked(packedAbi), false), compact);
     }
 
     private static String encodeABI(String[] args, boolean machine, boolean function) {
-        final String signature = args[DATA_FIRST.ordinal()];
-        final String values = parseVals(args[DATA_SECOND.ordinal()], machine, true);
+        final String signature = DATA_FIRST.from(args);
+        final String values = parseVals(DATA_SECOND.from(args), machine, true);
         final ByteBuffer abi;
         if(function) {
             Function f = Function.parse(signature);
@@ -167,8 +167,8 @@ public class Main {
     }
 
     private static String decodeABI(String[] args, boolean machine, boolean function, boolean compact) {
-        final String signature = args[DATA_FIRST.ordinal()];
-        final byte[] abiBytes = Strings.decode(args[DATA_SECOND.ordinal()]);
+        final String signature = DATA_FIRST.from(args);
+        final byte[] abiBytes = Strings.decode(DATA_SECOND.from(args));
         final TupleType tt;
         final Tuple values;
         if(function) {
@@ -183,18 +183,18 @@ public class Main {
     }
 
     private static String encodeRLP(String[] args) {
-        final String values = parseVals(args[DATA_FIRST.ordinal()], false, false);
+        final String values = parseVals(DATA_FIRST.from(args), false, false);
         final List<Object> objects = Notation.parse(values);
         return Strings.encode(RLPEncoder.encodeSequentially(objects));
     }
 
     private static String decodeRLP(String[] args, boolean compact) {
-        final byte[] rlpBytes = Strings.decode(args[DATA_FIRST.ordinal()]);
+        final byte[] rlpBytes = Strings.decode(DATA_FIRST.from(args));
         return compacted(Notation.forEncoding(rlpBytes).toString(), compact);
     }
 
     private static String decToHex(String[] args, boolean compact) {
-        final int typeBits = parseTypeBits(args[DATA_FIRST.ordinal()]);
+        final int typeBits = parseTypeBits(DATA_FIRST.from(args));
         final Uint uint = new Uint(typeBits);
         final int start = DATA_FIRST.ordinal() + 1;
         final int end = args.length;
@@ -211,10 +211,10 @@ public class Main {
     }
 
     private static String hexToDec(String[] args, boolean compact) {
-        final int typeBits = parseTypeBits(args[DATA_FIRST.ordinal()]);
+        final int typeBits = parseTypeBits(DATA_FIRST.from(args));
         final Uint uint = new Uint(typeBits);
         final char delimiter = compact ? ' ' : '\n';
-        final String signedStr = args[DATA_SECOND.ordinal()];
+        final String signedStr = DATA_SECOND.from(args);
         boolean signed = false;
         if("true".equals(signedStr)) {
             signed = true;
@@ -290,15 +290,15 @@ public class Main {
     }
 
     private static String format(String[] args) {
-        return ABIType.format(Strings.decode(args[DATA_FIRST.ordinal()]));
+        return ABIType.format(Strings.decode(DATA_FIRST.from(args)));
     }
 
     private static String formatFunctionCall(String[] args) {
-        return Function.formatCall(Strings.decode(args[DATA_FIRST.ordinal()]));
+        return Function.formatCall(Strings.decode(DATA_FIRST.from(args)));
     }
 
     private static String parseAbiJson(String[] args) {
-        final String json = args[DATA_FIRST.ordinal()];
+        final String json = DATA_FIRST.from(args);
         if(json.startsWith("[")) {
             return ABIJSON.parseElements(json)
                     .stream()
