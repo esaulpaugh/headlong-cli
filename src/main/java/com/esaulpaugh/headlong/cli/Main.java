@@ -19,7 +19,6 @@ import com.esaulpaugh.headlong.abi.ABIJSON;
 import com.esaulpaugh.headlong.abi.ABIObject;
 import com.esaulpaugh.headlong.abi.ABIType;
 import com.esaulpaugh.headlong.abi.Address;
-import com.esaulpaugh.headlong.abi.Event;
 import com.esaulpaugh.headlong.abi.Function;
 import com.esaulpaugh.headlong.abi.Tuple;
 import com.esaulpaugh.headlong.abi.TupleType;
@@ -318,13 +317,15 @@ public class Main {
     }
 
     private static String describe(ABIObject o) {
-        if(o instanceof Function) {
-            Function foo = (Function) o;
-            return foo.getType().name() + " " + foo.getCanonicalSignature() + getParamNames(foo.getInputs()) + " returns: " + foo.getOutputs().getCanonicalType() + " stateMutability: " + foo.getStateMutability();
-        } else {
-            Event e = (Event) o;
-            return "event " + e.getCanonicalSignature() + getParamNames(e.getInputs()) + " indexed:" + Arrays.toString(e.getIndexManifest());
+        if(o.isFunction()) {
+            Function foo = o.asFunction();
+            return foo.getType().name() + " " + o.getCanonicalSignature() + getParamNames(o.getInputs()) + " returns: " + foo.getOutputs().getCanonicalType() + " stateMutability: " + foo.getStateMutability();
+        } else if (o.isEvent()) {
+            return "event " + o.getCanonicalSignature() + getParamNames(o.getInputs()) + " indexed:" + Arrays.toString(o.asEvent().getIndexManifest());
+        } else if(o.isContractError()) {
+            return "error " + o.getCanonicalSignature() + getParamNames(o.getInputs());
         }
+        throw new AssertionError();
     }
 
     private static String getParamNames(TupleType params) {
