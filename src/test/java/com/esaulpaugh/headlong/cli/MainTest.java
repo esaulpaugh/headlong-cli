@@ -222,10 +222,10 @@ public class MainTest {
         assertThrown(IllegalArgumentException.class, "specified bit length must be less than or equal to 256", () -> Main.eval(new String[] { "-hexdec", "264", "true", "08ff", "08fe" }));
         assertThrown(IllegalArgumentException.class, "specified bit length must be a multiple of 8", () -> Main.eval(new String[] { "-hexdec", "4", "true", "08ff", "08fe" }));
 
-        assertThrown(IllegalArgumentException.class, "second datum must specify signedness of the args as \"true\" or \"false\"", () -> Main.eval(new String[] { "-hexdec", "16", "1", "08ff", "08fe" }));
+        assertThrown(IllegalArgumentException.class, "second datum must be either \"signed\" or \"unsigned\"", () -> Main.eval(new String[] { "-hexdec", "16", "1", "08ff", "08fe" }));
 
-        assertEquals("2303\n2302", Main.eval(new String[] { "-hexdec", "248", "false", "08ff", "08fe" }));
-        assertEquals("-32513 -32514", Main.eval(new String[] { "-hexdecc", "16", "true", "80ff", "80fe" }));
+        assertEquals("2303\n2302", Main.eval(new String[] { "-hexdec", "248", "unsigned", "08ff", "08fe" }));
+        assertEquals("-32513 -32514", Main.eval(new String[] { "-hexdecc", "16", "signed", "80ff", "80fe" }));
     }
 
     @Test

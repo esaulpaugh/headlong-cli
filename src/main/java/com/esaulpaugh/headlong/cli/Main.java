@@ -216,10 +216,10 @@ public class Main {
         final char delimiter = compact ? ' ' : '\n';
         final String signedStr = DATA_SECOND.from(args);
         boolean signed = false;
-        if("true".equals(signedStr)) {
+        if("signed".equals(signedStr)) {
             signed = true;
-        } else if(!"false".equals(signedStr)) {
-            throw new IllegalArgumentException("second datum must specify signedness of the args as \"true\" or \"false\"");
+        } else if(!"unsigned".equals(signedStr)) {
+            throw new IllegalArgumentException("second datum must be either \"signed\" or \"unsigned\"");
         }
         final int start = DATA_SECOND.ordinal() + 1;
         final int end = args.length;
