@@ -25,8 +25,8 @@ import com.esaulpaugh.headlong.abi.Tuple;
 import com.esaulpaugh.headlong.abi.TupleType;
 import com.esaulpaugh.headlong.abi.util.JsonUtils;
 import com.esaulpaugh.headlong.abi.util.Uint;
-import com.esaulpaugh.headlong.rlp.RLPEncoder;
 import com.esaulpaugh.headlong.rlp.Notation;
+import com.esaulpaugh.headlong.rlp.RLPEncoder;
 import com.esaulpaugh.headlong.util.Strings;
 import com.esaulpaugh.headlong.util.SuperSerial;
 
@@ -123,6 +123,7 @@ public class Main {
         case "-format": return format(args);
         case "-formatf": return formatFunctionCall(args);
         case "-parseabijson": return parseAbiJson(args);
+        case "-jsontosig": return jsonToSignature(args);
         case "-eip55": return Address.toChecksumAddress(DATA_FIRST.from(args));
         default: throw new IllegalArgumentException("unrecognized command: " + command);
         }
@@ -309,6 +310,11 @@ public class Main {
         } else {
             throw new IllegalArgumentException("json must start with '[' or '{'");
         }
+    }
+
+    private static String jsonToSignature(String[] args) {
+        final String json = DATA_FIRST.from(args);
+        return ABIJSON.parseABIObject(JsonUtils.parseObject(json)).getCanonicalSignature();
     }
 
     private static String describe(ABIObject o) {
