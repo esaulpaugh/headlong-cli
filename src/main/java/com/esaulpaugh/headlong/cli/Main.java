@@ -72,8 +72,8 @@ public class Main {
             "-hexutfc [args...]\n" +
             "-format [abi hex]\n" +
             "-formatf [abi function call hex]\n" +
-            "-parse [abi json array]\n" +
-            "-parseobj [abi json object]";
+            "-parseabijson [abi json array or object]\n" +
+            "-jsontosig [abi json object]";
 
     public static void main(String[] args0) {
         evalPrint(args0);
