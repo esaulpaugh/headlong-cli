@@ -22,7 +22,6 @@ import com.esaulpaugh.headlong.abi.Address;
 import com.esaulpaugh.headlong.abi.Function;
 import com.esaulpaugh.headlong.abi.Tuple;
 import com.esaulpaugh.headlong.abi.TupleType;
-import com.esaulpaugh.headlong.abi.util.JsonUtils;
 import com.esaulpaugh.headlong.abi.util.Uint;
 import com.esaulpaugh.headlong.rlp.Notation;
 import com.esaulpaugh.headlong.rlp.RLPEncoder;
@@ -305,7 +304,7 @@ public class Main {
                     .map(Main::describe)
                     .collect(Collectors.joining("\n"));
         } else if(json.startsWith("{")) {
-            return describe(ABIJSON.parseABIObject(JsonUtils.parseObject(json)));
+            return describe(ABIObject.fromJson(json));
         } else {
             throw new IllegalArgumentException("json must start with '[' or '{'");
         }
@@ -313,7 +312,7 @@ public class Main {
 
     private static String jsonToSignature(String[] args) {
         final String json = DATA_FIRST.from(args);
-        return ABIJSON.parseABIObject(JsonUtils.parseObject(json)).getCanonicalSignature();
+        return ABIObject.fromJson(json).getCanonicalSignature();
     }
 
     private static String describe(ABIObject o) {
