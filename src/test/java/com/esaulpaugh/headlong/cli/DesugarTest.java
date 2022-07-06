@@ -24,14 +24,13 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DesugarTest {
 
     @Test
-    public void testBool() {
+    public void testBool() throws Throwable {
         String[] command = new String[] { "-ef", "sam(bool)", "('02')" };
-        assertThrows(IllegalArgumentException.class, () -> Main.eval(command), "invalid boolean syntax: 02. Expected 01 for true or empty string for false");
+        assertThrown(IllegalArgumentException.class, "invalid boolean syntax: 0x02. Expected RLP 0x01 or 0x80", () -> Main.eval(command));
     }
 
     @Test
@@ -105,5 +104,35 @@ public class DesugarTest {
         String[] command = new String[] { "-e", "(address)", "( a'0x000000000000F9087ABcDEf00CafeBaBE86244AA' ])" };
         String out = Main.eval(command);
         assertEquals("000000000000000000000000000000000000f9087abcdef00cafebabe86244aa", out);
+    }
+
+    @FunctionalInterface
+    public interface CustomRunnable {
+        void run() throws Throwable;
+    }
+
+    public static void assertThrown(Class<? extends Throwable> clazz, CustomRunnable r) throws Throwable {
+        try {
+            r.run();
+        } catch (Throwable t) {
+            if (clazz.isInstance(t)) {
+                return;
+            }
+            throw t;
+        }
+        throw new AssertionError("no " + clazz.getName() + " thrown");
+    }
+
+    public static void assertThrown(Class<? extends Throwable> clazz, String substr, CustomRunnable r) throws Throwable {
+        try {
+            r.run();
+        } catch (Throwable t) {
+            if(clazz.isInstance(t)
+                    && (t.getMessage() == null || t.getMessage().contains(substr))) {
+                return;
+            }
+            throw t;
+        }
+        throw new AssertionError("no " + clazz.getName() + " thrown");
     }
 }
