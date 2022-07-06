@@ -65,7 +65,7 @@ public class SugarSerial {
                 break;
             case 'b':
                 if(val.equals("true")) sb.append("01");
-                else if(!val.equals("false")) throw new IllegalArgumentException("unexpected boolean syntax: requires '01' for true or '' for false");
+                else if(!val.equals("false")) throw new IllegalArgumentException("unexpected boolean syntax");
                 break;
             default:
                 sb.append(val);
