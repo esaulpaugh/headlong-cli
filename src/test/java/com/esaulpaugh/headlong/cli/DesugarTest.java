@@ -24,8 +24,15 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DesugarTest {
+
+    @Test
+    public void testBool() {
+        String[] command = new String[] { "-ef", "sam(bool)", "('02')" };
+        assertThrows(IllegalArgumentException.class, () -> Main.eval(command), "invalid boolean syntax: 02. Expected 01 for true or empty string for false");
+    }
 
     @Test
     public void testVector() {
