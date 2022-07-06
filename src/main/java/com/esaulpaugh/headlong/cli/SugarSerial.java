@@ -80,8 +80,7 @@ public class SugarSerial {
 
     private static byte[] serializeBigInteger(BigInteger val, boolean extend) {
         if(val.signum() > 0) {
-            final byte[] bytes = Integers.toBytesUnsigned(val);
-            return bytes; // extend ? signExtend(bytes, (byte) 0x00) :
+            return Integers.toBytesUnsigned(val);
         }
         if(val.signum() != 0) {
             final byte[] bytes = val.toByteArray();

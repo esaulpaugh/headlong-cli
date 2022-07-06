@@ -197,7 +197,7 @@ public class Main {
         final Uint uint = new Uint(typeBits);
         final int start = DATA_FIRST.ordinal() + 1;
         final int end = args.length;
-        Object[] objects = new Object[end - start];
+        final Object[] objects = new Object[end - start];
         int idx = 0;
         for (int i = start; i < end; i++) {
             BigInteger bi = new BigInteger(args[i], 10);
