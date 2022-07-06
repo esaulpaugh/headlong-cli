@@ -65,8 +65,7 @@ public class SugarSerial {
                 break;
             case 'b':
                 if(val.equals("true")) sb.append("01");
-                else if(val.equals("false")) sb.append("00");
-                else throw new IllegalArgumentException("unexpected boolean syntax");
+                else if(!val.equals("false")) throw new IllegalArgumentException("unexpected boolean syntax: requires '01' for true or '' for false");
                 break;
             default:
                 sb.append(val);
@@ -79,7 +78,7 @@ public class SugarSerial {
     private static byte[] serializeBigInteger(BigInteger val, boolean extend) {
         if(val.signum() > 0) {
             final byte[] bytes = Integers.toBytesUnsigned(val);
-            return extend ? signExtend(bytes, (byte) 0x00) : bytes;
+            return bytes; // extend ? signExtend(bytes, (byte) 0x00) :
         }
         if(val.signum() != 0) {
             final byte[] bytes = val.toByteArray();

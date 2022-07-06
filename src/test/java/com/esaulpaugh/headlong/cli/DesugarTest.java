@@ -61,6 +61,39 @@ public class DesugarTest {
     }
 
     @Test
+    public void testVector2() {
+        String[] command = new String[] { "-ef", "sam(bytes,bool,uint256[])", "(u'\u0009', b'false', [ d'-1', d'-2', d'-3' ])" };
+        String out = Main.eval(command);
+        assertEquals(
+                "a5643bf2" +
+                        "0000000000000000000000000000000000000000000000000000000000000060" +
+                        "0000000000000000000000000000000000000000000000000000000000000000" +
+                        "00000000000000000000000000000000000000000000000000000000000000a0" +
+                        "0000000000000000000000000000000000000000000000000000000000000001" +
+                        "0900000000000000000000000000000000000000000000000000000000000000" +
+                        "0000000000000000000000000000000000000000000000000000000000000003" +
+                        "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff" +
+                        "fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe" +
+                        "fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffd",
+                out
+        );
+        Tuple tuple = Function.parse("sam(bytes,bool,uint256[])").decodeCall(FastHex.decode(out));
+        System.out.println(tuple);
+        assertEquals(
+                Tuple.of(
+                        "\t".getBytes(StandardCharsets.UTF_8),
+                        false,
+                        new BigInteger[] {
+                                new BigInteger("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", 16),
+                                new BigInteger("fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe", 16),
+                                new BigInteger("fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffd", 16)
+                        }
+                ),
+                tuple
+        );
+    }
+
+    @Test
     public void testAddress() {
         String[] command = new String[] { "-e", "(address)", "( a'0x000000000000F9087ABcDEf00CafeBaBE86244AA' ])" };
         String out = Main.eval(command);
