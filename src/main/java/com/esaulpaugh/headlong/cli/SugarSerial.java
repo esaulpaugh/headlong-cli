@@ -48,9 +48,12 @@ public class SugarSerial {
             i = valEnd + 1;
             final String val = values.substring(valIdx, valEnd);
             switch (values.charAt(codeIdx)) {
-            case 'a':
-                sb.append(Address.toChecksumAddress(val).substring("0x".length()));
+            case 'a': {
+                String str = Address.toChecksumAddress(val).substring("0x".length());
+                String hex = Strings.encode(serializeBigInteger(new BigInteger(str, 16), false));
+                sb.append(hex);
                 break;
+            }
             case 'd': {
                 BigInteger bi = new BigInteger(val, 10);
                 byte[] bytes = serializeBigInteger(bi, extend);
