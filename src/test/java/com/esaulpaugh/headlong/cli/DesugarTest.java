@@ -41,7 +41,7 @@ public class DesugarTest {
         assertEquals("(\n  ''\n)", SuperSerial.serialize(tt, _false, false));
 
         String[] command = new String[] { "-ef", "sam(bool)", "('02')" };
-        assertThrown(IllegalArgumentException.class, "invalid boolean syntax: 0x02. Expected RLP 0x01 or 0x80", () -> Main.eval(command));
+        assertThrown(IllegalArgumentException.class, "illegal boolean RLP: 0x02. Expected 0x01 or 0x80", () -> Main.eval(command));
     }
 
     @Test
