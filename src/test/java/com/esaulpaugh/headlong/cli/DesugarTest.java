@@ -17,7 +17,9 @@ package com.esaulpaugh.headlong.cli;
 
 import com.esaulpaugh.headlong.abi.Function;
 import com.esaulpaugh.headlong.abi.Tuple;
+import com.esaulpaugh.headlong.abi.TupleType;
 import com.esaulpaugh.headlong.util.FastHex;
+import com.esaulpaugh.headlong.util.SuperSerial;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigInteger;
@@ -29,6 +31,15 @@ public class DesugarTest {
 
     @Test
     public void testBool() throws Throwable {
+        TupleType tt = TupleType.parse("(bool)");
+        Tuple _true = Tuple.of(true);
+        Tuple _false = Tuple.of(false);
+
+        assertEquals("01", SuperSerial.serialize(tt, _true, true));
+        assertEquals("80", SuperSerial.serialize(tt, _false, true));
+        assertEquals("(\n  '01'\n)", SuperSerial.serialize(tt, _true, false));
+        assertEquals("(\n  ''\n)", SuperSerial.serialize(tt, _false, false));
+
         String[] command = new String[] { "-ef", "sam(bool)", "('02')" };
         assertThrown(IllegalArgumentException.class, "invalid boolean syntax: 0x02. Expected RLP 0x01 or 0x80", () -> Main.eval(command));
     }
