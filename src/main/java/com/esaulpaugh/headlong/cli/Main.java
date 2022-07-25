@@ -26,7 +26,7 @@ import com.esaulpaugh.headlong.abi.util.Uint;
 import com.esaulpaugh.headlong.rlp.Notation;
 import com.esaulpaugh.headlong.rlp.RLPEncoder;
 import com.esaulpaugh.headlong.util.Strings;
-import com.esaulpaugh.headlong.util.SuperSerial;
+import com.esaulpaugh.headlong.abi.SuperSerial;
 
 import java.math.BigInteger;
 import java.net.URL;
@@ -329,13 +329,14 @@ public class Main {
 
     private static String getParamNames(TupleType params) {
         boolean hasName = false;
-        for (ABIType<?> type : params) {
-            hasName |= type.getName() != null;
+        final int size = params.size();
+        for (int i = 0; i < size; i++) {
+            hasName |= params.getElementName(i) != null;
         }
         if(!hasName) return " ";
         StringBuilder sb = new StringBuilder(" names:(");
-        for (ABIType<?> type : params) {
-            sb.append(type.getName())
+        for (int i = 0; i < size; i++) {
+            sb.append(params.getElementName(i))
                     .append(',');
         }
         return completeNameString(sb);
