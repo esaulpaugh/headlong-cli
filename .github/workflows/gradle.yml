@@ -18,7 +18,7 @@ jobs:
           distribution: 'temurin'
           java-version: '18.0.2'
           java-package: jdk
-          architecture: aarch64
+          architecture: x64
 
       - name: Build with Gradle
         run: gradle build
