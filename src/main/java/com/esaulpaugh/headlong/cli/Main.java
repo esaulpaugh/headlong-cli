@@ -184,7 +184,7 @@ public class Main {
     private static String encodeRLP(String[] args) {
         final String values = parseVals(DATA_FIRST.from(args), false, false);
         final List<Object> objects = Notation.parse(values);
-        return Strings.encode(RLPEncoder.encodeSequentially(objects));
+        return Strings.encode(RLPEncoder.sequence(objects));
     }
 
     private static String decodeRLP(String[] args, boolean compact) {

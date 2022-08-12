@@ -59,7 +59,7 @@ public class MainTest {
                         + "0000000000000000000000000000000000000000000000000000000000000004"
                         + "7730307400000000000000000000000000000000000000000000000000000000");
 
-        assertThrown(IllegalArgumentException.class, "unsigned val exceeds bit limit: 254 > 17", () -> FUNCTION.decodeReturn(tooSmallOffset));
+        assertThrown(IllegalArgumentException.class, "unsigned val exceeds bit limit: 254 > 19", () -> FUNCTION.decodeReturn(tooSmallOffset));
     }
 
     private static final String SIGNATURE = "(function[2][][],bytes24,string[1][1],address[],uint72,(uint8),(int16)[2][][1],(int32)[],uint40,(int48)[],(uint),bool,string,bool[2],int24[],uint40[1])";

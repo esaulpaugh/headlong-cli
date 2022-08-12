@@ -9,7 +9,7 @@
       </ignored-keys>
       <trusted-keys>
          <trusted-key id="b0f3710fa64900e7" group="com.google.code.gson"/>
-         <trusted-key id="d2ea6bcd43b3663cdf6222c135ae09fd38f0cfae" group="com.esaulpaugh" name="headlong" version="7.0.0"/><!-- *** REMEMBER TO UPDATE VERSION ** -->
+         <trusted-key id="d2ea6bcd43b3663cdf6222c135ae09fd38f0cfae" group="com.esaulpaugh" name="headlong" version="8.0.0"/><!-- *** REMEMBER TO UPDATE VERSION ** -->
          <trusted-key id="ff6e2c001948c5f2f38b0cc385911f425ec61b51">
             <trusting group="^org[.]junit($|([.].*))" regex="true"/>
             <trusting group="org.opentest4j"/>
@@ -18,72 +18,116 @@
       </trusted-keys>
    </configuration>
    <components>
-      <component group="com.google.code.gson" name="gson" version="2.9.0">
-         <artifact name="gson-2.9.0.jar">
-            <sha256 value="c96d60551331a196dac54b745aa642cd078ef89b6f267146b705f2c2cbef052d" origin="repo.maven.apache.org/maven2/"/>
+      <component group="com.google.code.gson" name="gson" version="2.9.1">
+         <artifact name="gson-2.9.1.jar">
+            <sha256 value="378534e339e6e6d50b1736fb3abb76f1c15d1be3f4c13cec6d536412e23da603" origin="repo.maven.apache.org/maven2/"/>
          </artifact>
-         <artifact name="gson-2.9.0-sources.jar">
-            <sha256 value="75429446e9d9e90c5b6a84aa06d8d27783f29c70b3de65a6c2d50d27cece64dc" origin="repo.maven.apache.org/maven2/"/>
+         <artifact name="gson-2.9.1.pom">
+            <sha256 value="e5966323d7142570b37a4be979e21bc2dae848107e4dc416d8f44d9aa3f02903" origin="repo.maven.apache.org/maven2/"/>
          </artifact>
-         <artifact name="gson-2.9.0.pom">
-            <sha256 value="7190d0b07f278e9f4c603f44e543940f81cf1a2559f851c6f298c9bb2be2978c" origin="repo.maven.apache.org/maven2/"/>
-         </artifact>
-      </component>
-      <component group="com.esaulpaugh" name="headlong" version="7.0.0">
-         <artifact name="headlong-7.0.0.jar">
-            <sha256 value="c8be5e58f7a1ec1ec85e3b6385a7a4d1ce10f2e75cb65ee85fe31fa6ca59ee00" origin="repo.maven.apache.org/maven2/"/>
-         </artifact>
-         <artifact name="headlong-7.0.0.module">
-            <sha256 value="1f2e6ae4ff5ab9ad1824a84302809e2ce8ab6a2533b1d97f82fe2c354b925271" origin="repo.maven.apache.org/maven2/"/>
-         </artifact>
-         <artifact name="headlong-7.0.0-sources.jar">
-            <sha256 value="3d224e609d39852505bc5d390a7d4aaabb67e7d8b9d3c96c7ff2885c62ae6962" origin="repo.maven.apache.org/maven2/"/>
+         <artifact name="gson-2.9.1-sources.jar">
+            <sha256 value="2a5e4bc49e34643467e9a595f32d8982408c9825f2959af2ae2bf79b57ba306c" origin="repo.maven.apache.org/maven2/"/>
          </artifact>
       </component>
-      <component group="com.google.code.gson" name="gson-parent" version="2.9.0">
-         <artifact name="gson-parent-2.9.0.pom">
-            <sha256 value="af781c9a5766ffea311a0df0536576a64decc661aa110c4de5c73ac8bf434424" origin="repo.maven.apache.org/maven2/"/>
+      <component group="com.google.code.gson" name="gson-parent" version="2.9.1">
+         <artifact name="gson-parent-2.9.1.pom">
+            <sha256 value="7ca0845e73685618de3e46bd3434d03a4a373d520fab93a680318ad6c8cb2a79" origin="repo.maven.apache.org/maven2/"/>
+         </artifact>
+      </component>
+      <component group="com.esaulpaugh" name="headlong" version="8.0.0">
+         <artifact name="headlong-8.0.0.jar">
+            <sha256 value="ce55ec4b3a9c9087f9f9cfad304e79688e7421e75b1b056853ecf5a79611f754" origin="repo.maven.apache.org/maven2/"/>
+         </artifact>
+         <artifact name="headlong-8.0.0.module">
+            <sha256 value="5fb38317064c27e7ab9926e4fa16596607c2472a29c45a9d2da86770b2820ac2" origin="repo.maven.apache.org/maven2/"/>
+         </artifact>
+         <artifact name="headlong-8.0.0-sources.jar">
+            <sha256 value="59234795c06281f95b0cadda11d0f7915f4f2c7977c82f51ccd92684f3b4ccc2" origin="repo.maven.apache.org/maven2/"/>
+         </artifact>
+      </component>
+
+      <component group="org.junit.jupiter" name="junit-jupiter-api" version="5.9.0">
+         <artifact name="junit-jupiter-api-5.9.0.module">
+            <sha256 value="9f92cf179575c4df698294704d10f12e8cc715d682fb20edcd8adbc41fc7f0f4" origin="repo.maven.apache.org/maven2/"/>
+         </artifact>
+         <artifact name="junit-jupiter-api-5.9.0.jar">
+            <sha256 value="3e370bcbb1e857fda5f0b203724116d02b05e788faa1eb2518814accf9cfb5b1" origin="repo.maven.apache.org/maven2/"/>
+         </artifact>
+         <artifact name="junit-jupiter-api-5.9.0-sources.jar">
+            <sha256 value="fa61dac36eb90a3bc30e00d77eb033bcf4b1f921be0f637c460b53ee69b8439e" origin="repo.maven.apache.org/maven2/"/>
+         </artifact>
+      </component>
+
+      <component group="org.junit.platform" name="junit-platform-engine" version="1.9.0">
+         <artifact name="junit-platform-engine-1.9.0.jar">
+            <sha256 value="aaec735f7444a9fc055e206598de3d829c24e9c7a8eea6efdeeb1962087fe811" origin="repo.maven.apache.org/maven2/"/>
+         </artifact>
+         <artifact name="junit-platform-engine-1.9.0-sources.jar">
+            <sha256 value="1e6b32b1c01edbe23ce929f778b304296a698618bd53f04d9039167c0a63f8fb" origin="repo.maven.apache.org/maven2/"/>
+         </artifact>
+      </component>
+      <component group="org.junit.jupiter" name="junit-jupiter-engine" version="5.9.0">
+         <artifact name="junit-jupiter-engine-5.9.0.jar">
+            <sha256 value="db86cbb3352719fa0a97800edfd09c20463c7f2ab4a04699244430bd8954583b" origin="repo.maven.apache.org/maven2/"/>
+         </artifact>
+         <artifact name="junit-jupiter-engine-5.9.0.module">
+            <sha256 value="b159e5b5b62622238fd6fd2864f8a012c1df6db2bb26f10ca80e1d22acce2f1d" origin="repo.maven.apache.org/maven2/"/>
+         </artifact>
+         <artifact name="junit-jupiter-engine-5.9.0-sources.jar">
+            <sha256 value="9ec3a8efe69155c965a885af66ee7b0f898cb8b41ed6c8703c2f4a3705f9f367" origin="repo.maven.apache.org/maven2/"/>
+         </artifact>
+      </component>
+      <component group="org.junit" name="junit-bom" version="5.9.0">
+         <artifact name="junit-bom-5.9.0.module">
+            <sha256 value="a054eaf5016b58bbcde86660444a7c0dd3e2caf84d2a1ad5fc4cb525979c19b9" origin="repo.maven.apache.org/maven2/"/>
+         </artifact>
+         <artifact name="junit-bom-5.9.0.pom">
+            <sha256 value="d83e87f1676cde44191eec5cda690492392f26923b1e498148ca739dfed75295" origin="repo.maven.apache.org/maven2/"/>
+         </artifact>
+      </component>
+
+      <component group="org.junit.platform" name="junit-platform-commons" version="1.9.0">
+         <artifact name="junit-platform-commons-1.9.0.module">
+            <sha256 value="4b20333f8aee54e830458d81d045eb8d17dc0424d313328db509a9cc2499b17a" origin="repo.maven.apache.org/maven2/"/>
+         </artifact>
+         <artifact name="junit-platform-commons-1.9.0.jar">
+            <sha256 value="e5894b710094b4caafc6280b8829a439fb764901ea0ae18d06ed80388b309b7a" origin="repo.maven.apache.org/maven2/"/>
+         </artifact>
+         <artifact name="junit-platform-commons-1.9.0-sources.jar">
+            <sha256 value="bcae1e81de07a6fb9068df4cc0d23c91a7b1985837f32b69c101556852639489" origin="repo.maven.apache.org/maven2/"/>
          </artifact>
       </component>
       <component group="org.apiguardian" name="apiguardian-api" version="1.1.2">
-         <artifact name="apiguardian-api-1.1.2.jar">
-            <sha256 value="b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38" origin="Generated by Gradle because artifact wasn't signed"/>
-         </artifact>
          <artifact name="apiguardian-api-1.1.2.module">
-            <pgp value="ff6e2c001948c5f2f38b0cc385911f425ec61b51"/>
+            <sha256 value="e08028131375b357d1d28734e9a4fb4216da84b240641cb3ef7e7c7d628223fc" origin="repo.maven.apache.org/maven2/"/>
+         </artifact>
+         <artifact name="apiguardian-api-1.1.2.jar">
+            <sha256 value="b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38" origin="repo.maven.apache.org/maven2/"/>
+         </artifact>
+         <artifact name="apiguardian-api-1.1.2-sources.jar">
+            <sha256 value="277a7a4315412817beb6655b324dc7276621e95ebff00b8bf65e17a27b685e2d" origin="repo.maven.apache.org/maven2/"/>
          </artifact>
       </component>
-      <component group="org.junit.jupiter" name="junit-jupiter-api" version="5.8.2">
-         <artifact name="junit-jupiter-api-5.8.2.jar">
-            <sha256 value="1808ee87e0f718cd6e25f3b75afc17956ac8a3edc48c7e9bab9f19f9a79e3801" origin="Generated by Gradle because artifact wasn't signed"/>
-         </artifact>
-      </component>
-      <component group="org.junit.jupiter" name="junit-jupiter-engine" version="5.8.2">
-         <artifact name="junit-jupiter-engine-5.8.2.jar">
-            <sha256 value="753b7726cdd158bb34cedb94c161e2291896f47832a1e9eda53d970020a8184e" origin="Generated by Gradle because artifact wasn't signed"/>
-         </artifact>
-      </component>
-      <component group="org.junit.platform" name="junit-platform-commons" version="1.8.2">
-         <artifact name="junit-platform-commons-1.8.2.jar">
-            <sha256 value="d2e015fca7130e79af2f4608dc54415e4b10b592d77333decb4b1a274c185050" origin="Generated by Gradle because artifact wasn't signed"/>
-         </artifact>
-      </component>
-      <component group="org.junit.platform" name="junit-platform-engine" version="1.8.2">
-         <artifact name="junit-platform-engine-1.8.2.jar">
-            <sha256 value="0b7d000f8c3e8e5f7d6b819649936e7b9938314e87c8f983805218ea57567e59" origin="Generated by Gradle because artifact wasn't signed"/>
+      <component group="org.junit.platform" name="junit-platform-engine" version="1.9.0">
+         <artifact name="junit-platform-engine-1.9.0.module">
+            <sha256 value="ff75f1d6113f45d5b25f2529504ded883986a012c9b43d21ad42398e49d71063" origin="repo.maven.apache.org/maven2/"/>
          </artifact>
       </component>
       <component group="org.opentest4j" name="opentest4j" version="1.2.0">
-         <artifact name="opentest4j-1.2.0.jar">
-            <sha256 value="58812de60898d976fb81ef3b62da05c6604c18fd4a249f5044282479fc286af2" origin="Generated by Gradle because artifact wasn't signed"/>
-         </artifact>
          <artifact name="opentest4j-1.2.0.pom">
-            <pgp value="ff6e2c001948c5f2f38b0cc385911f425ec61b51"/>
+            <sha256 value="a96e671816c1ff8803bdec74c9241f025bdfb277da5d2b4ee02266405936f994" origin="repo.maven.apache.org/maven2/"/>
+         </artifact>
+         <artifact name="opentest4j-1.2.0.jar">
+            <sha256 value="58812de60898d976fb81ef3b62da05c6604c18fd4a249f5044282479fc286af2" origin="repo.maven.apache.org/maven2/"/>
+         </artifact>
+         <artifact name="opentest4j-1.2.0-sources.jar">
+            <sha256 value="b63495ef700fb2af2cdee8dd68659b27822650058234a602f9ed1d14b909a1a8" origin="repo.maven.apache.org/maven2/"/>
          </artifact>
       </component>
-      <component group="org.sonatype.oss" name="oss-parent" version="7">
-         <artifact name="oss-parent-7.pom">
-            <sha256 value="b51f8867c92b6a722499557fc3a1fdea77bdf9ef574722fe90ce436a29559454" origin="Generated by Gradle because artifact wasn't signed"/>
+
+      <component group="org.sonatype.oss" name="oss-parent" version="9">
+         <artifact name="oss-parent-9.pom">
+            <sha256 value="fb40265f982548212ff82e362e59732b2187ec6f0d80182885c14ef1f982827a" origin="repo.maven.apache.org/maven2/"/>
          </artifact>
       </component>
    </components>
