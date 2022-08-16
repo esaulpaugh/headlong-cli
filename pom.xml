@@ -51,6 +51,18 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>JDK 10+</id>
+            <activation>
+                <jdk>[10.0,)</jdk>
+            </activation>
+            <properties>
+                <maven.compiler.release>8</maven.compiler.release>
+            </properties>
+        </profile>
+    </profiles>
+
     <build>
         <plugins>
             <plugin>
