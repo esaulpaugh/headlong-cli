@@ -84,14 +84,14 @@ public class SugarSerial {
         }
         if(val.signum() != 0) {
             final byte[] bytes = val.toByteArray();
-            return extend ? signExtend(bytes, (byte) 0xff) : bytes;
+            return extend ? signExtend(bytes) : bytes;
         }
         return EMPTY_BYTE_ARRAY;
     }
 
-    private static byte[] signExtend(final byte[] bytes, byte signByte) {
+    private static byte[] signExtend(final byte[] bytes) {
         final byte[] extended = new byte[UnitType.UNIT_LENGTH_BYTES];
-        Arrays.fill(extended, signByte);
+        Arrays.fill(extended, (byte) 0xff);
         System.arraycopy(bytes, 0, extended, UnitType.UNIT_LENGTH_BYTES - bytes.length, bytes.length);
         return extended;
     }
