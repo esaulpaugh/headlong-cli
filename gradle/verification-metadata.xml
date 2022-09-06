@@ -9,7 +9,7 @@
       </ignored-keys>
       <trusted-keys>
          <trusted-key id="b0f3710fa64900e7" group="com.google.code.gson"/>
-         <trusted-key id="d2ea6bcd43b3663cdf6222c135ae09fd38f0cfae" group="com.esaulpaugh" name="headlong" version="8.0.0"/><!-- *** REMEMBER TO UPDATE VERSION ** -->
+         <trusted-key id="d2ea6bcd43b3663cdf6222c135ae09fd38f0cfae" group="com.esaulpaugh" name="headlong" version="8.1.0"/><!-- *** REMEMBER TO UPDATE VERSION ** -->
          <trusted-key id="ff6e2c001948c5f2f38b0cc385911f425ec61b51">
             <trusting group="^org[.]junit($|([.].*))" regex="true"/>
             <trusting group="org.opentest4j"/>
@@ -34,15 +34,15 @@
             <sha256 value="7ca0845e73685618de3e46bd3434d03a4a373d520fab93a680318ad6c8cb2a79" origin="repo.maven.apache.org/maven2/"/>
          </artifact>
       </component>
-      <component group="com.esaulpaugh" name="headlong" version="8.0.0">
-         <artifact name="headlong-8.0.0.jar">
-            <sha256 value="ce55ec4b3a9c9087f9f9cfad304e79688e7421e75b1b056853ecf5a79611f754" origin="repo.maven.apache.org/maven2/"/>
+      <component group="com.esaulpaugh" name="headlong" version="8.1.0">
+         <artifact name="headlong-8.1.0.jar">
+            <sha256 value="20b8e6a1cb9d1fa45afce87764a9527b55c0691742a530db632d44bd02db2dab" origin="repo.maven.apache.org/maven2/"/>
          </artifact>
-         <artifact name="headlong-8.0.0.module">
-            <sha256 value="5fb38317064c27e7ab9926e4fa16596607c2472a29c45a9d2da86770b2820ac2" origin="repo.maven.apache.org/maven2/"/>
+         <artifact name="headlong-8.1.0.module">
+            <sha256 value="4cb797a69e50e18c2dfd6732eec636c2cedaca5bbecb6ec35f98726b286dd052" origin="repo.maven.apache.org/maven2/"/>
          </artifact>
-         <artifact name="headlong-8.0.0-sources.jar">
-            <sha256 value="59234795c06281f95b0cadda11d0f7915f4f2c7977c82f51ccd92684f3b4ccc2" origin="repo.maven.apache.org/maven2/"/>
+         <artifact name="headlong-8.1.0-sources.jar">
+            <sha256 value="ae355691922dfad5609d47c3cc1f6fcecc28814b1bbe5623059e7482bb0fc34d" origin="repo.maven.apache.org/maven2/"/>
          </artifact>
       </component>
 
