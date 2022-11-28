@@ -36,15 +36,17 @@
       </component>
 
       <component group="com.esaulpaugh" name="headlong" version="8.1.0">
-         <artifact name="headlong-8.1.0.jar">
-            <sha256 value="20b8e6a1cb9d1fa45afce87764a9527b55c0691742a530db632d44bd02db2dab" origin="repo.maven.apache.org/maven2/"/>
-         </artifact>
-         <artifact name="headlong-8.1.0.module">
-            <sha256 value="4cb797a69e50e18c2dfd6732eec636c2cedaca5bbecb6ec35f98726b286dd052" origin="repo.maven.apache.org/maven2/"/>
-         </artifact>
-         <artifact name="headlong-8.1.0-sources.jar">
-            <sha256 value="ae355691922dfad5609d47c3cc1f6fcecc28814b1bbe5623059e7482bb0fc34d" origin="repo.maven.apache.org/maven2/"/>
-         </artifact>
+         <component group="com.esaulpaugh" name="headlong" version="9.0.0">
+            <artifact name="headlong-9.0.0.jar">
+               <sha256 value="1881b4b54a702bc69bc626be781dc0a16b606ed14b8ec439f69808e4cd1d3f6d" origin="repo.maven.apache.org/maven2/"/>
+            </artifact>
+            <artifact name="headlong-9.0.0.module">
+               <sha256 value="aa9078475fc3271c302436adf15f032b90cac8efa9ac14f281e756ea0aa7831f" origin="repo.maven.apache.org/maven2/"/>
+            </artifact>
+            <artifact name="headlong-9.0.0-sources.jar">
+               <sha256 value="7bd8228d941857d5898d3ed0a6f22e97357817d412904f323c8da567311bb489" origin="repo.maven.apache.org/maven2/"/>
+            </artifact>
+         </component>
       </component>
 
       <component group="org.junit.jupiter" name="junit-jupiter-api" version="5.9.1">

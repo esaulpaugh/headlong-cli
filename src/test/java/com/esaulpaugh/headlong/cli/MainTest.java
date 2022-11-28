@@ -185,12 +185,12 @@ public class MainTest {
                 new String[][] { new String[] { "z" } },
                 new Address[] { Address.wrap("0xFF00eE01dd02cC03cafEBAbe9906880777086609") },
                 BigInteger.valueOf(Long.MAX_VALUE).multiply(BigInteger.valueOf(Byte.MAX_VALUE << 2)),
-                new Tuple(7),
-                new Tuple[][][] { new Tuple[][] { new Tuple[] { new Tuple(9), new Tuple(-11) } } },
-                new Tuple[] { new Tuple(17), new Tuple(-19) },
+                Tuple.of(7),
+                new Tuple[][][] { new Tuple[][] { new Tuple[] { Tuple.singleton(9), Tuple.singleton(-11) } } },
+                new Tuple[] { Tuple.singleton(17), Tuple.singleton(-19) },
                 Long.MAX_VALUE / 8_500_000,
-                new Tuple[] { new Tuple((long) 0x7e), new Tuple((long) -0x7e) },
-                new Tuple(BigInteger.TEN),
+                new Tuple[] { Tuple.singleton((long) 0x7e), Tuple.singleton((long) -0x7e) },
+                Tuple.singleton(BigInteger.TEN),
                 true,
                 "farout",
                 new boolean[] { true, true },
@@ -198,7 +198,7 @@ public class MainTest {
                 new long[] { Integer.MAX_VALUE * 2L }
         };
 
-        Tuple tuple = new Tuple(argsIn);
+        Tuple tuple = Tuple.of(argsIn);
 
         String str = SuperSerial.serialize(tt, tuple, false);
         Tuple deserial = SuperSerial.deserialize(tt, str, false);
