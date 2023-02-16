@@ -25,8 +25,8 @@ repositories {
 //    mavenLocal()
 }
 
-final String headlongVersion = '9.1.1'
-final String junitVersion = '5.9.1'
+final String headlongVersion = '9.2.0'
+final String junitVersion = '5.9.2'
 final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM d yyyy", Locale.ENGLISH).withZone(ZoneId.of("UTC"))
 
 task fatJar(type: Jar) {

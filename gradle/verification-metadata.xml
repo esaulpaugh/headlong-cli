@@ -9,7 +9,7 @@
       </ignored-keys>
       <trusted-keys>
          <trusted-key id="b0f3710fa64900e7" group="com.google.code.gson"/>
-         <trusted-key id="d2ea6bcd43b3663cdf6222c135ae09fd38f0cfae" group="com.esaulpaugh" name="headlong" version="9.1.1"/><!-- *** REMEMBER TO UPDATE VERSION ** -->
+         <trusted-key id="d2ea6bcd43b3663cdf6222c135ae09fd38f0cfae" group="com.esaulpaugh" name="headlong" version="9.2.0"/><!-- *** REMEMBER TO UPDATE VERSION ** -->
          <trusted-key id="ff6e2c001948c5f2f38b0cc385911f425ec61b51">
             <trusting group="^org[.]junit($|([.].*))" regex="true"/>
             <trusting group="org.opentest4j"/>
@@ -35,15 +35,15 @@
          </artifact>
       </component>
 
-      <component group="com.esaulpaugh" name="headlong" version="9.1.1">
-         <artifact name="headlong-9.1.1.jar">
-            <sha256 value="ae93f995ecb083d047259997e1bb38b876de4d82b6e9b8a11f68c133ad3c341d" origin="repo.maven.apache.org/maven2/"/>
+      <component group="com.esaulpaugh" name="headlong" version="9.2.0">
+         <artifact name="headlong-9.2.0.jar">
+            <sha256 value="e664d2f4d97375246c5988dba772e8f209fbba00ad18a0e1aa6a5f79f3403a31" origin="repo.maven.apache.org/maven2/"/>
          </artifact>
-         <artifact name="headlong-9.1.1.module">
-            <sha256 value="a4a319337237313cd9b9ebd07616ba0df43e2aed117b4604d340ffbf170d1eeb" origin="repo.maven.apache.org/maven2/"/>
+         <artifact name="headlong-9.2.0.module">
+            <sha256 value="7d8095fe231d2d0a16c533eb81a0add617fa2d72da03b0cf3a38ce52e3d37a33" origin="repo.maven.apache.org/maven2/"/>
          </artifact>
-         <artifact name="headlong-9.1.1-sources.jar">
-            <sha256 value="1ec548f08a64cc46c8caeaa6c9d22da52aa4d1809ed540b95b1f00ea9abbbd93" origin="repo.maven.apache.org/maven2/"/>
+         <artifact name="headlong-9.2.0-sources.jar">
+            <sha256 value="92ac178aeceacd08f240562caec28b5c9bbd728561bd1c30c1f5a2a629fdbe03" origin="repo.maven.apache.org/maven2/"/>
          </artifact>
       </component>
 
