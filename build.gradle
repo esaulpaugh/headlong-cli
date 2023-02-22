@@ -58,7 +58,7 @@ dependencies {
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:" + junitVersion
 }
 
-tasks.withType(AbstractArchiveTask).configureEach {
+tasks.withType(AbstractArchiveTask) {
     preserveFileTimestamps = false
     reproducibleFileOrder = true
 }
