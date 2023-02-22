@@ -10,6 +10,7 @@ plugins {
 
 group 'com.esaulpaugh'
 version '1.1-SNAPSHOT'
+archivesBaseName = "headlong-cli"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -38,8 +39,6 @@ task fatJar(type: Jar) {
                    'Build-Date': dateFormatter.format(Instant.now())
 
     }
-    archiveName(project.name + '-' + project.version + '.jar') // deprecated
-//    archiveFileName(project.name + '-' + project.version + '.jar')
     from {
         configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
