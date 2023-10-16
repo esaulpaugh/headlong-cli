@@ -23,6 +23,7 @@ jobs:
 
       - name: Build with Gradle
         run: |
+          java -version
           chmod +x ./gradlew
           ./gradlew build fatJar --no-daemon
           java -jar build/libs/headlong-cli-1.1-SNAPSHOT.jar -version
