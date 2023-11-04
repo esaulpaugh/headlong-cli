@@ -70,6 +70,8 @@ public class SugarSerial {
                 if(val.equals("true")) sb.append("01");
                 else if(!val.equals("false")) throw new IllegalArgumentException("unexpected boolean syntax");
                 break;
+            case '[':
+                throw new IllegalArgumentException("expected space between [ and '");
             default:
                 sb.append(val);
             }
