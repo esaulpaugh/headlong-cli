@@ -27,7 +27,7 @@ repositories {
 }
 
 final String headlongVersion = '10.0.1'
-final String junitVersion = '5.10.0'
+final String junitVersion = '5.10.1'
 final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM d yyyy", Locale.ENGLISH).withZone(ZoneId.of("UTC"))
 
 task fatJar(type: Jar) {
