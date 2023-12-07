@@ -278,8 +278,7 @@ public class Main {
 
     private static String trimmed(StringBuilder sb, boolean trim) {
         if(trim) {
-            final int len = sb.length();
-            sb.replace(len - 1, len, "");
+            sb.setLength(sb.length() - 1);
         }
         return sb.toString();
     }
