@@ -370,8 +370,6 @@ public class Main {
     }
 
     private static String makeVersionString(String buildDate, String headlongVersion) {
-
-
         final String graphic =
                         " │   ┌─┐       │ │                   │\n" +
                         " ├─┐ ├─┘┌─┐  ┌─┤ │ ┌─┐ ┌─┐ ┌─┐    ┌─ │ `\n" +
