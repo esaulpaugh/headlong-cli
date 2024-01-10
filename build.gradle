@@ -19,6 +19,7 @@ compileJava {
     if (Jvm.current().getJavaVersion() > JavaVersion.VERSION_1_8) {
         options.compilerArgs.addAll(['--release', '8'])
     }
+    options.encoding = "UTF-8"
 }
 
 repositories {

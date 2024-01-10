@@ -370,10 +370,12 @@ public class Main {
     }
 
     private static String makeVersionString(String buildDate, String headlongVersion) {
+
+
         final String graphic =
-                        " |             | |                   |\n" +
-                        " |_   =  _    _| |  _   _   _      _ | `\n" +
-                        " | | |_ |_|_ |_| | |_| | | |_| -- |_ | |\n";
+                        " │   ┌─┐       │ │                   │\n" +
+                        " ├─┐ ├─┘┌─┐  ┌─┤ │ ┌─┐ ┌─┐ ┌─┐    ┌─ │ `\n" +
+                        " │ │ └─ └─┘─ └─┘ │ └─┘ │ │ └─┤ ── └─ │ │\n";
         String versionLine = "version " + Main.class.getPackage().getImplementationVersion();
         final int padding = 28 - versionLine.length();
         if(padding > 0) {
@@ -381,9 +383,9 @@ public class Main {
             for (int i = 0; i < padding; i++) {
                 sb.append(' ');
             }
-            versionLine += sb.append("_|");
+            versionLine += sb.append("─┘");
         } else {
-            versionLine = "                            _|\n" + versionLine;
+            versionLine = "                            ─┘\n" + versionLine;
         }
         return graphic
                 + versionLine
