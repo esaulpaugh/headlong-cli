@@ -16,6 +16,7 @@
 package com.esaulpaugh.headlong.cli;
 
 import com.esaulpaugh.headlong.abi.Function;
+import com.esaulpaugh.headlong.abi.Single;
 import com.esaulpaugh.headlong.abi.Tuple;
 import com.esaulpaugh.headlong.abi.TupleType;
 import com.esaulpaugh.headlong.util.FastHex;
@@ -32,8 +33,8 @@ public class DesugarTest {
     @Test
     public void testBool() throws Throwable {
         TupleType tt = TupleType.parse("(bool)");
-        Tuple _true = Tuple.of(true);
-        Tuple _false = Tuple.of(false);
+        Tuple _true = Single.of(true);
+        Tuple _false = Single.of(false);
 
         assertEquals("01", SuperSerial.serialize(tt, _true, true));
         assertEquals("80", SuperSerial.serialize(tt, _false, true));

@@ -22,7 +22,7 @@ import com.esaulpaugh.headlong.abi.Address;
 import com.esaulpaugh.headlong.abi.Function;
 import com.esaulpaugh.headlong.abi.Tuple;
 import com.esaulpaugh.headlong.abi.TupleType;
-import com.esaulpaugh.headlong.abi.util.Uint;
+import com.esaulpaugh.headlong.util.Uint;
 import com.esaulpaugh.headlong.rlp.Notation;
 import com.esaulpaugh.headlong.rlp.RLPEncoder;
 import com.esaulpaugh.headlong.util.Strings;
@@ -141,12 +141,12 @@ public class Main {
     private static String encodeABIPacked(String[] args, boolean machine) {
         final String signature = DATA_FIRST.from(args);
         final String values = parseVals(DATA_SECOND.from(args), machine, true);
-        final TupleType tt = TupleType.parse(signature);
+        final TupleType<Tuple> tt = TupleType.parse(signature);
         return Strings.encode(tt.encodePacked(SuperSerial.deserialize(tt, values, machine)).array());
     }
 
     private static String decodeABIPacked(String[] args, boolean compact) {
-        final TupleType tt = TupleType.parse(DATA_FIRST.from(args));
+        final TupleType<Tuple> tt = TupleType.parse(DATA_FIRST.from(args));
         final byte[] packedAbi = Strings.decode(DATA_SECOND.from(args));
         return compacted(SuperSerial.serialize(tt, tt.decodePacked(packedAbi), false), compact);
     }
@@ -159,7 +159,7 @@ public class Main {
             Function f = Function.parse(signature);
             abi = f.encodeCall(SuperSerial.deserialize(f.getInputs(), values, machine));
         } else {
-            TupleType tt = TupleType.parse(signature);
+            TupleType<Tuple> tt = TupleType.parse(signature);
             abi = tt.encode(SuperSerial.deserialize(tt, values, machine));
         }
         return Strings.encode(abi.array());
@@ -168,7 +168,7 @@ public class Main {
     private static String decodeABI(String[] args, boolean machine, boolean function, boolean compact) {
         final String signature = DATA_FIRST.from(args);
         final byte[] abiBytes = Strings.decode(DATA_SECOND.from(args));
-        final TupleType tt;
+        final TupleType<Tuple> tt;
         final Tuple values;
         if(function) {
             Function f = Function.parse(signature);

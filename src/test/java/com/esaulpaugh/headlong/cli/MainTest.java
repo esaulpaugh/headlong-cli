@@ -20,6 +20,8 @@ import com.esaulpaugh.headlong.abi.Address;
 import com.esaulpaugh.headlong.abi.ArrayType;
 import com.esaulpaugh.headlong.abi.ByteType;
 import com.esaulpaugh.headlong.abi.Function;
+import com.esaulpaugh.headlong.abi.Single;
+import com.esaulpaugh.headlong.abi.Triple;
 import com.esaulpaugh.headlong.abi.Tuple;
 import com.esaulpaugh.headlong.abi.TupleType;
 import com.esaulpaugh.headlong.abi.TypeFactory;
@@ -59,7 +61,7 @@ public class MainTest {
           + "0000000000000000000000000000000000000000000000000000000000000004"
           + "7730307400000000000000000000000000000000000000000000000000000000");
 
-        assertThrown(IllegalArgumentException.class, "unsigned val exceeds bit limit: 254 > 19", () -> FUNCTION.decodeReturn(tooSmallOffset));
+        assertThrown(IllegalArgumentException.class, "unsigned val exceeds bit limit: 254 > 21", () -> FUNCTION.decodeReturn(tooSmallOffset));
     }
 
     private static final String SIGNATURE = "(function[2][][],bytes24,string[1][1],address[],uint72,(uint8),(int16)[2][][1],(int32)[],uint40,(int48)[],(uint),bool,string,bool[2],int24[],uint40[1])";
@@ -175,7 +177,7 @@ public class MainTest {
     @Test
     public void testSerial() {
 
-        TupleType tt = TupleType.parse(SIGNATURE);
+        TupleType<Tuple> tt = TupleType.parse(SIGNATURE);
 
         byte[] func = Strings.decode("191c766e29a65787b7155dd05f41292438467db93420cade");
 
@@ -185,12 +187,12 @@ public class MainTest {
                 new String[][] { new String[] { "z" } },
                 new Address[] { Address.wrap("0xFF00eE01dd02cC03cafEBAbe9906880777086609") },
                 BigInteger.valueOf(Long.MAX_VALUE).multiply(BigInteger.valueOf(Byte.MAX_VALUE << 2)),
-                Tuple.of(7),
-                new Tuple[][][] { new Tuple[][] { new Tuple[] { Tuple.singleton(9), Tuple.singleton(-11) } } },
-                new Tuple[] { Tuple.singleton(17), Tuple.singleton(-19) },
+                Single.of(7),
+                new Tuple[][][] { new Tuple[][] { new Tuple[] { Single.of(9), Single.of(-11) } } },
+                new Tuple[] { Single.of(17), Single.of(-19) },
                 Long.MAX_VALUE / 8_500_000,
-                new Tuple[] { Tuple.singleton((long) 0x7e), Tuple.singleton((long) -0x7e) },
-                Tuple.singleton(BigInteger.TEN),
+                new Tuple[] { Single.of((long) 0x7e), Single.of((long) -0x7e) },
+                Single.of(BigInteger.TEN),
                 true,
                 "farout",
                 new boolean[] { true, true },
@@ -198,7 +200,7 @@ public class MainTest {
                 new long[] { Integer.MAX_VALUE * 2L }
         };
 
-        Tuple tuple = Tuple.of(argsIn);
+        Tuple tuple = Tuple.from(argsIn);
 
         String str = SuperSerial.serialize(tt, tuple, false);
         Tuple deserial = SuperSerial.deserialize(tt, str, false);
@@ -260,7 +262,7 @@ public class MainTest {
     public void testTypeFactory() {
         final ABIType<?> type = TypeFactory.create("string[]");
         assertEquals(ABIType.TYPE_CODE_ARRAY, type.typeCode());
-        final ArrayType<ArrayType<ByteType, String>, String[]> arrayType = TypeFactory.create("string[]");
+        final ArrayType<ArrayType<ByteType, Byte, String>, String, String[]> arrayType = TypeFactory.create("string[]");
         assertEquals(ArrayType.DYNAMIC_LENGTH, arrayType.getLength());
     }
 
