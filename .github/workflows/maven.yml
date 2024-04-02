@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         os: [ macos-11, macos-12, macos-13, macos-14, ubuntu-20.04, windows-2022 ]
-        version: [ '8', '21.0.2' ]
+        version: [ '8', '22.0.0' ]
 
     runs-on: ${{ matrix.os }}
 

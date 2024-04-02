@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: '8.0.392'
+          java-version: '8.0.402'
           java-package: jdk
           architecture: x86
           cache: 'gradle'
