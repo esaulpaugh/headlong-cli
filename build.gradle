@@ -27,7 +27,7 @@ repositories {
 //    mavenLocal()
 }
 
-final String headlongVersion = '11.1.0'
+final String headlongVersion = '11.1.1'
 final String junitVersion = '5.10.2'
 final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM d yyyy", Locale.ENGLISH).withZone(ZoneId.of("UTC"))
 
