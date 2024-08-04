@@ -7,18 +7,18 @@ jobs:
 
     strategy:
       matrix:
-        os: [ macos-12, macos-13, macos-14, ubuntu-22.04, ubuntu-20.04, windows-2019, windows-2022 ]
-        version: [ '8', '22.0.2' ]
+        os: [ macos-12, macos-13, macos-14, ubuntu-20.04, ubuntu-22.04, ubuntu-24.04, windows-2019, windows-2022 ]
+        version: [ '8' ]
 
     runs-on: ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up JDK
+      - name: Set up JDK 8 x86
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
+          distribution: 'corretto'
           java-version: ${{ matrix.version }}
           java-package: jdk
           architecture: x86
