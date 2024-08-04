@@ -8,7 +8,6 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-20.04, ubuntu-24.04, windows-2019, windows-2022 ]
-        version: [ '8' ]
 
     runs-on: ${{ matrix.os }}
 
@@ -19,7 +18,7 @@ jobs:
         uses: actions/setup-java@6a0805fcefea3d4657a47ac4c165951e33482018
         with:
           distribution: 'dragonwell'
-          java-version: ${{ matrix.version }}
+          java-version: '8'
           java-package: jdk
           architecture: x64
           cache: 'maven'
