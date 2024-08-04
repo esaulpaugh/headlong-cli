@@ -25,15 +25,7 @@ jobs:
           docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace arm64v8/ubuntu:latest \
           /bin/bash -c "apt-get update && apt-get install -y openjdk-11-jdk && java -version"
 
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '11'
-          architecture: aarch64
-
-      - name: Build with Maven
+      - name: Build and Test in ARM64 container
         run: |
-          java -version
-          mvn -B package --file pom.xml
-          java -jar target/headlong-cli-1.1-SNAPSHOT.jar -version
+          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace arm64v8/ubuntu:latest \
+          /bin/bash -c "apt-get update && apt-get install -y openjdk-11-jdk maven && java -version && mvn -B package && java -jar target/headlong-cli-1.1-SNAPSHOT.jar -version"
