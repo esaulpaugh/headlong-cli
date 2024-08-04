@@ -11,6 +11,7 @@ jobs:
         version: [ '22.0.2' ]
 
     runs-on: ${{ matrix.os }}
+    container: arm64v8/ubuntu:latest
 
     steps:
       - uses: actions/checkout@v4
