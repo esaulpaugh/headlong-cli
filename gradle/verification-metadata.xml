@@ -6,7 +6,7 @@
       <key-servers enabled="true"/>
       <trusted-keys>
          <trusted-key id="c7be5bcc9fec15518cfda882b0f3710fa64900e7" group="com.google.code.gson"/>
-         <trusted-key id="d2ea6bcd43b3663cdf6222c135ae09fd38f0cfae" group="com.esaulpaugh" name="headlong" version="12.2.0"/><!-- *** REMEMBER TO UPDATE VERSION ** -->
+         <trusted-key id="d2ea6bcd43b3663cdf6222c135ae09fd38f0cfae" group="com.esaulpaugh" name="headlong" version="12.1.0"/><!-- *** REMEMBER TO UPDATE VERSION ** -->
          <trusted-key id="ff6e2c001948c5f2f38b0cc385911f425ec61b51">
             <trusting group="^org[.]junit($|([.].*))" regex="true"/>
             <trusting group="org.opentest4j"/>
@@ -25,19 +25,6 @@
             </artifact>
             <artifact name="gson-2.10.1.pom">
                <sha256 value="d2b115634f5c085db4b9c9ffc2658e89e231fdbfbe2242121a1cd95d4d948dd7" origin="repo.maven.apache.org/maven2/"/>
-            </artifact>
-         </component>
-         <component group="com.google.errorprone" name="error_prone_annotations" version="2.27.0">
-            <artifact name="error_prone_annotations-2.27.0.jar">
-               <sha256 value="24c923372c58e35d0b9f16a028929bb9aedc77521867c274f2bd0735df5ba1f5" origin="repo.maven.apache.org/maven2/"/>
-            </artifact>
-            <artifact name="error_prone_annotations-2.27.0.pom">
-               <sha256 value="4ca5a35d61235e16549ac346d1e34551cdf0fe27e84aa57e03cbeb255ea4e5da" origin="repo.maven.apache.org/maven2/"/>
-            </artifact>
-         </component>
-         <component group="com.google.errorprone" name="error_prone_parent" version="2.27.0">
-            <artifact name="error_prone_parent-2.27.0.pom">
-               <sha256 value="fa81829d049559df6927f9c9a6fd6bbd09f8b50e6d4736ae72c8300b6c3d7654" origin="repo.maven.apache.org/maven2/"/>
             </artifact>
          </component>
       </components>
