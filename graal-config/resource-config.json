@@ -1,0 +1,16 @@
+{
+  "resources": [
+    {
+      "pattern": "META-INF/MANIFEST.MF",
+      "resourceBundle": true
+    },
+    {
+      "pattern": "META-INF/*",
+      "resourceBundle": true
+    },
+    {
+      "pattern": "META-INF/*/*",
+      "resourceBundle": true
+    }
+  ]
+}
