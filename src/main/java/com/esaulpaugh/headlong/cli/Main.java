@@ -95,7 +95,9 @@ public class Main {
         case "-e": return encodeABI(args, false, false);
         case "-ef": return encodeABI(args, false, true);
         case "-efform": return Function.formatCall(Strings.decode(encodeABI(args, false, true)));
+        case "-efann": return encodeAnnotated(args, false, true);
         case "-ep": return encodeABIPacked(args, false);
+        case "-eann": return encodeAnnotated(args, false, false);
         case "-mep": return encodeABIPacked(args, true);
         case "-d": return decodeABI(args, false, false, false);
         case "-dc": return decodeABI(args, false, false, true);
@@ -104,7 +106,9 @@ public class Main {
         case "-dp": return decodeABIPacked(args, false);
         case "-dpc": return decodeABIPacked(args, true);
         case "-me": return encodeABI(args, true, false);
+        case "-meann": return encodeAnnotated(args, true, false);
         case "-mef": return encodeABI(args, true, true);
+        case "-mefann": return encodeAnnotated(args, true, true);
         case "-md": return decodeABI(args, true, false, false);
         case "-mdf": return decodeABI(args, true, true, false);
         case "-re": return encodeRLP(args);
@@ -295,14 +299,26 @@ public class Main {
         return Function.formatCall(Strings.decode(DATA_FIRST.from(args)));
     }
 
+    private static String encodeAnnotated(String[] args, boolean machine, boolean function) {
+        final String signature = DATA_FIRST.from(args);
+        final String values = parseVals(DATA_SECOND.from(args), machine, true);
+        if (function) {
+            Function f = Function.parse(signature);
+            return f.annotateCall(SuperSerial.deserialize(f.getInputs(), values, machine));
+        } else {
+            TupleType<Tuple> tt = TupleType.parse(signature);
+            return tt.annotate(SuperSerial.deserialize(tt, values, machine));
+        }
+    }
+
     private static String parseAbiJson(String[] args) {
         final String json = DATA_FIRST.from(args);
-        if(json.startsWith("[")) {
+        if (json.startsWith("[")) {
             return ABIJSON.parseElements(json)
                     .stream()
                     .map(Main::describe)
                     .collect(Collectors.joining("\n"));
-        } else if(json.startsWith("{")) {
+        } else if (json.startsWith("{")) {
             return describe(ABIObject.fromJson(json));
         } else {
             throw new IllegalArgumentException("json must start with '[' or '{'");
@@ -315,12 +331,12 @@ public class Main {
     }
 
     private static String describe(ABIObject o) {
-        if(o.isFunction()) {
+        if (o.isFunction()) {
             Function foo = o.asFunction();
             return foo.getType().name() + " " + o.getCanonicalSignature() + getParamNames(o.getInputs()) + " returns: " + foo.getOutputs().getCanonicalType() + " stateMutability: " + foo.getStateMutability();
         } else if (o.isEvent()) {
             return "event " + o.getCanonicalSignature() + getParamNames(o.getInputs()) + " indexed:" + Arrays.toString(o.asEvent().getIndexManifest());
-        } else if(o.isContractError()) {
+        } else if (o.isContractError()) {
             return "error " + o.getCanonicalSignature() + getParamNames(o.getInputs());
         }
         throw new AssertionError();
@@ -332,7 +348,7 @@ public class Main {
         for (int i = 0; i < size; i++) {
             hasName |= params.getElementName(i) != null;
         }
-        if(!hasName) return " ";
+        if (!hasName) return " ";
         StringBuilder sb = new StringBuilder(" names:(");
         for (int i = 0; i < size; i++) {
             sb.append(params.getElementName(i))

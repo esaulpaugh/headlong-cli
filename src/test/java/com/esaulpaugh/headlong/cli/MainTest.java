@@ -273,6 +273,57 @@ public class MainTest {
         assertEquals(new BigInteger(expected.substring(2), 16), Address.wrap(expected).value());
     }
 
+    @Test
+    public void testAnnotate() {
+        assertEquals(
+                "foo:\n" +
+                "ID       9d879739\n" +
+                "     0   ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff80\t[0] int8\n" +
+                "    20   0000000000000000000000000000000000000000000000000000000000000040\t[1] bytes offset\n" +
+                "    40   0000000000000000000000000000000000000000000000000000000000000006\t[1] bytes length\n" +
+                "    60   25486c0a2d2b0000000000000000000000000000000000000000000000000000\t[1] bytes",
+                Main.eval(new String[] { "-efann", "foo(int8,bytes)",
+                        "(\n" +
+                                "  '80',\n" +
+                                "  '25486c0a2d2b'\n" +
+                                ")"
+                })
+        );
+        assertEquals(
+                "     0   0000000000000000000000000000000000000000000000000000000000000040\t[0] bytes offset\n" +
+                "    20   0000000000000000000000000000000000000000000000000000000000000080\t[1] uint8\n" +
+                "    40   0000000000000000000000000000000000000000000000000000000000000006\t[0] bytes length\n" +
+                "    60   25486c0a2d2b0000000000000000000000000000000000000000000000000000\t[0] bytes",
+                Main.eval(new String[] { "-eann", "(bytes,uint8)",
+                        "(\n" +
+                                "  '25486c0a2d2b',\n" +
+                                "  '80'\n" +
+                                ")"
+                })
+        );
+
+        assertEquals(
+                "foo:\n" +
+                "ID       9d879739\n" +
+                "     0   ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff80\t[0] int8\n" +
+                "    20   0000000000000000000000000000000000000000000000000000000000000040\t[1] bytes offset\n" +
+                "    40   0000000000000000000000000000000000000000000000000000000000000006\t[1] bytes length\n" +
+                "    60   25486c0a2d2b0000000000000000000000000000000000000000000000000000\t[1] bytes",
+                Main.eval(new String[] { "-mefann", "foo(int8,bytes)",
+                        "81808625486c0a2d2b"
+                })
+        );
+        assertEquals(
+                "     0   0000000000000000000000000000000000000000000000000000000000000040\t[0] bytes offset\n" +
+                "    20   0000000000000000000000000000000000000000000000000000000000000080\t[1] uint8\n" +
+                "    40   0000000000000000000000000000000000000000000000000000000000000006\t[0] bytes length\n" +
+                "    60   25486c0a2d2b0000000000000000000000000000000000000000000000000000\t[0] bytes",
+                Main.eval(new String[] { "-meann", "(bytes,uint8)",
+                        "8625486c0a2d2b8180"
+                })
+        );
+    }
+
     @FunctionalInterface
     public interface CustomRunnable {
         void run() throws Throwable;
