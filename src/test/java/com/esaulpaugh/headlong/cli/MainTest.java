@@ -21,12 +21,11 @@ import com.esaulpaugh.headlong.abi.ArrayType;
 import com.esaulpaugh.headlong.abi.ByteType;
 import com.esaulpaugh.headlong.abi.Function;
 import com.esaulpaugh.headlong.abi.Single;
-import com.esaulpaugh.headlong.abi.Triple;
+import com.esaulpaugh.headlong.abi.SuperSerial;
 import com.esaulpaugh.headlong.abi.Tuple;
 import com.esaulpaugh.headlong.abi.TupleType;
 import com.esaulpaugh.headlong.abi.TypeFactory;
 import com.esaulpaugh.headlong.util.Strings;
-import com.esaulpaugh.headlong.abi.SuperSerial;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;

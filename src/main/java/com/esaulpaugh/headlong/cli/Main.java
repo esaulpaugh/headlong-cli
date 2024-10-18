@@ -20,13 +20,13 @@ import com.esaulpaugh.headlong.abi.ABIObject;
 import com.esaulpaugh.headlong.abi.ABIType;
 import com.esaulpaugh.headlong.abi.Address;
 import com.esaulpaugh.headlong.abi.Function;
+import com.esaulpaugh.headlong.abi.SuperSerial;
 import com.esaulpaugh.headlong.abi.Tuple;
 import com.esaulpaugh.headlong.abi.TupleType;
-import com.esaulpaugh.headlong.util.Uint;
 import com.esaulpaugh.headlong.rlp.Notation;
 import com.esaulpaugh.headlong.rlp.RLPEncoder;
 import com.esaulpaugh.headlong.util.Strings;
-import com.esaulpaugh.headlong.abi.SuperSerial;
+import com.esaulpaugh.headlong.util.Uint;
 
 import java.math.BigInteger;
 import java.net.URL;
@@ -342,7 +342,7 @@ public class Main {
         throw new AssertionError();
     }
 
-    private static String getParamNames(TupleType params) {
+    private static String getParamNames(TupleType<Tuple> params) {
         boolean hasName = false;
         final int size = params.size();
         for (int i = 0; i < size; i++) {
