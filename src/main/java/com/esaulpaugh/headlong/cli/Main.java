@@ -136,7 +136,7 @@ public class Main {
     }
 
     private static String validateCommand(String command) {
-        if(command.charAt(0) == '-') {
+        if (command.charAt(0) == '-') {
             return command;
         }
         throw new IllegalArgumentException("commands must start with a hyphen: -");
@@ -159,7 +159,7 @@ public class Main {
         final String signature = DATA_FIRST.from(args);
         final String values = parseVals(DATA_SECOND.from(args), machine, true);
         final ByteBuffer abi;
-        if(function) {
+        if (function) {
             Function f = Function.parse(signature);
             abi = f.encodeCall(SuperSerial.deserialize(f.getInputs(), values, machine));
         } else {
@@ -174,7 +174,7 @@ public class Main {
         final byte[] abiBytes = Strings.decode(DATA_SECOND.from(args));
         final TupleType<Tuple> tt;
         final Tuple values;
-        if(function) {
+        if (function) {
             Function f = Function.parse(signature);
             tt = f.getInputs();
             values = f.decodeCall(abiBytes);
@@ -219,9 +219,9 @@ public class Main {
         final char delimiter = compact ? ' ' : '\n';
         final String signedStr = DATA_SECOND.from(args);
         boolean signed = false;
-        if("signed".equals(signedStr)) {
+        if ("signed".equals(signedStr)) {
             signed = true;
-        } else if(!"unsigned".equals(signedStr)) {
+        } else if (!"unsigned".equals(signedStr)) {
             throw new IllegalArgumentException("second datum must be either \"signed\" or \"unsigned\"");
         }
         final int start = DATA_SECOND.ordinal() + 1;
@@ -229,7 +229,7 @@ public class Main {
         final StringBuilder sb = new StringBuilder();
         for (int i = start; i < end; i++) {
             BigInteger val = new BigInteger(args[i], 16);
-            if(signed) {
+            if (signed) {
                 val = uint.toSigned(val);
             }
             sb.append(val.toString(10)).append(delimiter);
@@ -268,9 +268,9 @@ public class Main {
     }
 
     private static int checkTypeBits(int typeBits) {
-        if(typeBits > 0) {
-            if(typeBits <= 256) {
-                if(typeBits % 8 == 0) {
+        if (typeBits > 0) {
+            if (typeBits <= 256) {
+                if (typeBits % 8 == 0) {
                     return typeBits;
                 }
                 throw new IllegalArgumentException("specified bit length must be a multiple of 8");
@@ -281,7 +281,7 @@ public class Main {
     }
 
     private static String trimmed(StringBuilder sb, boolean trim) {
-        if(trim) {
+        if (trim) {
             sb.setLength(sb.length() - 1);
         }
         return sb.toString();
@@ -392,7 +392,7 @@ public class Main {
                         " │ │ └─ └─┘─ └─┘ │ └─┘ │ │ └─┤ ── └─ │ │\n";
         String versionLine = "version " + Main.class.getPackage().getImplementationVersion();
         final int padding = 28 - versionLine.length();
-        if(padding > 0) {
+        if (padding > 0) {
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < padding; i++) {
                 sb.append(' ');

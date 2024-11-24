@@ -36,7 +36,7 @@ public class SugarSerial {
         final StringBuilder sb = new StringBuilder();
         final int end = values.length();
         int i = 0;
-        while(i < end) {
+        while (i < end) {
             final int q = values.indexOf(SINGLE_QUOTE, i);
             if (q <= 0) {
                 break;
@@ -67,8 +67,8 @@ public class SugarSerial {
                 sb.append(hex);
                 break;
             case 'b':
-                if(val.equals("true")) sb.append("01");
-                else if(!val.equals("false")) throw new IllegalArgumentException("unexpected boolean syntax");
+                if (val.equals("true")) sb.append("01");
+                else if (!val.equals("false")) throw new IllegalArgumentException("unexpected boolean syntax");
                 break;
             case '[':
                 throw new IllegalArgumentException("expected space between [ and '");
@@ -81,10 +81,10 @@ public class SugarSerial {
     }
 
     private static byte[] serializeBigInteger(BigInteger val, boolean extend) {
-        if(val.signum() > 0) {
+        if (val.signum() > 0) {
             return Integers.toBytesUnsigned(val);
         }
-        if(val.signum() != 0) {
+        if (val.signum() != 0) {
             final byte[] bytes = val.toByteArray();
             return extend ? signExtend(bytes) : bytes;
         }
