@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up JDK 8 x86
+      - name: Set up JDK 8 ARM
         uses: actions/setup-java@6a0805fcefea3d4657a47ac4c165951e33482018
         with:
           distribution: 'dragonwell'
