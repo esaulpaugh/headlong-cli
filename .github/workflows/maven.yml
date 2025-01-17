@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Set up JDK 8 x86
-        uses: actions/setup-java@6a0805fcefea3d4657a47ac4c165951e33482018
+        uses: actions/setup-java@v4
         with:
           distribution: 'dragonwell'
           java-version: '8'
