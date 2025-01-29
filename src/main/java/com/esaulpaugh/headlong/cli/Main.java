@@ -28,6 +28,7 @@ import com.esaulpaugh.headlong.rlp.RLPEncoder;
 import com.esaulpaugh.headlong.util.Strings;
 import com.esaulpaugh.headlong.util.Uint;
 
+import java.io.InputStream;
 import java.math.BigInteger;
 import java.net.URL;
 import java.nio.ByteBuffer;
@@ -370,13 +371,15 @@ public class Main {
             String headlongVersion = null;
             final Enumeration<URL> urls = Main.class.getClassLoader().getResources(JarFile.MANIFEST_NAME);
             while (urls.hasMoreElements()) {
-                final Attributes attrs = new Manifest(urls.nextElement().openStream()).getMainAttributes();
-                if ("headlong-cli".equals(attrs.getValue("Implementation-Title"))) {
-                    if (buildDate != null || headlongVersion != null) {
-                        throw new RuntimeException("multiple matching manifests");
+                try (InputStream is = urls.nextElement().openStream()) {
+                    final Attributes attrs = new Manifest(is).getMainAttributes();
+                    if ("headlong-cli".equals(attrs.getValue("Implementation-Title"))) {
+                        if (buildDate != null || headlongVersion != null) {
+                            throw new RuntimeException("multiple matching manifests");
+                        }
+                        buildDate = attrs.getValue("Build-Date");
+                        headlongVersion = attrs.getValue("headlong-Version");
                     }
-                    buildDate = attrs.getValue("Build-Date");
-                    headlongVersion = attrs.getValue("headlong-Version");
                 }
             }
             VERSION_STRING = makeVersionString(buildDate, headlongVersion);
