@@ -49,8 +49,12 @@ dependencies {
 
 //    implementation files('libs/headlong-' + headlongVersion + '.jar')
 
-    implementation 'com.esaulpaugh:headlong:' + headlongVersion
-    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation("com.esaulpaugh:headlong:" + headlongVersion) {
+        exclude group: 'com.google.errorprone', module: 'error_prone_annotations'
+    }
+    implementation("com.google.code.gson:gson:2.11.0") {
+        exclude group: 'com.google.errorprone', module: 'error_prone_annotations'
+    }
 
     test.useJUnitPlatform()
     testImplementation "org.junit.jupiter:junit-jupiter-api:" + junitVersion
