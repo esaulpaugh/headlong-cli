@@ -14,10 +14,6 @@
       {
         "name": "valueOf",
         "parameterTypes": ["java.lang.String"]
-      },
-      {
-        "name": "valueOf",
-        "parameterTypes": [ "java.lang.Class", "java.lang.String"]
       }
     ]
   },
