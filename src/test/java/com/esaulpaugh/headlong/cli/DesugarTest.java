@@ -32,9 +32,9 @@ public class DesugarTest {
 
     @Test
     public void testBool() throws Throwable {
-        TupleType tt = TupleType.parse("(bool)");
-        Tuple _true = Single.of(true);
-        Tuple _false = Single.of(false);
+        TupleType<Single<Boolean>> tt = TupleType.parse("(bool)");
+        Single<Boolean> _true = Single.of(true);
+        Single<Boolean> _false = Single.of(false);
 
         assertEquals("01", SuperSerial.serialize(tt, _true, true));
         assertEquals("80", SuperSerial.serialize(tt, _false, true));
