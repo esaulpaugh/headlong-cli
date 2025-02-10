@@ -315,7 +315,7 @@ public class Main {
     private static String parseAbiJson(String[] args) {
         final String json = DATA_FIRST.from(args);
         if (json.startsWith("[")) {
-            return ABIJSON.parseElements(json)
+            return ABIJSON.parseElements(ABIType.FLAGS_NONE, json, ABIJSON.ALL)
                     .stream()
                     .map(Main::describe)
                     .collect(Collectors.joining("\n"));
