@@ -27,11 +27,11 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: "7.0"
+          gradle-version: "7.6.4"
 
       - name: Build with Gradle
         run: |
           java -version
           gradle -version
-          gradle build fatJar --no-daemon
+          gradle build fatJar --no-daemon --debug
           java -jar build/libs/headlong-cli-1.1-SNAPSHOT.jar -version
