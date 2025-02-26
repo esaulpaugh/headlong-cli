@@ -33,5 +33,5 @@ jobs:
         run: |
           java -version
           gradle -version
-          gradle build fatJar --no-daemon --debug
+          gradle build fatJar --no-daemon
           java -jar build/libs/headlong-cli-1.1-SNAPSHOT.jar -version
