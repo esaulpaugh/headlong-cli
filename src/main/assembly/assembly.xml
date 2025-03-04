@@ -11,7 +11,16 @@
         <unpack>true</unpack>
         <outputDirectory>${file.separator}</outputDirectory>
         <useProjectArtifact>true</useProjectArtifact>
-        <scope>compile</scope>
+        <scope>runtime</scope>
+        <excludes>
+            <exclude>org.apiguardian:apiguardian-api</exclude>
+            <exclude>org.opentest4j:opentest4j</exclude>
+            <exclude>org.junit.jupiter:junit-jupiter</exclude>
+            <exclude>org.junit.jupiter:junit-jupiter-api</exclude>
+            <exclude>org.junit.jupiter:junit-jupiter-engine</exclude>
+            <exclude>org.junit.platform:junit-platform-commons</exclude>
+            <exclude>org.junit.platform:junit-platform-engine</exclude>
+        </excludes>
     </dependencySet>
 </dependencySets>
 <fileSets>
