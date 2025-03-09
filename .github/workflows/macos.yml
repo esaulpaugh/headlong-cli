@@ -34,4 +34,4 @@ jobs:
           java -version
           gradle -version
           gradle build fatJar --no-daemon
-          java -jar build/libs/headlong-cli-1.2-SNAPSHOT.jar -version
+          java -jar build/libs/headlong-cli-1.3-SNAPSHOT.jar -version
