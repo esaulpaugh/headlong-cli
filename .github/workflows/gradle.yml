@@ -7,7 +7,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [ macos-13, macos-14, macos-15, ubuntu-20.04, ubuntu-22.04, ubuntu-24.04, windows-2019, windows-2022 ]
+        os: [ macos-13, macos-14, macos-15, ubuntu-22.04, ubuntu-24.04, windows-2019, windows-2022 ]
 
     runs-on: ${{ matrix.os }}
 
@@ -30,4 +30,4 @@ jobs:
           java -version
           chmod +x ./gradlew
           ./gradlew build fatJar --no-daemon
-          java -jar build/libs/headlong-cli-1.1-SNAPSHOT.jar -version
+          java -jar build/libs/headlong-cli-1.2-SNAPSHOT.jar -version
