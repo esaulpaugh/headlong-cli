@@ -17,6 +17,7 @@ package com.esaulpaugh.headlong.cli;
 
 import com.esaulpaugh.headlong.abi.ABIJSON;
 import com.esaulpaugh.headlong.abi.ABIObject;
+import com.esaulpaugh.headlong.abi.ABIParser;
 import com.esaulpaugh.headlong.abi.ABIType;
 import com.esaulpaugh.headlong.abi.Address;
 import com.esaulpaugh.headlong.abi.Function;
@@ -315,8 +316,8 @@ public class Main {
     private static String parseAbiJson(String[] args) {
         final String json = DATA_FIRST.from(args);
         if (json.startsWith("[")) {
-            return ABIJSON.parseElements(ABIType.FLAGS_NONE, json, ABIJSON.ALL, Function.newDefaultDigest())
-                    .stream()
+            return new ABIParser()
+                    .stream(json)
                     .map(Main::describe)
                     .collect(Collectors.joining("\n"));
         } else if (json.startsWith("{")) {
