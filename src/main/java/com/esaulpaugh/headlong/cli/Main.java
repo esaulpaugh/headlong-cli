@@ -15,7 +15,6 @@
 */
 package com.esaulpaugh.headlong.cli;
 
-import com.esaulpaugh.headlong.abi.ABIJSON;
 import com.esaulpaugh.headlong.abi.ABIObject;
 import com.esaulpaugh.headlong.abi.ABIParser;
 import com.esaulpaugh.headlong.abi.ABIType;
