@@ -52,13 +52,17 @@ dependencies {
     implementation("com.esaulpaugh:headlong:$headlongVersion") {
         exclude group: 'com.google.errorprone', module: 'error_prone_annotations'
     }
-    implementation("com.google.code.gson:gson:2.12.1") {
+    implementation("com.google.code.gson:gson:2.12.0") {
         exclude group: 'com.google.errorprone', module: 'error_prone_annotations'
     }
 
     test.useJUnitPlatform()
     testImplementation "org.junit.jupiter:junit-jupiter:$junitVersion"
 }
+
+//tasks.withType(Test).configureEach {
+//    useJUnitPlatform()
+//}
 
 tasks.withType(AbstractArchiveTask) {
     preserveFileTimestamps = false
