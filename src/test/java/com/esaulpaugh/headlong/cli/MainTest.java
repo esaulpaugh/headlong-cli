@@ -275,7 +275,7 @@ public class MainTest {
     @Test
     public void testAnnotate() {
         assertEquals(
-                "foo:\n" +
+                "foo(int8,bytes):\n" +
                 "ID       9d879739\n" +
                 "     0   ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff80\t[0] int8\n" +
                 "    20   0000000000000000000000000000000000000000000000000000000000000040\t[1] bytes offset\n" +
@@ -302,7 +302,7 @@ public class MainTest {
         );
 
         assertEquals(
-                "foo:\n" +
+                "foo(int8,bytes):\n" +
                 "ID       9d879739\n" +
                 "     0   ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff80\t[0] int8\n" +
                 "    20   0000000000000000000000000000000000000000000000000000000000000040\t[1] bytes offset\n" +
