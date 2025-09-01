@@ -33,6 +33,7 @@ public class SugarSerial {
     private static final char SINGLE_QUOTE = '\'';
 
     static String desugar(String values, boolean extend) {
+        values = values.replaceAll("\\[\\'", "[ '");
         final StringBuilder sb = new StringBuilder();
         final int end = values.length();
         int i = 0;
@@ -71,7 +72,7 @@ public class SugarSerial {
                 else if (!val.equals("false")) throw new IllegalArgumentException("unexpected boolean syntax");
                 break;
             case '[':
-                throw new IllegalArgumentException("expected space between [ and '");
+                throw new AssertionError("expected space between [ and '");
             default:
                 sb.append(val);
             }
