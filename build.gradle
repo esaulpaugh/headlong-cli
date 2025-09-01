@@ -7,7 +7,7 @@ plugins {
 }
 
 group 'com.esaulpaugh'
-version '1.3-SNAPSHOT'
+version '1.4-SNAPSHOT'
 archivesBaseName = "headlong-cli"
 
 sourceCompatibility = 1.8
