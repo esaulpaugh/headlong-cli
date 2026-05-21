@@ -26,6 +26,7 @@ import org.junit.jupiter.api.Test;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 
+import static com.esaulpaugh.headlong.cli.MainTest.assertThrown;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DesugarTest {
@@ -116,23 +117,5 @@ public class DesugarTest {
         String[] command = new String[] { "-e", "(address)", "( a'0x000000000000F9087ABcDEf00CafeBaBE86244AA' ])" };
         String out = Main.eval(command);
         assertEquals("000000000000000000000000000000000000f9087abcdef00cafebabe86244aa", out);
-    }
-
-    @FunctionalInterface
-    public interface CustomRunnable {
-        void run() throws Throwable;
-    }
-
-    public static void assertThrown(Class<? extends Throwable> clazz, String substr, CustomRunnable r) throws Throwable {
-        try {
-            r.run();
-        } catch (Throwable t) {
-            if(clazz.isInstance(t)
-                    && (t.getMessage() == null || t.getMessage().contains(substr))) {
-                return;
-            }
-            throw t;
-        }
-        throw new AssertionError("no " + clazz.getName() + " thrown");
     }
 }
