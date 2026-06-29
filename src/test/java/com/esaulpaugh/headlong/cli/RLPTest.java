@@ -29,7 +29,6 @@ public class RLPTest {
 //    java -jar headlong-cli-0.4-SNAPSHOT-interface.jar -e "(bool)" "('0000')"
 //    0000000000000000000000000000000000000000000000000000000000000001
 
-
     @Test
     public void testEncode() {
 
